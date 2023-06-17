@@ -4,6 +4,7 @@ import './App.scss';
 import { Button } from 'primereact/button';
 import Login from './components/login/login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import LoginCopy from './components/login/loginCopy';
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
         </p>
       </header> */}
         <Routes>
-          <Route path='/' element={<Login />} />
+          <Route path='/' element={<LoginCopy />} />
         </Routes>
         <Button label="Submit" icon="pi pi-check" />
       </BrowserRouter>
