@@ -1,19 +1,16 @@
-import logo from './assets/swd-transformed_notext.svg';
-import './App.scss';
+import logo from "./assets/swd-transformed_notext.svg";
+import "./App.scss";
+//import node package
+import { BrowserRouter as Router, Route, Routes, BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { Button } from 'primereact/button';
-
+//import pages
+import Login from "./components/login/login";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
-      <Button label="Submit" icon="pi pi-check" />
+     <Login/>
     </div>
   );
 }
