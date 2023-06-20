@@ -1,140 +1,96 @@
-import React, { useRef, useState } from "react";
-import './login.scss';
-import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
-import { useFormik } from 'formik';
-import { Toast } from 'primereact/toast';
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from "react";
+import { InputText } from "primereact/inputtext";
+import { Button } from "primereact/button";
+import { Formik, Field, ErrorMessage, Form } from "formik";
 
+import PropTypes from "prop-types";
+import styles from "./login.module.scss";
 
 const Login = () => {
-    const apiUrl = 'https://localhost:7147';
 
-    const toast = useRef(null);
-    const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
-    const show = () => {
-        toast.current.show({ severity: 'success', summary: 'Form Submitted', detail: formik.values.item.toString() });
-    };
+  const initialValues = {
+    username: "",
+    password: "",
+  };
 
-    const formik = useFormik({
-        initialValues: {
-            username: "",
-            password: ""
-        },
-        validate: (data) => {
-            let errors = {};
+  const handleSubmit = (values) => {
+    // Perform login logic here
+    console.log("Username:", values.username);
+    console.log("Password:", values.password);
+  };
 
-            if (data.username) {
-                errors.username = 'Username is required.';
-            }
-            if (data.password) {
-                errors.password = 'Password is required.';
-            }
+  const validateForm = (values) => {
+    const errors = {};
 
-            return errors;
-        },
-        onSubmit: (data) => {
-            if (!formik.validate) {
-                console.log('Input form sucessful');
-                console.log(data);
-                console.log(formik.values.username);
-                console.log(formik.values.password);
-                try {
-                    handleLogin()
-                } catch (error) {
-                    console.log(error);
-                }
+    if (!values.username) {
+      errors.username = "Username is required";
+    }
 
-            }
-            console.log("hello");
-            formik.resetForm();
-        }
-    });
+    if (!values.password) {
+      errors.password = "Password is required";
+    }
 
-    const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
+    return errors;
+  };
 
-    const getFormErrorMessage = (name) => {
-        return isFormFieldInvalid(name) ? <small className="p-error">{formik.errors[name]}</small> : <small className="p-error">&nbsp;</small>;
-    };
+  return (
+    <div className={styles["login-container"]}>
+      <div className={styles["title"]}>
+        <h1>Sign in</h1>
+        <p>Welcome back</p>
+      </div>
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    // const handleLogin = (e) => {
-    //     axios
-    //         .post(`${apiUrl}/api/Auth/login`, { username, password })
-    //         .then((response) => {
-    //             const token = response.data.token;
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validate={validateForm}
+      >
+        <Form className={styles["form"]}>
 
-    //             // Save the token in localStorage or cookies
-    //             localStorage.setItem('token', token);
+          <div className={styles["p-field"]}>
+            <label className={styles["label"]} htmlFor="username">
+              <img src="username.svg" alt="Username" width="50" height="30"/> 
+            </label>
+            <input
+              class={styles["underline-input"]}
+              type="text"
+              id="username"
+              name="username"
+            />
+            <ErrorMessage
+              name="username"
+              component="div"
+              className="error-message"
+            />
+          </div>
 
-    //             // Redirect or perform any other action upon successful login
-    //             navigate('/home')
-    //         })
-    //         .catch((error) => {
-    //             // Handle error, show error message, etc.
-    //         });
-    // };
+          <div className={styles["p-field"]}>
+          <label className={styles["label"]} htmlFor="username">
+              <img src="lock.svg" alt="Username" width="50" height="30"/> 
+            </label>
+            <input
+              class={styles["underline-input"]}
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+            />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className="error-message"
+            />
+          </div>
 
-    const handleLogin = (e) => {
-        axios
-            .post(`${apiUrl}/api/Auth/login`, { username: formik.values.username, password: formik.values.password })
-            .then((response) => {
-                const token = response.data.token;
-
-                // Save the token in localStorage or cookies
-                localStorage.setItem('token', token);
-                console.log(token);
-
-                // Redirect or perform any other action upon successful login
-                // navigate('/home')
-            })
-            .catch((error) => {
-                // Handle error, show error message, etc.
-                console.log(error);
-            });
-    };
-
-    return (
-        <div className='loginComponentContainer'>
-            <Toast ref={toast} />
-            <h2 className="loginComponentTitle">Welcome to Restaurant Reservation System website</h2>
-            <form onSubmit={formik.handleSubmit} className="loginComponentForm">
-                {/* <InputText id="username" type="text" className="p-inputtext-lg" placeholder="Email or Username" required="true" />
-                <InputText id="password" type="password" className="p-inputtext-lg" placeholder="Password" required="true" /> */}
-                <InputText
-                    id="username"
-                    name="username" // Add the "name" attribute with the corresponding field name
-                    type="text"
-                    className="p-inputtext-lg"
-                    placeholder="Email or Username"
-                    required="true"
-                    onChange={formik.handleChange} // Add onChange handler to update formik state
-                    value={formik.values.username} // Bind the value to formik state
-                />
-                <InputText
-                    id="password"
-                    name="password" // Add the "name" attribute with the corresponding field name
-                    type="password"
-                    className="p-inputtext-lg"
-                    placeholder="Password"
-                    required="true"
-                    onChange={formik.handleChange} // Add onChange handler to update formik state
-                    value={formik.values.password} // Bind the value to formik state
-                />
-
-                <Button label="Login" type="submit" />
-
-            </form>
-
-
-        </div>
-    )
-
+          <Button className={styles['btn-submit']} type="submit" label="Login" />
+        </Form>
+      </Formik>
+    </div>
+  );
 };
 
+Login.propTypes = {};
 
 Login.defaultProps = {};
 
