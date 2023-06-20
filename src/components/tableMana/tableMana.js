@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './tableMana.module.scss';
+import styles from './tableMana.scss';
+import withAuth from '../login/loginAuthenHOC';
 
 const TableMana = () => (
   <div className={styles.TableMana}>
@@ -12,4 +13,4 @@ TableMana.propTypes = {};
 
 TableMana.defaultProps = {};
 
-export default TableMana;
+export default withAuth(TableMana);
