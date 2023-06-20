@@ -7,7 +7,6 @@ import Home from "./components/onboard/home"
 
 import { Button } from 'primereact/button';
 import Login from './components/login/login';
-import LoginCopy from './components/login/loginCopy';
 
 
 function App() {
