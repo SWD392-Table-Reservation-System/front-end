@@ -3,10 +3,10 @@ import "./App.scss";
 //import node package
 import { BrowserRouter as Router, Route, Routes, BrowserRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Home from "./components/onboard/home"
 
 import { Button } from 'primereact/button';
 import Login from './components/login/login';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginCopy from './components/login/loginCopy';
 
 
