@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styles from "./makeOrder.module.scss";
 
 const MakeOrder = () => {
-
   const [number, setNumber] = useState(0);
 
   const incrementNumber = () => {
@@ -15,7 +14,7 @@ const MakeOrder = () => {
       setNumber((prevNumber) => prevNumber - 1);
     }
   };
-  
+
   return (
     <div className={styles.MakeOrder}>
       <div className={styles["container"]}>
@@ -29,6 +28,11 @@ const MakeOrder = () => {
           <div className={styles["people-quantity"]}>
             <div className={styles["adult-quantity"]}>
               <h3>No. of Adults</h3>
+              <div className={styles["btn-adjust-quantity"]}>
+                <button onClick={decrementNumber}>-</button>
+                <div className={styles["quantity"]}>{number}</div>
+                <button onClick={incrementNumber}>+</button>
+              </div>
             </div>
             <div className={styles["children-quantity"]}>
               <h3>No. of Children</h3>
