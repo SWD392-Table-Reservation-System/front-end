@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./makeOrder.module.scss";
 import { Toast } from 'primereact/toast';
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const MakeOrder = () => {
   const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [number1, setNumber1] = useState(1);
   const [number2, setNumber2] = useState(1);
@@ -16,11 +17,44 @@ const MakeOrder = () => {
   const [customerPhoneNumber, setCustomerPhoneNumber] = useState("");
   const [note, setNote] = useState("");
   const toast = useRef(null);
+  const [timeArray, setTimeArray] = useState([]);
   // Format the time value to remove AM/PM and leading zero
   const formattedTime = time.replace(/[^\d:]/g, "");
   const adjustedDate = date;
-  const dateTimeBooking = `${adjustedDate}T${formattedTime}:00`;
+  const dateTimeBooking = `${adjustedDate}T${formattedTime}`;
   const customerQuantity = number1 + number2;
+  const getTime = () => {
+
+    fetch(`${apiUrl}/api/Test/time-list`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log(response);
+          return response.json();
+        } else {
+          throw new Error(
+            `API request failed: ${response.status} ${response.statusText}`
+          );
+        }
+      })
+      .then((data) => {
+        console.log("getTime API response data:", data);
+        setTimeArray(data);
+      })
+      .catch((error) => {
+        console.error("getTime API request error:", error);
+      });
+  }
+
+  useEffect(() => {
+    getTime()
+  }, [])
+
+
 
   const show = (severity, summary, detail) => {
     toast.current.show({ severity: severity, summary: summary, detail: detail });
@@ -44,8 +78,6 @@ const MakeOrder = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const apiUrl = process.env.REACT_APP_API_URL;
-
     // Construct the request body
     const requestBody = JSON.stringify({
       dateTimeBooking: dateTimeBooking,
@@ -85,8 +117,10 @@ const MakeOrder = () => {
       })
       .catch((error) => {
         console.error("API request error:", error);
+        show('error', 'Ordered fail', `${error}`)
       });
   };
+
 
 
   return (
@@ -138,9 +172,9 @@ const MakeOrder = () => {
                 id="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}>
-                <option value="9:00 AM">09:00 AM</option>
-                <option value="10:00 AM">10:00 AM</option>
-                <option value="11:00 AM">11:00 AM</option>
+                {
+                  timeArray.map(time => <option value={time}>{time.slice(0, -3)}</option>)
+                }
               </select>
             </div>
 
