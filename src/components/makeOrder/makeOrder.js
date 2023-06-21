@@ -2,10 +2,13 @@ import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import styles from "./makeOrder.module.scss";
 import { Toast } from 'primereact/toast';
+import { useNavigate } from 'react-router-dom';
 
 const MakeOrder = () => {
-  const [number1, setNumber1] = useState(0);
-  const [number2, setNumber2] = useState(0);
+  const navigate = useNavigate();
+
+  const [number1, setNumber1] = useState(1);
+  const [number2, setNumber2] = useState(1);
   const [time, setTime] = useState("09:00 AM");
   const [date, setDate] = useState("");
   const [customerFullName, setCustomerFullName] = useState("");
@@ -66,7 +69,7 @@ const MakeOrder = () => {
           console.log(response);
           return response.json();
         } else {
-          show('error', 'Ordered fail', '')
+          show('error', 'Ordered fail', `${response.statusText}`)
           throw new Error(
             `API request failed: ${response.status} ${response.statusText}`
           );
@@ -74,7 +77,11 @@ const MakeOrder = () => {
       })
       .then((data) => {
         console.log("API response:", data);
-        show('success', `Hello ${data.data.customerFullName}, you ordered successfully!`, '')
+        show('success', `Hello ${data.data.customerFullName}, you ordered successfully!`, 'You are directing to Order Detail')
+        setTimeout(() => {
+          navigate('/success')
+        }, 3000);
+
       })
       .catch((error) => {
         console.error("API request error:", error);
@@ -95,28 +102,38 @@ const MakeOrder = () => {
         <div className={styles["order-menu"]}>
           <form onSubmit={handleSubmit}>
             <div className="input-group input-group-quantity">
-              <input
-                type="number"
-                id="number1"
-                value={number1}
-                onChange={(e) => setNumber1(parseInt(e.target.value))}
-              />
-              <button type="button" onClick={() => decrement('number1')}>-</button>
-              <button type="button" onClick={() => increment('number1')}>+</button>
+              <div>
+                <label for="number1">Number of Adult: </label>
+                <input
+                  type="number"
+                  id="number1"
+                  value={number1}
+                  onChange={(e) => setNumber1(parseInt(e.target.value))}
+                  required="true"
+                />
+                <button type="button" onClick={() => decrement('number1')}>-</button>
+                <button type="button" onClick={() => increment('number1')}>+</button>
+              </div>
 
-              <input
-                type="number"
-                id="number2"
-                value={number2}
-                onChange={(e) => setNumber2(parseInt(e.target.value))}
-              />
-              <button type="button" onClick={() => decrement('number2')}>-</button>
-              <button type="button" onClick={() => increment('number2')}>+</button>
+              <div>
+                <label for="number2">Number of Child(ren): </label>
+                <input
+                  type="number"
+                  id="number2"
+                  value={number2}
+                  onChange={(e) => setNumber2(parseInt(e.target.value))}
+                  required="true"
+                />
+                <button type="button" onClick={() => decrement('number2')}>-</button>
+                <button type="button" onClick={() => increment('number2')}>+</button>
+              </div>
+
             </div>
 
 
 
             <div className="input-group input-group-time">
+              <label for="time">Time: </label>
               <select
                 id="time"
                 value={time}
@@ -128,8 +145,10 @@ const MakeOrder = () => {
             </div>
 
             <div className="input-group input-group-date">
+              <label for="date">Date: </label>
               <input type="date" id="date" value={date}
-                onChange={(e) => setDate(e.target.value)} />
+                onChange={(e) => setDate(e.target.value)} required="true"
+              />
             </div>
 
             <div className="input-group input-group-personal">
@@ -139,6 +158,7 @@ const MakeOrder = () => {
                 value={customerFullName}
                 onChange={(e) => setCustomerFullName(e.target.value)}
                 placeholder="Full Name"
+                required="true"
               />
               <input
                 type="email"
@@ -146,6 +166,7 @@ const MakeOrder = () => {
                 value={customerEmail}
                 onChange={(e) => setCustomerEmail(e.target.value)}
                 placeholder="Email"
+                required="true"
               />
               <input
                 type="tel"
@@ -153,6 +174,7 @@ const MakeOrder = () => {
                 value={customerPhoneNumber}
                 onChange={(e) => setCustomerPhoneNumber(e.target.value)}
                 placeholder="Phone Number"
+                required="true"
               />
               <textarea
                 id="note"

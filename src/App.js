@@ -10,6 +10,7 @@ import Login from './components/login/login';
 //import pages
 import Onboard from "./components/onboard/onboard";
 import MakeOrder from "./components/makeOrder/makeOrder";
+import Success from "./components/makeOrder/success";
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
             <Route exact path="/" element={ <Onboard /> }/>
             <Route path="/signin" element={ <Login /> }/>
             <Route path="/order" element={<MakeOrder />}/>
+            <Route path="/order/success" element={<Success />}/>
+            
           </Routes>
       </BrowserRouter>
     </div>
