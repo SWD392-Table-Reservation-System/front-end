@@ -1,15 +1,30 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './onboard.module.scss';
+import React from "react";
+import styles from "./onboard.module.scss";
 
-const Onboard = () => (
-  <div className={styles.Onboard}>
-    Onboard Component
-  </div>
-);
+import { Button } from "primereact/button";
+import { Link } from "react-router-dom";
 
-Onboard.propTypes = {};
+const Home = () => {   
+    return (
+        <div className={styles['home-container']}>
+            <p className={styles['thumbnail']}>
+                Planning First<br/>
+                Booking First
+            </p>
+            <p className={styles['ad-text']}>
+                The best grain, the finest roast, the most powerful flavor.
+            </p>
+            <div className="btn flex flex-wrap">
+            <Link className={styles['link']} to="/signin">
+                <Button className={styles['btn-getstarted']} label="Get Started" text size="large" link/>
+            </Link>
+            </div>
+        </div>
+    );
+}
 
-Onboard.defaultProps = {};
+Home.defaultProps = {};
 
-export default Onboard;
+export default Home;
+
+
