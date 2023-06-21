@@ -4,7 +4,7 @@ import styles from "./login.module.scss";
 import axios from "axios";
 
 const Login = () => {
-  const apiUrl = 'https://localhost:7147';
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -36,12 +36,8 @@ const Login = () => {
         console.log('Login Suggest');
         console.log(response);
         const token = response.data.data;
-
-        // Save the token in localStorage or cookies
         localStorage.setItem('token', token);
         console.log(token);
-
-        // Redirect or perform any other action upon successful login
         navigate('/table-mana')
       })
       .catch((error) => {
