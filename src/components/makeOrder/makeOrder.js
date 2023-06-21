@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import styles from "./makeOrder.module.scss";
+import { Toast } from 'primereact/toast';
 
 const MakeOrder = () => {
   const [number1, setNumber1] = useState(0);
@@ -11,11 +12,16 @@ const MakeOrder = () => {
   const [customerEmail, setCustomerEmail] = useState("");
   const [customerPhoneNumber, setCustomerPhoneNumber] = useState("");
   const [note, setNote] = useState("");
+  const toast = useRef(null);
   // Format the time value to remove AM/PM and leading zero
   const formattedTime = time.replace(/[^\d:]/g, "");
   const adjustedDate = date;
   const dateTimeBooking = `${adjustedDate}T${formattedTime}:00`;
   const customerQuantity = number1 + number2;
+
+  const show = (severity, summary, detail) => {
+    toast.current.show({ severity: severity, summary: summary, detail: detail });
+  };
 
   const increment = (inputId) => {
     if (inputId === "number1") {
@@ -57,8 +63,10 @@ const MakeOrder = () => {
     })
       .then((response) => {
         if (response.ok) {
+          console.log(response);
           return response.json();
         } else {
+          show('error', 'Ordered fail', '')
           throw new Error(
             `API request failed: ${response.status} ${response.statusText}`
           );
@@ -66,6 +74,7 @@ const MakeOrder = () => {
       })
       .then((data) => {
         console.log("API response:", data);
+        show('success', `Hello ${data.data.customerFullName}, you ordered successfully!`, '')
       })
       .catch((error) => {
         console.error("API request error:", error);
@@ -75,6 +84,7 @@ const MakeOrder = () => {
 
   return (
     <div className={styles.MakeOrder}>
+      <Toast ref={toast} />
       <div className={styles["container"]}>
         <div className={styles["thumbnail"]}>
           <img className={styles["img"]} src="orderPageImg.png" alt="" />
