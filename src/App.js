@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 //import pages
 import Login from "./components/login/login";
 import Home from "./components/onboard/home";
+import MakeOrder from "./components/makeOrder/makeOrder";
 
 function App() {
   return (
@@ -17,12 +18,14 @@ function App() {
               <li>
                 <Link to={"/"}>Home</Link> 
                 <Link to={"/signin"}>Sign in</Link> 
+                <Link to={"/order"}>Make Order</Link> 
               </li>
             </ul>
           </nav>
           <Routes>
             <Route exact path="/" element={ <Home /> }/>
-            <Route exact path="/signin" element={ <Login /> }/>
+            <Route path="/signin" element={ <Login /> }/>
+            <Route path="/order" element={<MakeOrder />}/>
           </Routes>
       </BrowserRouter>
     </div>
