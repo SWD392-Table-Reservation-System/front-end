@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import styles from "./makeOrder.module.scss";
 import { Toast } from 'primereact/toast';
 import { useNavigate } from 'react-router-dom';
+import { Button } from "primereact/button";
+import { InputNumber } from "primereact/inputnumber";
 
 const MakeOrder = () => {
   const navigate = useNavigate();
@@ -100,32 +102,39 @@ const MakeOrder = () => {
         </div>
 
         <div className={styles["order-menu"]}>
-          <form onSubmit={handleSubmit}>
-            <div className="input-group input-group-quantity">
-              <div>
+          <form className={styles["inputs-form"]} onSubmit={handleSubmit}>
+            <div className={styles["input-group-quantity"]}>
+              <div className={styles["input-adults"]}>
                 <label for="number1">Number of Adult: </label>
-                <input
-                  type="number"
-                  id="number1"
-                  value={number1}
-                  onChange={(e) => setNumber1(parseInt(e.target.value))}
-                  required="true"
-                />
-                <button type="button" onClick={() => decrement('number1')}>-</button>
-                <button type="button" onClick={() => increment('number1')}>+</button>
+                <span className={styles["btn"]}>
+                  <button type="button" onClick={() => decrement('number1')}>-</button>
+                  <input
+                    type="number"
+                    className={styles["display-number"]}
+                    id="number1"
+                    value={number1}
+                    onChange={(e) => setNumber1(parseInt(e.target.value))}
+                    required="true"
+                  />
+                  <button type="button" onClick={() => increment('number1')}>+</button>
+                </span>
               </div>
 
-              <div>
-                <label for="number2">Number of Child(ren): </label>
-                <input
-                  type="number"
-                  id="number2"
-                  value={number2}
-                  onChange={(e) => setNumber2(parseInt(e.target.value))}
-                  required="true"
-                />
-                <button type="button" onClick={() => decrement('number2')}>-</button>
-                <button type="button" onClick={() => increment('number2')}>+</button>
+              <div className={styles["input-group-quantity"]}>
+                <div className={styles["input-children"]}>
+                    <label for="number2">Number of Child(ren): </label>
+                    <span className={styles["btn"]}>
+                      <button type="button" onClick={() => decrement('number2')}>-</button>
+                      <input  
+                        type="number"
+                        id="number2"
+                        value={number2}
+                        onChange={(e) => setNumber2(parseInt(e.target.value))}
+                        required="true"
+                      />
+                      <button type="button" onClick={() => increment('number2')}>+</button>
+                    </span>
+                </div>
               </div>
 
             </div>
