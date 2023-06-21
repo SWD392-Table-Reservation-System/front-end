@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import styles from "./login.module.scss";
 import axios from "axios";
@@ -16,6 +16,13 @@ const Login = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
+  // useEffect(() => {
+  //   if (localStorage.getItem('token')){
+  //     navigate('/admin/table-mana')
+  //   }
+  // }, [])
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,7 +45,7 @@ const Login = () => {
         const token = response.data.data;
         localStorage.setItem('token', token);
         console.log(token);
-        navigate('/table-mana')
+        navigate('/admin/table-mana')
       })
       .catch((error) => {
         // Handle error, show error message, etc.
@@ -85,6 +92,7 @@ const Login = () => {
             class={styles["underline-input"]}
             id="password"
             name="password"
+            type="password"
             value={password}
             onChange={handlePasswordChange}
           />
