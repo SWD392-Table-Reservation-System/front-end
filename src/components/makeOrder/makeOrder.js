@@ -79,7 +79,7 @@ const MakeOrder = () => {
         console.log("API response:", data);
         show('success', `Hello ${data.data.customerFullName}, you ordered successfully!`, 'You are directing to Order Detail')
         setTimeout(() => {
-          navigate('/success')
+          navigate('/order/success')
         }, 3000);
 
       })
