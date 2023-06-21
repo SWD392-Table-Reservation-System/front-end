@@ -10,7 +10,7 @@ import Login from './components/login/login';
 //import pages
 import Onboard from "./components/onboard/onboard";
 import MakeOrder from "./components/makeOrder/makeOrder";
-import Success from "./components/makeOrder/success";
+import Success from "./components/makeOrder/successOrder";
 
 function App() {
   return (
