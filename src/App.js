@@ -5,12 +5,11 @@ import { Link } from "react-router-dom";
 import Login from './components/login/login';
 
 //import pages
-import Login from "./components/login/login";
-import Home from "./components/onboard/onboard";
 import MakeOrder from "./components/makeOrder/makeOrder";
 import Success from "./components/makeOrder/successOrder";
 import ReservationList from "./components/tableMana/reservationList";
 import TableMana from "./components/tableMana/tableMana";
+import Onboard from "./components/onboard/onboard"
 
 function App() {
   return (
