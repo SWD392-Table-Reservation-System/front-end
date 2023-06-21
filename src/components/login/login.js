@@ -1,39 +1,56 @@
 import React, { useState } from "react";
-import { InputText } from "primereact/inputtext";
-import { Button } from "primereact/button";
-import { Formik, Field, ErrorMessage, Form } from "formik";
-
-import PropTypes from "prop-types";
+import { useNavigate } from 'react-router-dom';
 import styles from "./login.module.scss";
+import axios from "axios";
 
 const Login = () => {
+  const apiUrl = 'https://localhost:7147';
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const [showPassword, setShowPassword] = useState(false);
-
-  const initialValues = {
-    username: "",
-    password: "",
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
   };
 
-  const handleSubmit = (values) => {
-    // Perform login logic here
-    console.log("Username:", values.username);
-    console.log("Password:", values.password);
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
-  const validateForm = (values) => {
-    const errors = {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Perform login authentication with the entered credentials
+    // You can use an API call or any other method to authenticate the user
+    // For simplicity, let's assume authentication is successful
 
-    if (!values.username) {
-      errors.username = "Username is required";
-    }
-
-    if (!values.password) {
-      errors.password = "Password is required";
-    }
-
-    return errors;
+    console.log(username);
+    console.log(password);
+    console.log('Logged in successfully');
+    handleLogin();
   };
+
+  const handleLogin = (e) => {
+    axios
+      .post(`${apiUrl}/api/Auth/login`, { username, password })
+      .then((response) => {
+        console.log('Login Suggest');
+        console.log(response);
+        const token = response.data.data;
+
+        // Save the token in localStorage or cookies
+        localStorage.setItem('token', token);
+        console.log(token);
+
+        // Redirect or perform any other action upon successful login
+        navigate('/table-mana')
+      })
+      .catch((error) => {
+        // Handle error, show error message, etc.
+        console.log(error);
+      });
+  };
+
+
 
   return (
     <div className={styles["login-container"]}>
@@ -42,56 +59,54 @@ const Login = () => {
         <p>Welcome back</p>
       </div>
 
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validate={validateForm}
-      >
-        <Form className={styles["form"]}>
 
-          <div className={styles["p-field"]}>
-            <label className={styles["label"]} htmlFor="username">
-              <img src="username.svg" alt="Username" width="50" height="30"/> 
-            </label>
-            <input
-              class={styles["underline-input"]}
-              type="text"
-              id="username"
-              name="username"
-            />
-            <ErrorMessage
-              name="username"
-              component="div"
-              className="error-message"
-            />
-          </div>
+      <form className={styles["form"]} onSubmit={handleSubmit}>
 
-          <div className={styles["p-field"]}>
+        <div className={styles["p-field"]}>
           <label className={styles["label"]} htmlFor="username">
-              <img src="lock.svg" alt="Username" width="50" height="30"/> 
-            </label>
-            <input
-              class={styles["underline-input"]}
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
-            />
-            <ErrorMessage
+            <img src="username.svg" alt="Username" width="50" height="30" />
+          </label>
+          <input
+            class={styles["underline-input"]}
+            type="text"
+            id="username"
+            name="username"
+            value={username}
+            onChange={handleUsernameChange}
+          />
+          {/* <ErrorMessage
+              name="username"
+              component="div"
+              className="error-message"
+            /> */}
+        </div>
+
+        <div className={styles["p-field"]}>
+          <label className={styles["label"]} htmlFor="username">
+            <img src="lock.svg" alt="Username" width="50" height="30" />
+          </label>
+          <input
+            class={styles["underline-input"]}
+            id="password"
+            name="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          {/* <ErrorMessage
               name="password"
               component="div"
               className="error-message"
-            />
-          </div>
+            /> */}
+        </div>
 
-          <Button className={styles['btn-submit']} type="submit" label="Login" />
-        </Form>
-      </Formik>
+        {/* <button className={styles['btn-submit']} type="submit" label="Login" /> */}
+        <button type="submit">Log In</button>
+      </form>
     </div>
   );
 };
 
 Login.propTypes = {};
-
 Login.defaultProps = {};
 
 export default Login;

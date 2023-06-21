@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 import { Button } from 'primereact/button';
 import Login from './components/login/login';
-import LoginCopy from './components/login/loginCopy';
 
 //import pages
 import Onboard from "./components/onboard/onboard";
