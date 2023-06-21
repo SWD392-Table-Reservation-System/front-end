@@ -9,24 +9,51 @@
     width: 100%;
     .thumbnail {
       width: 60%;
-      .img{
+      .img {
         padding-bottom: 10px;
         padding-top: 10px;
         padding-left: 100px;
         padding-right: 100px;
-        background-color: #F7F8FB;
+        background-color: #f7f8fb;
       }
     }
     .order-menu {
       width: 40%;
-      background-color: #e1e1e1;
+      background-color: #ffffff;
       border: solid 1px #000000;
       border-radius: 20px;
-      .people-quantity{
-        .adult-quantity .children-quantity{
-          display: flex;
-          flex-direction: row;
-          justify-content: flex-start;
+      .inputs-form {
+        margin-top: 50px;
+        margin-left: 30px;
+        .input-group-quantity {
+          .input-adults {
+            display: flex;
+            flex-direction: row;
+            .label {
+              width: 40%;
+            }
+            .btn {
+              width: 60%;
+              #number1 {
+                width: 30px;
+                text-align: center;
+              }
+            }
+          }
+          .input-children {
+            display: flex;
+            flex-direction: row;
+            .label {
+              width: 40%;
+            }
+            .btn {
+              width: 60%;
+              #number1 {
+                width: 30px;
+                text-align: center;
+              }
+            }
+          }
         }
       }
     }
