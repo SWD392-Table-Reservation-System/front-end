@@ -1,7 +1,6 @@
 import "./App.scss";
 //import node package
 import { BrowserRouter as Router, Route, Routes, BrowserRouter } from "react-router-dom";
-import { Link } from "react-router-dom";
 import Login from './components/login/login';
 
 //import pages
@@ -11,21 +10,13 @@ import ReservationList from "./components/tableMana/reservationList";
 import TableMana from "./components/tableMana/tableMana";
 import Onboard from "./components/onboard/onboard"
 import ProtectedRoute from "./utils/ProtectedRoute";
+import Header from "./components/header/header";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <nav>
-          <ul>
-            <li>
-              <Link to={"/"}>Home</Link>
-              <Link to={"/admin"}>Sign in as Admin</Link>
-              <Link to={"/order"}>Make Order</Link>
-              <Link to={"/admin/reservations"}>Reservation List</Link>
-            </li>
-          </ul>
-        </nav>
+        <Header></Header>
         <Routes>
           <Route exact path="/" element={<Onboard />} />
           <Route path="/order" element={<MakeOrder />} />

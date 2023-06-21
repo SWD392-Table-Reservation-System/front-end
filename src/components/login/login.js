@@ -17,11 +17,11 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  // useEffect(() => {
-  //   if (localStorage.getItem('token')){
-  //     navigate('/admin/table-mana')
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (localStorage.getItem('token')){
+      navigate('/admin/table-mana')
+    }
+  }, [])
   
 
   const handleSubmit = (e) => {
