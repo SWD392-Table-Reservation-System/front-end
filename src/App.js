@@ -26,7 +26,7 @@ function App() {
             </ul>
           </nav>
           <Routes>
-            <Route exact path="/" element={ <Home /> }/>
+            <Route exact path="/" element={ <Onboard /> }/>
             <Route path="/signin" element={ <Login /> }/>
             <Route path="/order" element={<MakeOrder />}/>
           </Routes>
