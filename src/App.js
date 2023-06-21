@@ -8,8 +8,7 @@ import { Button } from 'primereact/button';
 
 //import pages
 import Login from "./components/login/login";
-import LoginCopy from './components/login/loginCopy';
-import Home from "./components/onboard/home";
+import Home from "./components/onboard/onboard";
 import MakeOrder from "./components/makeOrder/makeOrder";
 
 function App() {
@@ -26,7 +25,7 @@ function App() {
             </ul>
           </nav>
           <Routes>
-            <Route exact path="/" element={ <Onboard /> }/>
+            <Route exact path="/" element={ <Home /> }/>
             <Route path="/signin" element={ <Login /> }/>
             <Route path="/order" element={<MakeOrder />}/>
           </Routes>
