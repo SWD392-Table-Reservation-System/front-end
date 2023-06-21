@@ -3,12 +3,14 @@ import "./App.scss";
 //import node package
 import { BrowserRouter as Router, Route, Routes, BrowserRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Home from "./components/onboard/home"
 
 import { Button } from 'primereact/button';
 import Login from './components/login/login';
 import LoginCopy from './components/login/loginCopy';
 
+//import pages
+import Onboard from "./components/onboard/onboard";
+import MakeOrder from "./components/makeOrder/makeOrder";
 
 function App() {
   return (
@@ -19,12 +21,14 @@ function App() {
               <li>
                 <Link to={"/"}>Home</Link> 
                 <Link to={"/signin"}>Sign in</Link> 
+                <Link to={"/order"}>Make Order</Link> 
               </li>
             </ul>
           </nav>
           <Routes>
-            <Route exact path="/" element={ <Home /> }/>
-            <Route exact path="/signin" element={ <Login /> }/>
+            <Route exact path="/" element={ <Onboard /> }/>
+            <Route path="/signin" element={ <Login /> }/>
+            <Route path="/order" element={<MakeOrder />}/>
           </Routes>
       </BrowserRouter>
     </div>
