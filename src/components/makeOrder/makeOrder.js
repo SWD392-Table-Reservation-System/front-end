@@ -255,8 +255,91 @@ const MakeOrder = () => {
             </div>
 
             <div className={styles["input-group-personal"]}>
-              <label className={styles["personal-info-label"]} for="personal">Personal Information:</label>
-              <InputText
+              <label className={styles["personal-info-label"]} for="personal">
+                Personal Information:
+              </label>
+
+              <div className={styles["input-text-personal"]}>
+                <label className={styles["label"]} htmlFor="customerFullName">
+                  Full Name:
+                </label>
+                <input
+                  class={styles["underline-input"]}
+                  type="text"
+                  id="customerFullName"
+                  value={customerFullName}
+                  onChange={(e) => setCustomerFullName(e.target.value)}
+                  placeholder="Abc"
+                  required
+                />
+              </div>
+              <div className={styles["input-text-personal"]}>
+                <label className={styles["label"]} htmlFor="customerEmail">
+                  Email:
+                </label>
+                <input
+                  class={styles["underline-input"]}
+                  type="email"
+                  id="customerEmail"
+                  value={customerEmail}
+                  onChange={(e) => setCustomerEmail(e.target.value)}
+                  placeholder="Email@gmail.com"
+                  required
+                />
+              </div>
+              <div className={styles["input-text-personal"]}>
+                <label
+                  className={styles["label"]}
+                  htmlFor="customerPhoneNumber"
+                >
+                  Phone Number:
+                </label>
+                <input
+                  class={styles["underline-input"]}
+                  type="tel"
+                  id="customerPhoneNumber"
+                  value={customerPhoneNumber}
+                  onChange={(e) => setCustomerPhoneNumber(e.target.value)}
+                  placeholder="0123456789"
+                  required
+                />
+              </div>
+              <div className={styles["input-text-personal"]}>
+                <label className={styles["label"]} htmlFor="note">
+                  Note:
+                </label>
+                <textarea
+                  class={styles["underline-note"]}
+                  id="note"
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  placeholder="Note"
+                />
+              </div>
+            </div>
+
+            <Button style={{ marginTop: "10px" }} type="submit">
+              Submit
+            </Button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+MakeOrder.propTypes = {};
+
+MakeOrder.defaultProps = {};
+
+export default MakeOrder;
+
+//-----------------------------------DRAFT------------------------------------------//
+
+//****Input Personal Information****
+
+{
+  /* <InputText
                 className={styles["input-text-personal"]}
                 type="text"
                 id="customerFullName"
@@ -289,8 +372,10 @@ const MakeOrder = () => {
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Note"
-              />
-              {/* <input
+              /> */
+}
+{
+  /* <input
                 type="text"
                 id="customerFullName"
                 value={customerFullName}
@@ -319,19 +404,5 @@ const MakeOrder = () => {
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Note"
-              ></textarea> */}
-            </div>
-
-            <Button style={{marginTop: "10px"}} type="submit">Submit</Button>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-MakeOrder.propTypes = {};
-
-MakeOrder.defaultProps = {};
-
-export default MakeOrder;
+              ></textarea> */
+}

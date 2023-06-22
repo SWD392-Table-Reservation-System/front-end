@@ -126,8 +126,42 @@
             text-align: left;
           }
           .input-text-personal{
+            display: flex;
+            flex-direction: row;
+            border: none;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
             margin-top: 10px;
-            width: 90%;
+            .label {
+              margin-right: 10px;
+              font-size: 15px;
+              border-right: solid 1px #000;
+              padding-right: 10px;
+              text-align: left;
+              width: 30%;
+            }
+            .underline-input {
+              border: none;
+              padding: 5px;
+              font-size: 15px;
+              height: 30px;
+              width: 300px;
+            }
+            .underline-input:focus {
+              outline: none;
+              border-color: #000;
+            }
+            .underline-note {
+              border: none;
+              padding: 5px;
+              font-size: 15px;
+              height: 60px;
+              width: 300px;
+            }
+            .underline-note:focus {
+              outline: none;
+              border-color: #000;
+            }
           }
         }
       }
