@@ -25,32 +25,69 @@
       .inputs-form {
         margin-top: 50px;
         margin-left: 30px;
-        .input-group-quantity {
+        .input-adult-quantity {
           .input-adults {
             display: flex;
             flex-direction: row;
-            .label {
-              width: 40%;
-            }
-            .btn {
+            width: 100%;
+            .adult-quantity-label {
               width: 60%;
-              #number1 {
+              text-align: start;
+            }
+            .adult-quantity-change-btn {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border: solid 1px #000000;
+              border-radius: 62px;
+              padding: 5px;
+              .display-adult-quantity {
                 width: 30px;
                 text-align: center;
+                border: none;
+              }
+              .decrement-adult{
+                border: none;
+                margin-right: 6px;
+                background-color: #ffffff;
+              }
+              .increment-adult{
+                border: none;
+                background-color: #ffffff;
               }
             }
           }
+        }
+        .input-children-quantity {
+          margin-top: 10px;
           .input-children {
             display: flex;
             flex-direction: row;
-            .label {
-              width: 40%;
-            }
-            .btn {
+            width: 100%;
+            .children-quantity-label {
               width: 60%;
-              #number1 {
+              text-align: start;
+            }
+            .children-quantity-change-btn {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border: solid 1px #000000;
+              border-radius: 62px;
+              padding: 5px;
+              .display-children-quantity {
                 width: 30px;
                 text-align: center;
+                border: none;
+              }
+              .decrement-children{
+                border: none;
+                margin-right: 6px;
+                background-color: #ffffff;
+              }
+              .increment-children{
+                border: none;
+                background-color: #ffffff;
               }
             }
           }

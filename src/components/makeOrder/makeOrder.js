@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./makeOrder.module.scss";
-import { Toast } from 'primereact/toast';
-import { useNavigate } from 'react-router-dom';
+import { Toast } from "primereact/toast";
+import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { InputNumber } from "primereact/inputnumber";
 
@@ -26,12 +26,11 @@ const MakeOrder = () => {
   const dateTimeBooking = `${adjustedDate}T${formattedTime}`;
   const customerQuantity = number1 + number2;
   const getTime = () => {
-
     fetch(`${apiUrl}/api/Test/time-list`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
       .then((response) => {
         if (response.ok) {
@@ -50,16 +49,18 @@ const MakeOrder = () => {
       .catch((error) => {
         console.error("getTime API request error:", error);
       });
-  }
+  };
 
   useEffect(() => {
-    getTime()
-  }, [])
-
-
+    getTime();
+  }, []);
 
   const show = (severity, summary, detail) => {
-    toast.current.show({ severity: severity, summary: summary, detail: detail });
+    toast.current.show({
+      severity: severity,
+      summary: summary,
+      detail: detail,
+    });
   };
 
   const increment = (inputId) => {
@@ -93,8 +94,9 @@ const MakeOrder = () => {
 
     // Perform the API request
     fetch(`${apiUrl}/api/Reservations`, {
-      method: "POST", headers: {
-        "Content-Type": "application/json"
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
       body: requestBody,
     })
@@ -103,7 +105,7 @@ const MakeOrder = () => {
           console.log(response);
           return response.json();
         } else {
-          show('error', 'Ordered fail', `${response.statusText}`)
+          show("error", "Ordered fail", `${response.statusText}`);
           throw new Error(
             `API request failed: ${response.status} ${response.statusText}`
           );
@@ -111,19 +113,20 @@ const MakeOrder = () => {
       })
       .then((data) => {
         console.log("API response:", data);
-        show('success', `Hello ${data.data.customerFullName}, you ordered successfully!`, 'You are directing to Order Detail')
+        show(
+          "success",
+          `Hello ${data.data.customerFullName}, you ordered successfully!`,
+          "You are directing to Order Detail"
+        );
         setTimeout(() => {
-          navigate('/order/success')
+          navigate("/order/success");
         }, 3000);
-
       })
       .catch((error) => {
         console.error("API request error:", error);
-        show('error', 'Ordered fail', `${error}`)
+        show("error", "Ordered fail", `${error}`);
       });
   };
-
-
 
   return (
     <div className={styles.MakeOrder}>
@@ -137,60 +140,75 @@ const MakeOrder = () => {
 
         <div className={styles["order-menu"]}>
           <form className={styles["inputs-form"]} onSubmit={handleSubmit}>
-            <div className={styles["input-group-quantity"]}>
+            <div className={styles["input-adult-quantity"]}>
               <div className={styles["input-adults"]}>
-                <label for="number1">Number of Adult: </label>
-                <span className={styles["btn"]}>
-                  <button type="button" onClick={() => decrement('number1')}>-</button>
+                <span className={styles["adult-quantity-label"]}>
+                  <label for="number1">Number of Adult: </label>
+                </span>
+                <span className={styles["adult-quantity-change-btn"]}>
+                  <button className={styles["decrement-adult"]} type="button" onClick={() => decrement("number1")}>
+                    -
+                  </button>
                   <input
                     type="number"
-                    className={styles["display-number"]}
+                    className={styles["display-adult-quantity"]}
                     id="number1"
                     value={number1}
                     onChange={(e) => setNumber1(parseInt(e.target.value))}
                     required="true"
                   />
-                  <button type="button" onClick={() => increment('number1')}>+</button>
+                  <button className={styles["increment-adult"]} type="button" onClick={() => increment("number1")}>
+                    +
+                  </button>
                 </span>
               </div>
 
-              <div className={styles["input-group-quantity"]}>
+              <div className={styles["input-children-quantity"]}>
                 <div className={styles["input-children"]}>
+                  <span className={styles["children-quantity-label"]}>
                     <label for="number2">Number of Child(ren): </label>
-                    <span className={styles["btn"]}>
-                      <button type="button" onClick={() => decrement('number2')}>-</button>
-                      <input  
-                        type="number"
-                        id="number2"
-                        value={number2}
-                        onChange={(e) => setNumber2(parseInt(e.target.value))}
-                        required="true"
-                      />
-                      <button type="button" onClick={() => increment('number2')}>+</button>
-                    </span>
+                  </span>
+                  <span className={styles["children-quantity-change-btn"]}>
+                    <button className={styles["decrement-children"]} type="button" onClick={() => decrement("number2")}>
+                      -
+                    </button>
+                    <input
+                      type="number"
+                      className={styles["display-children-quantity"]}
+                      id="number2"
+                      value={number2}
+                      onChange={(e) => setNumber2(parseInt(e.target.value))}
+                      required="true"
+                    />
+                    <button className={styles["increment-children"]} type="button" onClick={() => increment("number2")}>
+                      +
+                    </button>
+                  </span>
                 </div>
               </div>
-
             </div>
-
-
 
             <div className="input-group input-group-time">
               <label for="time">Time: </label>
               <select
                 id="time"
                 value={time}
-                onChange={(e) => setTime(e.target.value)}>
-                {
-                  timeArray.map(time => <option value={time}>{time.slice(0, -3)}</option>)
-                }
+                onChange={(e) => setTime(e.target.value)}
+              >
+                {timeArray.map((time) => (
+                  <option value={time}>{time.slice(0, -3)}</option>
+                ))}
               </select>
             </div>
 
             <div className="input-group input-group-date">
               <label for="date">Date: </label>
-              <input type="date" id="date" value={date}
-                onChange={(e) => setDate(e.target.value)} required="true"
+              <input
+                type="date"
+                id="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required="true"
               />
             </div>
 
@@ -226,7 +244,6 @@ const MakeOrder = () => {
                 placeholder="Note"
               ></textarea>
             </div>
-
 
             <button type="submit">Submit</button>
           </form>
