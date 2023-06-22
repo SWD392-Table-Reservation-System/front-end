@@ -25,6 +25,7 @@
       .inputs-form {
         margin-top: 50px;
         margin-left: 30px;
+        padding: 10px;
         .input-adult-quantity {
           .input-adults {
             display: flex;
@@ -58,6 +59,7 @@
             }
           }
         }
+
         .input-children-quantity {
           margin-top: 10px;
           .input-children {
@@ -90,6 +92,42 @@
                 background-color: #ffffff;
               }
             }
+          }
+        }
+
+        .input-group-time{
+          margin-top: 10px;
+          display: flex;
+          flex-direction: row;
+          justify-content: left;
+          .time-label{
+            width: 60%;
+            text-align: start;
+          }
+        }
+
+        .input-group-date{
+          margin-top: 10px;
+          display: flex;
+          flex-direction: row;
+          justify-content: left;
+          .date-label{
+            width: 60%;
+            text-align: start;
+          }
+        }
+
+        .input-group-personal{
+          margin-top: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: left;
+          .personal-info-label{
+            text-align: left;
+          }
+          .input-text-personal{
+            margin-top: 10px;
+            width: 90%;
           }
         }
       }

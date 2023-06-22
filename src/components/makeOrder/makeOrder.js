@@ -4,7 +4,10 @@ import styles from "./makeOrder.module.scss";
 import { Toast } from "primereact/toast";
 import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
-import { InputNumber } from "primereact/inputnumber";
+import { Dropdown } from "primereact/dropdown";
+import { Calendar } from "primereact/calendar";
+import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 
 const MakeOrder = () => {
   const navigate = useNavigate();
@@ -146,7 +149,11 @@ const MakeOrder = () => {
                   <label for="number1">Number of Adult: </label>
                 </span>
                 <span className={styles["adult-quantity-change-btn"]}>
-                  <button className={styles["decrement-adult"]} type="button" onClick={() => decrement("number1")}>
+                  <button
+                    className={styles["decrement-adult"]}
+                    type="button"
+                    onClick={() => decrement("number1")}
+                  >
                     -
                   </button>
                   <input
@@ -157,7 +164,11 @@ const MakeOrder = () => {
                     onChange={(e) => setNumber1(parseInt(e.target.value))}
                     required="true"
                   />
-                  <button className={styles["increment-adult"]} type="button" onClick={() => increment("number1")}>
+                  <button
+                    className={styles["increment-adult"]}
+                    type="button"
+                    onClick={() => increment("number1")}
+                  >
                     +
                   </button>
                 </span>
@@ -169,7 +180,11 @@ const MakeOrder = () => {
                     <label for="number2">Number of Child(ren): </label>
                   </span>
                   <span className={styles["children-quantity-change-btn"]}>
-                    <button className={styles["decrement-children"]} type="button" onClick={() => decrement("number2")}>
+                    <button
+                      className={styles["decrement-children"]}
+                      type="button"
+                      onClick={() => decrement("number2")}
+                    >
                       -
                     </button>
                     <input
@@ -180,7 +195,11 @@ const MakeOrder = () => {
                       onChange={(e) => setNumber2(parseInt(e.target.value))}
                       required="true"
                     />
-                    <button className={styles["increment-children"]} type="button" onClick={() => increment("number2")}>
+                    <button
+                      className={styles["increment-children"]}
+                      type="button"
+                      onClick={() => increment("number2")}
+                    >
                       +
                     </button>
                   </span>
@@ -188,9 +207,11 @@ const MakeOrder = () => {
               </div>
             </div>
 
-            <div className="input-group input-group-time">
-              <label for="time">Time: </label>
-              <select
+            <div className={styles["input-group-time"]}>
+              <span className={styles["time-label"]}>
+                <label for="time">Available slot: </label>
+              </span>
+              {/* <select
                 id="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
@@ -198,22 +219,78 @@ const MakeOrder = () => {
                 {timeArray.map((time) => (
                   <option value={time}>{time.slice(0, -3)}</option>
                 ))}
-              </select>
+              </select> */}
+              <Dropdown
+                id="time"
+                value={time}
+                options={timeArray.map((time) => ({
+                  label: time.slice(0, -3),
+                  value: time,
+                }))}
+                onChange={(e) => setTime(e.value)}
+                optionLabel="label"
+                placeholder="Select a time"
+              />
             </div>
 
-            <div className="input-group input-group-date">
-              <label for="date">Date: </label>
-              <input
+            <div className={styles["input-group-date"]}>
+              <span className={styles["date-label"]}>
+                <label for="date">Date: </label>
+              </span>
+              {/* <input
                 type="date"
                 id="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 required="true"
+              /> */}
+              <Calendar
+                id="date"
+                value={date}
+                onChange={(e) => setDate(e.value)}
+                showIcon
+                style={{ width: "165px" }}
+                required
               />
             </div>
 
-            <div className="input-group input-group-personal">
-              <input
+            <div className={styles["input-group-personal"]}>
+              <label className={styles["personal-info-label"]} for="personal">Personal Information:</label>
+              <InputText
+                className={styles["input-text-personal"]}
+                type="text"
+                id="customerFullName"
+                value={customerFullName}
+                onChange={(e) => setCustomerFullName(e.target.value)}
+                placeholder="Full Name"
+                required
+              />
+              <InputText
+                className={styles["input-text-personal"]}
+                type="email"
+                id="customerEmail"
+                value={customerEmail}
+                onChange={(e) => setCustomerEmail(e.target.value)}
+                placeholder="Email"
+                required
+              />
+              <InputText
+                className={styles["input-text-personal"]}
+                type="tel"
+                id="customerPhoneNumber"
+                value={customerPhoneNumber}
+                onChange={(e) => setCustomerPhoneNumber(e.target.value)}
+                placeholder="Phone Number"
+                required
+              />
+              <InputTextarea
+                className={styles["input-text-personal"]}
+                id="note"
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                placeholder="Note"
+              />
+              {/* <input
                 type="text"
                 id="customerFullName"
                 value={customerFullName}
@@ -242,10 +319,10 @@ const MakeOrder = () => {
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Note"
-              ></textarea>
+              ></textarea> */}
             </div>
 
-            <button type="submit">Submit</button>
+            <Button style={{marginTop: "10px"}} type="submit">Submit</Button>
           </form>
         </div>
       </div>
