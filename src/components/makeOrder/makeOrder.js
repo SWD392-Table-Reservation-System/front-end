@@ -283,7 +283,7 @@ const MakeOrder = () => {
                   id="customerEmail"
                   value={customerEmail}
                   onChange={(e) => setCustomerEmail(e.target.value)}
-                  placeholder="Email@gmail.com"
+                  placeholder="email@gmail.com"
                   required
                 />
               </div>
