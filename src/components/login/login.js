@@ -1,13 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import styles from "./login.module.scss";
 import axios from "axios";
+import { Toast } from "primereact/toast";
 
 const Login = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const toast = useRef(null);
+
+  const show = (severity, summary, detail) => {
+    toast.current.show({
+      severity: severity,
+      summary: summary,
+      detail: detail,
+    });
+  };
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -40,7 +50,7 @@ const Login = () => {
     axios
       .post(`${apiUrl}/api/Auth/login`, { username, password })
       .then((response) => {
-        console.log('Login Suggest');
+        console.log('Login Successfully');
         console.log(response);
         const token = response.data.data;
         localStorage.setItem('token', token);
@@ -50,6 +60,7 @@ const Login = () => {
       .catch((error) => {
         // Handle error, show error message, etc.
         console.log(error);
+        show("error", "Login fail, please do it again", error.message);
       });
   };
 
@@ -57,6 +68,7 @@ const Login = () => {
 
   return (
     <div className={styles["login-container"]}>
+    <Toast ref={toast} />
       <div className={styles["title"]}>
         <h1>Sign in</h1>
         <p>Welcome back</p>
