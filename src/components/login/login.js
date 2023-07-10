@@ -18,11 +18,11 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
       navigate('/admin/table-mana')
     }
   }, [])
-  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,11 +77,6 @@ const Login = () => {
             value={username}
             onChange={handleUsernameChange}
           />
-          {/* <ErrorMessage
-              name="username"
-              component="div"
-              className="error-message"
-            /> */}
         </div>
 
         <div className={styles["p-field"]}>
@@ -96,14 +91,7 @@ const Login = () => {
             value={password}
             onChange={handlePasswordChange}
           />
-          {/* <ErrorMessage
-              name="password"
-              component="div"
-              className="error-message"
-            /> */}
         </div>
-
-        {/* <button className={styles['btn-submit']} type="submit" label="Login" /> */}
         <button type="submit">Log In</button>
       </form>
     </div>
