@@ -2,13 +2,14 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
+
   .title {
     font-size: x-large;
   }
+
   .form {
     margin-top: 5rem;
+
     .p-field {
       display: flex;
       flex-direction: row;
@@ -16,12 +17,14 @@
       border-bottom: 1px solid #000;
       padding-bottom: 5px;
       margin: 20px;
+
       .label {
         margin-right: 10px;
         font-size: 20px;
         border-right: solid 1px #000;
         padding-right: 10px;
       }
+
       .underline-input {
         border: none;
         padding: 5px;
@@ -29,13 +32,15 @@
         height: 30px;
         width: 300px;
       }
+
       .underline-input:focus {
         outline: none;
         border-color: #000;
       }
     }
+
     .btn-submit {
-        margin-top: 50px;
+      margin-top: 50px;
       background: #37251b;
       width: 60%;
     }

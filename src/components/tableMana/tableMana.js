@@ -67,8 +67,8 @@ const TableMana = () => {
   }
 
   return (
-    <div className={styles.TableMana}>
-      <h1>TableMana</h1>
+    <div className='TableMana'>
+      <h1>Table Management</h1>
       <table>
         <tbody>{table}</tbody>
       </table>
