@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from './reservationList.scss';
 const apiUrl = process.env.REACT_APP_API_URL;
-const bearerToken = localStorage.getItem('token');
 
 const ReservationList = () => {
     const [reservations, setReservations] = useState([]);
 
     const fetchReservationList = () => {
+        const bearerToken = localStorage.getItem('token');
         fetch(`${apiUrl}/api/Reservations`, {
             headers: {
                 Authorization: `Bearer ${bearerToken}`,
