@@ -5,15 +5,15 @@ import { Button } from 'primereact/button';
 
 const TableMana = () => {
   const data = [
-    { code: 'Table 1', status: 0 },
-    { code: 'Table 2', status: 1 },
-    { code: 'Table 3', status: 2 },
-    { code: 'Table 4', status: 0 },
-    { code: 'Table 5', status: 0 },
-    { code: 'Table 6', status: 0 },
-    { code: 'Table 7', status: 0 },
-    { code: 'Table 8', status: 0 },
-    { code: 'Table 9', status: 0 },
+    { code: 'Table 01', status: 0 },
+    { code: 'Table 02', status: 1 },
+    { code: 'Table 03', status: 2 },
+    { code: 'Table 04', status: 0 },
+    { code: 'Table 05', status: 0 },
+    { code: 'Table 06', status: 0 },
+    { code: 'Table 07', status: 0 },
+    { code: 'Table 08', status: 0 },
+    { code: 'Table 09', status: 0 },
     { code: 'Table 10', status: 0 },
     { code: 'Table 11', status: 0 },
     { code: 'Table 12', status: 0 },
@@ -52,13 +52,13 @@ const TableMana = () => {
     for (let j = 0; j < columns; j++) {
       const index = i * columns + j;
       const entry = data[index % data.length];
-      const { label, color } = entry;
+      const { code, status } = entry;
       row.push(
         <td key={index}>
           <Button
-            label={label}
-            onClick={() => handleClick(label)}
-            style={{ backgroundColor: [color], color: 'black' }}
+            label={code}
+            onClick={() => handleClick(code)}
+            style={{ backgroundColor: [status === 1 ? '#FFF500' : (status === 2 ? '#48EF45' : '#CD672E')], color: 'black' }}
           />
         </td>
       );
