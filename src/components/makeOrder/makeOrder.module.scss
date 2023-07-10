@@ -25,34 +25,150 @@
       .inputs-form {
         margin-top: 50px;
         margin-left: 30px;
-        .input-group-quantity {
+        padding: 10px;
+        .input-adult-quantity {
           .input-adults {
             display: flex;
             flex-direction: row;
-            .label {
-              width: 40%;
-            }
-            .btn {
+            width: 100%;
+            .adult-quantity-label {
               width: 60%;
-              #number1 {
+              text-align: start;
+            }
+            .adult-quantity-change-btn {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border: solid 1px #bbbbbb;
+              border-radius: 5px;
+              padding: 5px;
+              .display-adult-quantity {
                 width: 30px;
                 text-align: center;
+                border: none;
+              }
+              .decrement-adult{
+                border: none;
+                margin-right: 6px;
+                background-color: #ffffff;
+              }
+              .increment-adult{
+                border: none;
+                background-color: #ffffff;
               }
             }
           }
+        }
+
+        .input-children-quantity {
+          margin-top: 10px;
           .input-children {
             display: flex;
             flex-direction: row;
-            .label {
-              width: 40%;
-            }
-            .btn {
+            width: 100%;
+            .children-quantity-label {
               width: 60%;
-              #number1 {
+              text-align: start;
+            }
+            .children-quantity-change-btn {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border: solid 1px #bbbbbb;
+              border-radius: 5px;
+              padding: 5px;
+              .display-children-quantity {
                 width: 30px;
                 text-align: center;
+                border: none;
+              }
+              .decrement-children{
+                border: none;
+                margin-right: 6px;
+                background-color: #ffffff;
+              }
+              .increment-children{
+                border: none;
+                background-color: #ffffff;
               }
             }
+          }
+        }
+
+        .input-group-time{
+          margin-top: 10px;
+          display: flex;
+          flex-direction: row;
+          justify-content: left;
+          .time-label{
+            width: 60%;
+            text-align: start;
+          }
+        }
+
+        .input-group-date{
+          margin-top: 10px;
+          display: flex;
+          flex-direction: row;
+          justify-content: left;
+          .date-label{
+            width: 60%;
+            text-align: start;
+          }
+        }
+
+        .input-group-personal{
+          margin-top: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: left;
+          .personal-info-label{
+            text-align: left;
+          }
+          .input-text-personal{
+            display: flex;
+            flex-direction: row;
+            border: none;
+            border-bottom: 1px solid #e1e1e1;
+            padding-bottom: 5px;
+            margin-top: 10px;
+            .label {
+              margin-right: 10px;
+              font-size: 15px;
+              border-right: solid 1px #000;
+              padding-right: 10px;
+              text-align: left;
+              width: 30%;
+            }
+            .underline-input {
+              border: none;
+              padding: 5px;
+              font-size: 15px;
+              height: 30px;
+              width: 300px;
+            }
+            .underline-input:focus {
+              outline: none;
+              border-color: #000;
+            }
+            .underline-input::-webkit-input-placeholder{
+              opacity: 0.4;
+            }
+            .underline-note {
+              border: none;
+              padding: 5px;
+              font-size: 15px;
+              height: 100px;
+              width: 300px;
+              resize: vertical;
+            }
+            .underline-note:focus {
+              outline: none;
+              border-color: #000;
+            }
+            .underline-note::-webkit-input-placeholder{
+              opacity: 0.4;
+            }            
           }
         }
       }
