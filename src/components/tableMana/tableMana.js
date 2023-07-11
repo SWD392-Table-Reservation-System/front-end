@@ -1,41 +1,76 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './tableMana.scss';
 import { Button } from 'primereact/button';
+import axios from 'axios';
+
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const TableMana = () => {
-  const data = [
-    { code: 'Table 01', status: 0 },
-    { code: 'Table 02', status: 1 },
-    { code: 'Table 03', status: 2 },
-    { code: 'Table 04', status: 0 },
-    { code: 'Table 05', status: 0 },
-    { code: 'Table 06', status: 0 },
-    { code: 'Table 07', status: 0 },
-    { code: 'Table 08', status: 0 },
-    { code: 'Table 09', status: 0 },
-    { code: 'Table 10', status: 0 },
-    { code: 'Table 11', status: 0 },
-    { code: 'Table 12', status: 0 },
-    { code: 'Table 13', status: 0 },
-    { code: 'Table 14', status: 0 },
-    { code: 'Table 15', status: 0 },
-    { code: 'Table 16', status: 0 },
-    { code: 'Table 17', status: 0 },
-    { code: 'Table 18', status: 0 },
-    { code: 'Table 19', status: 0 },
-    { code: 'Table 20', status: 0 },
-    { code: 'Table 21', status: 0 },
-    { code: 'Table 22', status: 0 },
-    { code: 'Table 23', status: 0 },
-    { code: 'Table 24', status: 0 },
-    { code: 'Table 25', status: 0 },
-    { code: 'Table 26', status: 0 },
-    { code: 'Table 27', status: 0 },
-    { code: 'Table 28', status: 0 },
-    { code: 'Table 29', status: 0 },
-    { code: 'Table 30', status: 0 }
-  ];
+  const [tableData, setTableData] = useState([{ code: 'Table 01', status: 0 }]);
+
+  const getTables = () => {
+    const bearerToken = localStorage.getItem('token');
+    axios
+      .get(`${apiUrl}/api/Tables`, {
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+      }).then((res) => {
+        console.log(res);
+        if (res.data.success) {
+          console.log(res.data.data);
+          setTableData(res.data.data)
+        } else {
+          let err = new Error(res.data.errorMessage)
+          console.log(err);
+          throw err;
+        }
+
+      }).catch((err) => {
+        console.log(err);
+      })
+  }
+
+  useEffect(() => {
+    getTables();
+
+    // setTableData([
+    //   { code: 'Table 01', status: 0 },
+    //   { code: 'Table 02', status: 1 },
+    //   { code: 'Table 03', status: 2 },
+    //   { code: 'Table 04', status: 0 },
+    //   { code: 'Table 05', status: 0 },
+    //   { code: 'Table 06', status: 0 },
+    //   { code: 'Table 07', status: 0 },
+    //   { code: 'Table 08', status: 0 },
+    //   { code: 'Table 09', status: 0 },
+    //   { code: 'Table 10', status: 0 },
+    //   { code: 'Table 11', status: 0 },
+    //   { code: 'Table 12', status: 0 },
+    //   { code: 'Table 13', status: 0 },
+    //   { code: 'Table 14', status: 0 },
+    //   { code: 'Table 15', status: 0 },
+    //   { code: 'Table 16', status: 0 },
+    //   { code: 'Table 17', status: 0 },
+    //   { code: 'Table 18', status: 0 },
+    //   { code: 'Table 19', status: 0 },
+    //   { code: 'Table 20', status: 0 },
+    //   { code: 'Table 21', status: 0 },
+    //   { code: 'Table 22', status: 0 },
+    //   { code: 'Table 23', status: 0 },
+    //   { code: 'Table 24', status: 0 },
+    //   { code: 'Table 25', status: 0 },
+    //   { code: 'Table 26', status: 0 },
+    //   { code: 'Table 27', status: 0 },
+    //   { code: 'Table 28', status: 0 },
+    //   { code: 'Table 29', status: 0 },
+    //   { code: 'Table 30', status: 0 }
+    // ]);
+  }, [])
+
+
 
   const handleClick = (label) => {
     console.log(`Button ${label} was clicked.`);
@@ -51,7 +86,7 @@ const TableMana = () => {
     const row = [];
     for (let j = 0; j < columns; j++) {
       const index = i * columns + j;
-      const entry = data[index % data.length];
+      const entry = tableData[index % tableData.length];
       const { code, status } = entry;
       row.push(
         <td key={index}>
