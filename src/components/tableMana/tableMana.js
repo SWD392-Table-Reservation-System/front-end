@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './tableMana.module.scss';
 import { Button } from 'primereact/button';
-import Navigation from '../tableMana/navigation';
+import Navbar from '../navbar/navbar';
 import axios from 'axios';
 
 
@@ -104,7 +104,6 @@ const TableMana = () => {
 
   return (
     <div className={styles.TableMana}>
-      <Navigation />
       <div className={styles.displayTables}>
         <h1>Table Management</h1>
         <table>

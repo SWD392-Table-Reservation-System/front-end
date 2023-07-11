@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Dropdown } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
 import { Button } from "primereact/button";
+import "../makeOrder/makeOrder.scss"
 
 const MakeOrder = () => {
   const navigate = useNavigate();
@@ -230,6 +231,7 @@ const MakeOrder = () => {
                   value: time,
                 }))}
                 onChange={(e) => setTime(e.value)}
+                style={{ width: "120px" }}
               />
               {/* <select
                 className={styles.dropdown}

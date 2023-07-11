@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from "./login.module.scss";
 import axios from "axios";
 import { Toast } from "primereact/toast";
+import { Button } from "primereact/button";
 
 const Login = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -104,7 +105,7 @@ const Login = () => {
             onChange={handlePasswordChange}
           />
         </div>
-        <button type="submit">Log In</button>
+        <Button type="submit">Log In</Button>
       </form>
     </div>
   );
