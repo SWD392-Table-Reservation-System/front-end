@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './tableMana.scss';
+import styles from './tableMana.module.scss';
 import { Button } from 'primereact/button';
+import Navigation from '../tableMana/navigation';
 
 const TableMana = () => {
   const data = [
@@ -67,11 +68,14 @@ const TableMana = () => {
   }
 
   return (
-    <div className='TableMana'>
-      <h1>Table Management</h1>
-      <table>
-        <tbody>{table}</tbody>
-      </table>
+    <div className={styles.TableMana}>
+      <Navigation />
+      <div className={styles.displayTables}>
+        <h1>Table Management</h1>
+        <table>
+          <tbody>{table}</tbody>
+        </table>
+      </div>
     </div>
   );
 };
