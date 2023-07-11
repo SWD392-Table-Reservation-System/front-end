@@ -11,6 +11,7 @@ import TableMana from "./components/tableMana/tableMana";
 import Onboard from "./components/onboard/onboard"
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Header from "./components/header/header";
+import Navbar from "./components/navbar/navbar";
 
 function App() {
   return (
@@ -25,12 +26,14 @@ function App() {
           <Route path="/admin" element={<Login />} />
           <Route path="/admin/reservations" element={
             <ProtectedRoute>
+              <Navbar></Navbar>
               <ReservationList />
             </ProtectedRoute>
           } />
 
           <Route path="/admin/table-mana" element={
             <ProtectedRoute>
+              <Navbar></Navbar>
               <TableMana />
             </ProtectedRoute>
           } />
