@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  flex-wrap: wrap;
   .container {
     padding: 100px;
     display: flex;
@@ -12,47 +13,48 @@
       .img {
         padding-bottom: 10px;
         padding-top: 10px;
-        padding-left: 100px;
-        padding-right: 100px;
+        padding-left: 30px;
+        padding-right: 30px;
+        margin-right: 30px;
         background-color: #f7f8fb;
       }
     }
-    .order-menu {
+    .orderMenu {
       width: 40%;
       background-color: #ffffff;
       border: solid 1px #000000;
       border-radius: 20px;
-      .inputs-form {
+      .inputsForm {
         margin-top: 50px;
         margin-left: 30px;
         padding: 10px;
-        .input-adult-quantity {
-          .input-adults {
+        #inputAdultQuantity {
+          .inputAdults {
             display: flex;
             flex-direction: row;
             width: 100%;
-            .adult-quantity-label {
+            .adultQuantityLabel {
               width: 60%;
               text-align: start;
             }
-            .adult-quantity-change-btn {
+            .adultQuantityChangeButton {
               display: flex;
               justify-content: center;
               align-items: center;
               border: solid 1px #bbbbbb;
               border-radius: 5px;
               padding: 5px;
-              .display-adult-quantity {
+              .displayAdultQuantity {
                 width: 30px;
                 text-align: center;
                 border: none;
               }
-              .decrement-adult{
+              .decrementAdult{
                 border: none;
                 margin-right: 6px;
                 background-color: #ffffff;
               }
-              .increment-adult{
+              .incrementAdult{
                 border: none;
                 background-color: #ffffff;
               }
@@ -60,34 +62,34 @@
           }
         }
 
-        .input-children-quantity {
+        .inputChildrenQuantity {
           margin-top: 10px;
-          .input-children {
+          .inputChildren {
             display: flex;
             flex-direction: row;
             width: 100%;
-            .children-quantity-label {
+            .childrenQuantityLabel {
               width: 60%;
               text-align: start;
             }
-            .children-quantity-change-btn {
+            .childrenQuantityChangeButton {
               display: flex;
               justify-content: center;
               align-items: center;
               border: solid 1px #bbbbbb;
               border-radius: 5px;
               padding: 5px;
-              .display-children-quantity {
+              .displayChildrenQuantity {
                 width: 30px;
                 text-align: center;
                 border: none;
               }
-              .decrement-children{
+              .decrementChildren{
                 border: none;
                 margin-right: 6px;
                 background-color: #ffffff;
               }
-              .increment-children{
+              .incrementChildren{
                 border: none;
                 background-color: #ffffff;
               }
@@ -95,37 +97,42 @@
           }
         }
 
-        .input-group-time{
+        #inputGroupTime{
           margin-top: 10px;
           display: flex;
           flex-direction: row;
           justify-content: left;
-          .time-label{
+          .timeLabel{
+            width: 60%;
+            text-align: start;
+          }
+          .dropdown {
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
+          }
+        }
+
+        #inputGroupDate{
+          margin-top: 10px;
+          display: flex;
+          flex-direction: row;
+          justify-content: left;
+          .dateLabel{
             width: 60%;
             text-align: start;
           }
         }
 
-        .input-group-date{
-          margin-top: 10px;
-          display: flex;
-          flex-direction: row;
-          justify-content: left;
-          .date-label{
-            width: 60%;
-            text-align: start;
-          }
-        }
-
-        .input-group-personal{
+        #inputGroupPersonal{
           margin-top: 10px;
           display: flex;
           flex-direction: column;
           justify-content: left;
-          .personal-info-label{
+          .personalInfoLabel{
             text-align: left;
           }
-          .input-text-personal{
+          .inputTextPersonal{
             display: flex;
             flex-direction: row;
             border: none;
@@ -140,21 +147,21 @@
               text-align: left;
               width: 30%;
             }
-            .underline-input {
+            .underlineInput {
               border: none;
               padding: 5px;
               font-size: 15px;
               height: 30px;
               width: 300px;
             }
-            .underline-input:focus {
+            .underlineInput:focus {
               outline: none;
               border-color: #000;
             }
-            .underline-input::-webkit-input-placeholder{
+            .underlineInput::-webkit-input-placeholder{
               opacity: 0.4;
             }
-            .underline-note {
+            .underlineNote {
               border: none;
               padding: 5px;
               font-size: 15px;
@@ -162,11 +169,11 @@
               width: 300px;
               resize: vertical;
             }
-            .underline-note:focus {
+            .underlineNote:focus {
               outline: none;
               border-color: #000;
             }
-            .underline-note::-webkit-input-placeholder{
+            .underlineNote::-webkit-input-placeholder{
               opacity: 0.4;
             }            
           }
