@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styles from './reservationList.scss';
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
+
+
 const apiUrl = process.env.REACT_APP_API_URL;
-const bearerToken = localStorage.getItem('token');
 
 const ReservationList = () => {
     const [reservations, setReservations] = useState([]);
 
     const fetchReservationList = () => {
+        const bearerToken = localStorage.getItem('token');
         fetch(`${apiUrl}/api/Reservations`, {
             headers: {
                 Authorization: `Bearer ${bearerToken}`,
@@ -32,10 +36,25 @@ const ReservationList = () => {
         fetchReservationList();
     }, []);
 
+    const footer = (
+        <div className="flex flex-wrap justify-content-end gap-2">
+            <Button label="Delete" icon="pi pi-times" className="p-button-outlined p-button-secondary" />
+        </div>
+    );
+
     return (
         <div className={styles.ReservationList}>
             {reservations.map((reservation, index) => (
-                <div key={index}>{reservation.customerFullName}</div>
+                <Card key={index} title='Detail' footer={footer} style={{ margin: '1rem' }}>
+                    <p>Id: {reservation.id}</p>
+                    <p>Creation Date: {reservation.creationDate}</p>
+                    <p>Booking Date: {reservation.dateTimeBooking}</p>
+                    <p>Customer Quantity: {reservation.customerQuantity}</p>
+                    <p>Note: {reservation.note}</p>
+                    <p>Customer Name: {reservation.customerFullName}</p>
+                    <p>Customer Email: {reservation.customerEmail}</p>
+                    <p>Customer Phone Number: {reservation.customerPhoneNumber}</p>
+                </Card>
             ))}
         </div>
     );
