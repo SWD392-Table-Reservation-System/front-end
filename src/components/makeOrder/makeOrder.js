@@ -258,7 +258,7 @@ const MakeOrder = () => {
                 onChange={(e) => setDate(e.value)}
                 required
                 showIcon
-                style={{ width: "120px" }}
+                style={{ width: "160px" }}
               />
             </div>
 
