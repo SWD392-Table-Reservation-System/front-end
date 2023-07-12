@@ -1,31 +1,21 @@
 import React from 'react';
-import { Menubar } from 'primereact/menubar';
+import styles from './navigation.module.scss';
 
-const App = () => {
-  const items = [
-    {
-      label: 'Home',
-      icon: 'pi pi-fw pi-home',
-      url: '/'
-    },
-    {
-      label: 'About',
-      icon: 'pi pi-fw pi-info',
-      url: '/about'
-    },
-    {
-      label: 'Contact',
-      icon: 'pi pi-fw pi-envelope',
-      url: '/contact'
-    }
-  ];
+const Navigation = () => {
+ 
 
   return (
-    <div>
-      <Menubar model={items} />
-      {/* Rest of your application */}
+    <div className={styles.verticalNavigation}>
+      <div className={styles.logo}>
+        <img src="swd-transformed_notext.png" alt="Logo" />
+      </div>
+      <div className={styles.navigationButtons}>
+        <button>Button 1</button>
+        <button>Button 2</button>
+        <button>Button 3</button>
+      </div>
     </div>
   );
 };
 
-export default App;
+export default Navigation;
