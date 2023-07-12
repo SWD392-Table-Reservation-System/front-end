@@ -12,6 +12,7 @@ const ReservationList = () => {
     const fetchReservationList = () => {
         const bearerToken = localStorage.getItem('token');
         fetch(`${apiUrl}/api/Reservations`, {
+            method: 'GET',
             headers: {
                 Authorization: `Bearer ${bearerToken}`,
             },

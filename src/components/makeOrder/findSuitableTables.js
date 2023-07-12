@@ -92,16 +92,12 @@ const MakeOrder = () => {
     // Construct the request body
     const requestBody = JSON.stringify({
       dateTimeBooking: `${formattedDate}T${formattedTime}`,
-      customerQuantity: customerQuantity,
-      note: note,
-      customerFullName: customerFullName,
-      customerEmail: customerEmail,
-      customerPhoneNumber: customerPhoneNumber,
+      customerQuantity: customerQuantity
     });
     console.log(requestBody);
 
     // Perform the API request
-    fetch(`${apiUrl}/api/Reservations`, {
+    fetch(`${apiUrl}/api/Tables/find`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
