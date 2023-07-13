@@ -12,6 +12,7 @@ import Onboard from "./components/onboard/onboard"
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Header from "./components/header/header";
 import Navbar from "./components/navbar/navbar";
+import FindSuitableTables from "./components/makeOrder/findSuitableTables";
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
         <Header></Header>
         <Routes>
           <Route exact path="/" element={<Onboard />} />
-          <Route path="/order" element={<MakeOrder />} />
+          <Route path="/order" element={<FindSuitableTables />} />
+          <Route path="/order/make" element={<MakeOrder />} />
           <Route path="/order/success" element={<Success />} />
 
           <Route path="/admin" element={<Login />} />
