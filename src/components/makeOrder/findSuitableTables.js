@@ -7,8 +7,9 @@ import { Dropdown } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
 import { Button } from "primereact/button";
 import "../makeOrder/makeOrder.scss"
+import axios from "axios";
 
-const MakeOrder = () => {
+const FindSuitableTables = () => {
   const navigate = useNavigate();
   const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -16,10 +17,7 @@ const MakeOrder = () => {
   const [number2, setNumber2] = useState(1);
   const [time, setTime] = useState("09:00 AM");
   const [date, setDate] = useState("");
-  const [customerFullName, setCustomerFullName] = useState("");
-  const [customerEmail, setCustomerEmail] = useState("");
-  const [customerPhoneNumber, setCustomerPhoneNumber] = useState("");
-  const [note, setNote] = useState("");
+  const [availableTables, setAvailableTables] = useState([]);
   const toast = useRef(null);
   const [timeArray, setTimeArray] = useState([]);
   // Format the time value to remove AM/PM and leading zero
@@ -92,39 +90,34 @@ const MakeOrder = () => {
     // Construct the request body
     const requestBody = JSON.stringify({
       dateTimeBooking: `${formattedDate}T${formattedTime}`,
-      customerQuantity: customerQuantity
+      quantitySeats: customerQuantity
     });
     console.log(requestBody);
 
     // Perform the API request
-    fetch(`${apiUrl}/api/Tables/find`, {
-      method: "POST",
+    axios.post(`${apiUrl}/api/Tables/find`, requestBody, {
       headers: {
         "Content-Type": "application/json",
-      },
-      body: requestBody,
+      }
     })
       .then((response) => {
-        if (response.ok) {
-          console.log(response);
-          return response.json();
+        console.log("API response:", response);
+        if (response.data.success) {
+          if (response.data.data.length !== 0) {
+            show("success", `Horray!!`, `You chose a good period of time!`);
+
+            setAvailableTables(response.data.data) //an array
+            // setTimeout(() => {
+            //   navigate("/order/make");
+            // }, 2000);
+          } else {
+            show("warn", "No available table at choosen time", 'Please choose other time and date');
+          }
         } else {
-          show("error", "Ordered fail", `${response.statusText}`);
           throw new Error(
             `API request failed: ${response.status} ${response.statusText}`
           );
         }
-      })
-      .then((data) => {
-        console.log("API response:", data);
-        show(
-          "success",
-          `Hello ${data.data.customerFullName}, you ordered successfully!`,
-          "You are directing to Order Detail"
-        );
-        setTimeout(() => {
-          navigate("/order/success");
-        }, 3000);
       })
       .catch((error) => {
         console.error("API request error:", error);
@@ -247,85 +240,28 @@ const MakeOrder = () => {
                 style={{ width: "160px" }}
               />
             </div>
-
-            <div
-              id={styles.inputGroupPersonal}
-              className="input-group input-group-personal"
-            >
-              <label className={styles.personalInfoLabel} for="personal">
-                Personal Information:
-              </label>
-
-              <div className={styles.inputTextPersonal}>
-                <label className={styles.label} htmlFor="customerFullName">
-                  Full Name:
-                </label>
-                <input
-                  className={styles.underlineInput}
-                  type="text"
-                  id="customerFullName"
-                  value={customerFullName}
-                  onChange={(e) => setCustomerFullName(e.target.value)}
-                  placeholder="Full Name"
-                  required="true"
-                />
-              </div>
-
-              <div className={styles.inputTextPersonal}>
-                <label className={styles.label} htmlFor="customerFullName">
-                  Email:
-                </label>
-                <input
-                  className={styles.underlineInput}
-                  type="email"
-                  id="customerEmail"
-                  value={customerEmail}
-                  onChange={(e) => setCustomerEmail(e.target.value)}
-                  placeholder="Email"
-                  required="true"
-                />
-              </div>
-
-              <div className={styles.inputTextPersonal}>
-                <label className={styles.label} htmlFor="customerFullName">
-                  Phone:
-                </label>
-                <input
-                  className={styles.underlineInput}
-                  type="tel"
-                  id="customerPhoneNumber"
-                  value={customerPhoneNumber}
-                  onChange={(e) => setCustomerPhoneNumber(e.target.value)}
-                  placeholder="Phone Number"
-                  required="true"
-                />
-              </div>
-
-              <div className={styles.inputTextPersonal}>
-                <label className={styles.label} htmlFor="customerFullName">
-                  Note:
-                </label>
-                <textarea
-                  className={styles.underlineNote}
-                  id="note"
-                  value={note}
-                  onChange={(e) => setNote(e.target.value)}
-                  placeholder="Note"
-                ></textarea>
-              </div>
-            </div>
             <Button style={{ marginTop: "10px" }} type="submit">
-              Submit
+              Next
             </Button>
           </form>
         </div>
       </div>
+      <div className="availableTables" style={{ display: availableTables.length === 0 ? "none" : "block" }}>
+          <h3>Available tables: </h3>
+          {availableTables.map((table) => (
+            <div id={table.id}>
+              <p>Code: {table.code}</p>
+              <p>Seat Quantity: {table.seatQuantity}</p>
+            </div>
+          ))}
+
+        </div>
     </div>
   );
 };
 
-MakeOrder.propTypes = {};
+FindSuitableTables.propTypes = {};
 
-MakeOrder.defaultProps = {};
+FindSuitableTables.defaultProps = {};
 
-export default MakeOrder;
+export default FindSuitableTables;
