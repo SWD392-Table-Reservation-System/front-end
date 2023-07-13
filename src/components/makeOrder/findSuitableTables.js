@@ -16,15 +16,15 @@ const FindSuitableTables = () => {
   const [number1, setNumber1] = useState(1);
   const [number2, setNumber2] = useState(1);
   const [time, setTime] = useState("09:00 AM");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(Date);
+  const [selectedDate, setSelectedDate] = useState(new Date(date));
+  const [dateTimeBooking, setDateTimeBooking] = useState("");
   const [availableTables, setAvailableTables] = useState([]);
   const toast = useRef(null);
   const [timeArray, setTimeArray] = useState([]);
-  // Format the time value to remove AM/PM and leading zero
-  const formattedTime = time.replace(/[^\d:]/g, "");
-  const adjustedDate = date;
-  const dateTimeBooking = `${adjustedDate}T${formattedTime}`;
   const customerQuantity = number1 + number2;
+
+
   const getTime = () => {
     fetch(`${apiUrl}/api/Test/time-list`, {
       method: "GET",
@@ -83,13 +83,17 @@ const FindSuitableTables = () => {
     e.preventDefault();
 
     //Format the Calendar input
-    const selectedDate = new Date(date); // Convert the date string to a Date object
+    setSelectedDate(new Date(date)); // Convert the date string to a Date object
     const formattedDate = selectedDate.toISOString().split("T")[0]; // Format the date as desired
+    const formattedTime = time.replace(/[^\d:]/g, "");
+    setDateTimeBooking(`${formattedDate}T${formattedTime}`);
+
     console.log(formattedDate); // "2020-12-31"
+    console.log(dateTimeBooking);
 
     // Construct the request body
     const requestBody = JSON.stringify({
-      dateTimeBooking: `${formattedDate}T${formattedTime}`,
+      dateTimeBooking: dateTimeBooking,
       quantitySeats: customerQuantity
     });
     console.log(requestBody);
@@ -107,9 +111,6 @@ const FindSuitableTables = () => {
             show("success", `Horray!!`, `You chose a good period of time!`);
 
             setAvailableTables(response.data.data) //an array
-            // setTimeout(() => {
-            //   navigate("/order/make");
-            // }, 2000);
           } else {
             show("warn", "No available table at choosen time", 'Please choose other time and date');
           }
@@ -124,6 +125,21 @@ const FindSuitableTables = () => {
         show("error", "Ordered fail", `${error}`);
       });
   };
+
+  const goToMakeOrder = () => {
+    let tablesId = [];
+    
+    availableTables.map((table) => {
+      tablesId.push(table.id)
+    })
+
+    const variables = {
+      dateTimeBooking: dateTimeBooking,
+      customerQuantity: customerQuantity,
+      tablesId: tablesId
+    };
+    navigate("/order/make", {state: variables});
+  }
 
   return (
     <div className={styles.MakeOrder}>
@@ -241,21 +257,25 @@ const FindSuitableTables = () => {
               />
             </div>
             <Button style={{ marginTop: "10px" }} type="submit">
-              Next
+              Find
             </Button>
           </form>
         </div>
       </div>
       <div className="availableTables" style={{ display: availableTables.length === 0 ? "none" : "block" }}>
-          <h3>Available tables: </h3>
-          {availableTables.map((table) => (
-            <div id={table.id}>
-              <p>Code: {table.code}</p>
-              <p>Seat Quantity: {table.seatQuantity}</p>
-            </div>
-          ))}
+        <h3>Available tables: </h3>
+        {availableTables.map((table) => (
+          <div id={table.id}>
+            <p>Code: {table.code}</p>
+            <p>Seat Quantity: {table.seatQuantity}</p>
+          </div>
+        ))}
 
-        </div>
+        <Button style={{ marginTop: "10px" }} onClick={goToMakeOrder}>
+          Next
+        </Button>
+
+      </div>
     </div>
   );
 };
