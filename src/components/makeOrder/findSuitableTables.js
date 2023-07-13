@@ -127,7 +127,18 @@ const FindSuitableTables = () => {
   };
 
   const goToMakeOrder = () => {
-    navigate("/order/make");
+    let tablesId = [];
+    
+    availableTables.map((table) => {
+      tablesId.push(table.id)
+    })
+
+    const variables = {
+      dateTimeBooking: dateTimeBooking,
+      customerQuantity: customerQuantity,
+      tablesId: tablesId
+    };
+    navigate("/order/make", {state: variables});
   }
 
   return (

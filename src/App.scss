@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  width: 1160px;
   margin: auto;
 }
 
@@ -15,4 +14,10 @@ ul {
   justify-content: space-around;
   max-width: 100%;
   padding-bottom: 2rem;
+}
+
+@media (min-width: 1160px) {
+  .App {
+    width: 1160px;
+  }
 }
