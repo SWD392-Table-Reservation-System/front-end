@@ -4,20 +4,82 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
 }
 
 .displayTables {
   table {
     display: inline-flex;
     padding: 10px;
+    margin-top: 50px;
     align-items: flex-start;
     gap: 16px;
     border: 1px solid #000;
     border-radius: 20px;
     box-shadow: 0px 4px 15px 1px rgba(0, 0, 0, 0.25);
   }
+  h1 {
+    text-align: left;
+    margin-bottom: 30px;
+  }
 }
 
 .singleTable {
   padding: 1000px;
+}
+
+.annotate {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 50px;
+}
+
+.annotate div {
+  margin-right: 10px;
+}
+
+.annotate label {
+  margin-right: 100px;
+}
+
+.time {
+  display: flex;
+  flex-direction: row;
+}
+
+.date {
+  margin-right: 50px;
+}
+
+.customContainer {
+  width: 279px;
+  height: 62px;
+  padding: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 0.5px solid black;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.customItem {
+  width: 80px;
+  height: 42px;
+  position: relative;
+  background: #F8F8F8;
+  
+  span {
+    left: 25px;
+    top: 11px;
+    position: absolute;
+    opacity: 0.5;
+    color: black;
+    font-size: 20px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    line-height: 20px;
+    word-wrap: break-word;
+  }
 }

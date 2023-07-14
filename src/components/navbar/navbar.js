@@ -1,56 +1,72 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
-
+import { useLocation } from "react-router-dom";
 import "primeicons/primeicons.css";
-
 import styles from "./navbar.module.scss";
 
 const Navbar = () => {
+  const location = useLocation();
+
   return (
-    <div class="navbar">
+    <div className="navbar">
       <div className={styles.container}>
         <img className={styles.logo} src={logo} alt="logo" />
 
-        <a href="/admin/table-mana" class={styles.active}>
+        <Link
+          to="/admin/table-mana"
+          className={`${styles.link} ${
+            location.pathname === "/admin/table-mana" ? styles.activeLink : ""
+          }`}
+        >
           <i
-            class="pi pi-table icon"
+            className="pi pi-table icon"
             style={{
               marginRight: "10px",
             }}
           ></i>
           Table
-        </a>
+        </Link>
 
-        <a href="/admin/reservations">
+        <Link
+          to="/admin/reservations"
+          className={`${styles.link} ${
+            location.pathname === "/admin/reservations" ? styles.activeLink : ""
+          }`}
+        >
           <i
-            class="pi pi-list icon"
+            className="pi pi-list icon"
             style={{
               marginRight: "10px",
             }}
           ></i>
           Reservations
-        </a>
+        </Link>
 
-        <a href="#">
+        <Link
+          to="#"
+          className={`${styles.link} ${
+            location.pathname === "/admin/staff" ? styles.activeLink : ""
+          }`}
+        >
           <i
-            class="pi pi-users icon"
+            className="pi pi-users icon"
             style={{
               marginRight: "10px",
             }}
           ></i>
           Staff
-        </a>
+        </Link>
 
-        <a href="#">
+        <Link to="#" className={styles.link}>
           <i
-            class="pi pi-power-off icon"
+            className="pi pi-power-off icon"
             style={{
               marginRight: "10px",
             }}
           ></i>
           Logout
-        </a>
+        </Link>
       </div>
     </div>
   );

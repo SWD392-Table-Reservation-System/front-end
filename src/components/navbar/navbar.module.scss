@@ -17,7 +17,7 @@
   height: 100px;
 }
 
-.container a {
+.link {
   display: block;
   padding: 12px;
   margin-top: 50px;
@@ -31,14 +31,13 @@
   transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-.container a:hover {
+.link:hover,
+.activeLink {
   width: 80%;
   color: #cd672e;
   background-color: #fff;
   font-weight: bold;
 }
 
-.active {
-  background-color: #555;
-}
+
 
