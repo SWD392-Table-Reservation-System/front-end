@@ -10,7 +10,7 @@ import ReservationList from "./components/tableMana/reservationList";
 import TableMana from "./components/tableMana/tableMana";
 import Onboard from "./components/onboard/onboard"
 import ProtectedRoute from "./utils/ProtectedRoute";
-// import Header from "./components/header/header";
+import Header from "./components/header/header";
 import Navbar from "./components/navbar/navbar";
 import FindSuitableTables from "./components/makeOrder/findSuitableTables";
 
@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {/* <Header></Header> */}
+        <Header></Header>
         <Routes>
           <Route exact path="/" element={<Onboard />} />
           <Route path="/order" element={<FindSuitableTables />} />
