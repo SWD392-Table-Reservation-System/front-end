@@ -51,12 +51,16 @@ const Login = () => {
     axios
       .post(`${apiUrl}/api/Auth/login`, { username, password })
       .then((response) => {
-        console.log('Login Successfully');
-        console.log(response);
-        const token = response.data.data;
-        localStorage.setItem('token', token);
-        console.log(token);
-        navigate('/admin/table-mana')
+        if (response.data.success) {
+          console.log('Login Successfully');
+          console.log(response);
+          const token = response.data.data;
+          localStorage.setItem('token', token);
+          console.log(token);
+          navigate('/admin/table-mana')
+        } else {
+          show("error", "Login fail, please do it again", response.data.errorMessage);
+        }
       })
       .catch((error) => {
         // Handle error, show error message, etc.
@@ -69,7 +73,7 @@ const Login = () => {
 
   return (
     <div className={styles["login-container"]}>
-    <Toast ref={toast} />
+      <Toast ref={toast} />
       <div className={styles["title"]}>
         <h1>Sign in</h1>
         <p>Welcome back</p>
