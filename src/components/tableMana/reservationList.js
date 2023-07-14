@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './reservationList.scss';
+import styles from './reservationList.module.scss';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 
@@ -46,7 +46,7 @@ const ReservationList = () => {
     return (
         <div className={styles.ReservationList}>
             {reservations.map((reservation, index) => (
-                <Card key={index} title='Detail' footer={footer} style={{ margin: '1rem' }}>
+                <Card className={styles.card} key={index} title='Detail' footer={footer} style={{ margin: '1rem' }}>
                     <p>Id: {reservation.id}</p>
                     <p>Creation Date: {reservation.creationDate}</p>
                     <p>Booking Date: {reservation.dateTimeBooking}</p>
