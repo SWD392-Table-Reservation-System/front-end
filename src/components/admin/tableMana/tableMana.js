@@ -36,39 +36,6 @@ const TableMana = () => {
 
   useEffect(() => {
     getTables();
-
-    // setTableData([
-    //   { code: 'Table 01', status: 0 },
-    //   { code: 'Table 02', status: 1 },
-    //   { code: 'Table 03', status: 2 },
-    //   { code: 'Table 04', status: 0 },
-    //   { code: 'Table 05', status: 0 },
-    //   { code: 'Table 06', status: 0 },
-    //   { code: 'Table 07', status: 0 },
-    //   { code: 'Table 08', status: 0 },
-    //   { code: 'Table 09', status: 0 },
-    //   { code: 'Table 10', status: 0 },
-    //   { code: 'Table 11', status: 0 },
-    //   { code: 'Table 12', status: 0 },
-    //   { code: 'Table 13', status: 0 },
-    //   { code: 'Table 14', status: 0 },
-    //   { code: 'Table 15', status: 0 },
-    //   { code: 'Table 16', status: 0 },
-    //   { code: 'Table 17', status: 0 },
-    //   { code: 'Table 18', status: 0 },
-    //   { code: 'Table 19', status: 0 },
-    //   { code: 'Table 20', status: 0 },
-    //   { code: 'Table 21', status: 0 },
-    //   { code: 'Table 22', status: 0 },
-    //   { code: 'Table 23', status: 0 },
-    //   { code: 'Table 24', status: 0 },
-    //   { code: 'Table 25', status: 0 },
-    //   { code: 'Table 26', status: 0 },
-    //   { code: 'Table 27', status: 0 },
-    //   { code: 'Table 28', status: 0 },
-    //   { code: 'Table 29', status: 0 },
-    //   { code: 'Table 30', status: 0 }
-    // ]);
   }, []);
 
   const handleClick = (label) => {
