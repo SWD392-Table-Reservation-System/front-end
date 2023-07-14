@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./tableMana.module.scss";
 import { Button } from "primereact/button";
-import Navbar from "../navbar/navbar";
+import Navbar from "../../common/navbar/navbar";
 import axios from "axios";
 
 const apiUrl = process.env.REACT_APP_API_URL;
