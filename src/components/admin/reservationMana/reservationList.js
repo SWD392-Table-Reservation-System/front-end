@@ -10,6 +10,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const ReservationList = () => {
     const [reservations, setReservations] = useState([]);
     const [selectedStatus, setSelectedStatus] = useState([]);
+    const [selectedStatusFilter, setSelectedStatusFilter] = useState([]);
     const toast = useRef(null);
 
     const [statusValues, setStatusValues] = useState([]);
@@ -99,9 +100,21 @@ const ReservationList = () => {
         updateRvtStatus(e.value, rvtId);
     };
 
+    const filterRvtStatus = (e) => {
+
+    }
+
     return (
         <div className={styles.ReservationList}>
             <Toast ref={toast} />
+            <div className='filter-container'>
+                <Dropdown
+                    value={selectedStatusFilter}
+                    options={statusValues}
+                    onChange={(e) => filterRvtStatus(e)}
+                    placeholder={statusValues[0]}
+                />
+            </div>
             <p>{reservations.length === 0 ? 'There is no reservation' : ''}</p>
             {reservations.map((reservation, index) => (
                 <Card className={styles.card} key={index} title='Detail' style={{ margin: '1rem' }}>
