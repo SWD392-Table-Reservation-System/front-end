@@ -94,7 +94,13 @@ const TableMana = () => {
           <Button
             label={code}
             onClick={() => handleClick(code)}
-            style={{ backgroundColor: [status === 1 ? '#FFF500' : (status === 2 ? '#48EF45' : '#CD672E')], color: 'black' }}
+            style={{ 
+              backgroundColor: [status === 1 ? '#FFF500' : (status === 2 ? '#48EF45' : '#CD672E')], 
+              color: 'black',
+              paddingLeft: '50px',
+              paddingRight: '50px',
+              paddingTop: '20px', 
+              paddingBottom: '20px', }}
           />
         </td>
       );

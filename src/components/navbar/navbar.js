@@ -1,47 +1,59 @@
-import React, { useState } from 'react';
-import { PanelMenu } from 'primereact/panelmenu';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
+
+import "primeicons/primeicons.css";
+
+import styles from "./navbar.module.scss";
 
 const Navbar = () => {
-    const [activeItem, setActiveItem] = useState(null);
+  return (
+    <div class="navbar">
+      <div className={styles.container}>
+        <img className={styles.logo} src={logo} alt="logo" />
 
-    const onMenuItemClick = (event) => {
-        setActiveItem(event.item);
-    };
+        <a href="/admin/table-mana" class={styles.active}>
+          <i
+            class="pi pi-table icon"
+            style={{
+              marginRight: "10px",
+            }}
+          ></i>
+          Table
+        </a>
 
-    const menuItems = [
-        {
-            label: 'Home',
-            icon: 'pi pi-home',
-            command: () => setActiveItem('Home'),
-        },
-        {
-            label: 'About',
-            icon: 'pi pi-info',
-            command: () => setActiveItem('About'),
-        },
-        {
-            label: 'Services',
-            icon: 'pi pi-cog',
-            command: () => setActiveItem('Services'),
-        },
-        {
-            label: 'Contact',
-            icon: 'pi pi-envelope',
-            command: () => setActiveItem('Contact'),
-        },
-    ];
+        <a href="/admin/reservations">
+          <i
+            class="pi pi-list icon"
+            style={{
+              marginRight: "10px",
+            }}
+          ></i>
+          Reservations
+        </a>
 
-    return (
-        <div className="navbar">
-            <div className="navbar-logo">Your Logo</div>
-            <PanelMenu
-                model={menuItems}
-                activeItem={activeItem}
-                onMenuItemClick={onMenuItemClick}
-                style={{ width: '100%' }}
-            />
-        </div>
-    );
+        <a href="#">
+          <i
+            class="pi pi-users icon"
+            style={{
+              marginRight: "10px",
+            }}
+          ></i>
+          Staff
+        </a>
+
+        <a href="#">
+          <i
+            class="pi pi-power-off icon"
+            style={{
+              marginRight: "10px",
+            }}
+          ></i>
+          Logout
+        </a>
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;

@@ -1,11 +1,23 @@
 .TableMana {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .displayTables {
-    table {
-        margin: auto;
-    }
+  table {
+    display: inline-flex;
+    padding: 10px;
+    align-items: flex-start;
+    gap: 16px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    box-shadow: 0px 4px 15px 1px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.singleTable {
+  padding: 1000px;
 }
