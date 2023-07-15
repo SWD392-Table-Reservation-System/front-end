@@ -41,7 +41,7 @@ const Navbar = () => {
         <Link to="#" className={styles.link} onClick={logOut}>
           <i className="pi pi-power-off icon" style={{ marginRight: "10px" }}></i>
           Logout
-        </Link>
+        </Link> 
       </div>
     </div>
   );
