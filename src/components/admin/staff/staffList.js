@@ -10,7 +10,7 @@ const StaffList = () => {
 
     const fetchStaffsList = () => {
         const bearerToken = localStorage.getItem('token');
-        fetch(`${apiUrl}/api/Staffs`, {
+        fetch(`${apiUrl}/api/staffs`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${bearerToken}`,
