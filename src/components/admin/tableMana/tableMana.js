@@ -151,16 +151,17 @@ const TableMana = () => {
         <table>
           <tbody>{table}</tbody>
         </table>
-      </div>
-      {tableDetail.code === "" ? "" : (
-        <div className="tableDetail" >
-          <h3>Table detail</h3>
-          <p>{tableDetail.code}</p>
-          <p>{tableDetail.status}</p>
-          <p>{tableDetail.seatQuantity}</p>
-        </div>
-      )}
 
+        {tableDetail.code === "" ? "" : (
+          <div className={`${styles.tableDetails} card`}>
+            <h3>Table detail</h3>
+            <p>{tableDetail.code}</p>
+            <p>{tableDetail.status}</p>
+            <p>{tableDetail.seatQuantity}</p>
+          </div>
+        )}
+
+      </div>
     </div>
   );
 };
