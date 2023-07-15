@@ -46,15 +46,14 @@
 }
 
 .cardContent {
-  width: 50%;
-  // margin-left: 1rem;
+  width: 100%;
+  text-align: left;
 }
 
 .cardContent p {
   margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
 }
 
-.cardDropdown {
-  width: 40%;
-}
 
