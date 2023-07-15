@@ -142,7 +142,7 @@ const ReservationList = () => {
                         <p>Note: {reservation.note}</p>
                         <p>Customer Name: {reservation.customerFullName}</p>
                         <p>Customer Email: {reservation.customerEmail}</p>
-                        <p>Reservation status: {reservation.customerPhoneNumber}</p>
+                        <p>Customer Phone number: {reservation.customerPhoneNumber}</p>
                     </div>
                     <Dropdown
                         className={styles.cardDropdown}
