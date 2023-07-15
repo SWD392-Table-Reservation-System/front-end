@@ -27,10 +27,6 @@ const ReservationList = () => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch reservations.');
                 }
-                else {
-                    console.log('hahahah');
-                    console.log(response);
-                }
                 return response.json();
             })
             .then(data => {
@@ -101,7 +97,24 @@ const ReservationList = () => {
     };
 
     const filterRvtStatus = (e) => {
-
+        const bearerToken = localStorage.getItem('token');
+        axios.get(`${apiUrl}/api/reservations/status/${e.value}`, {
+            headers: {
+                Authorization: `Bearer ${bearerToken}`,
+            }
+        })
+            .then(response => {
+                console.log(response);
+                if (response.data.success){
+                    setReservations(response.data.data);
+                }else{
+                    toast.current.show({ severity: 'error', summary: 'Error', detail: response.data.errorMessage });
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                toast.current.show({ severity: 'error', summary: 'Some error occured!', detail: 'Try again or Refresh the page' });
+            });
     }
 
     return (
