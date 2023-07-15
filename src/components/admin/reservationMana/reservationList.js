@@ -107,7 +107,7 @@ const ReservationList = () => {
     return (
         <div className={styles.ReservationList}>
             <Toast ref={toast} />
-            <div className='filter-container'>
+            <div className={styles.filterContainer}>
                 <Dropdown
                     value={selectedStatusFilter}
                     options={statusValues}
@@ -116,18 +116,22 @@ const ReservationList = () => {
                 />
             </div>
             <p>{reservations.length === 0 ? 'There is no reservation' : ''}</p>
+            <div className={styles.reservations}>
             {reservations.map((reservation, index) => (
-                <Card className={styles.card} key={index} title='Detail' style={{ margin: '1rem' }}>
-                    <p>Id: {reservation.id}</p>
-                    <p>Creation Date: {reservation.creationDate}</p>
-                    <p>Booking Date: {reservation.dateTimeBooking}</p>
-                    <p>Customer Quantity: {reservation.customerQuantity}</p>
-                    <p>Note: {reservation.note}</p>
-                    <p>Customer Name: {reservation.customerFullName}</p>
-                    <p>Customer Email: {reservation.customerEmail}</p>
-                    <p>Reservation status: {reservation.customerPhoneNumber}</p>
-
+                <Card className={styles.card} key={index} style={{ margin: '1rem' }}>
+                    <div className={styles.cardContent}>
+                        <h2 className={styles.cardTitle}>Detail</h2>
+                        <p>Id: {reservation.id}</p>
+                        <p>Creation Date: {reservation.creationDate}</p>
+                        <p>Booking Date: {reservation.dateTimeBooking}</p>
+                        <p>Customer Quantity: {reservation.customerQuantity}</p>
+                        <p>Note: {reservation.note}</p>
+                        <p>Customer Name: {reservation.customerFullName}</p>
+                        <p>Customer Email: {reservation.customerEmail}</p>
+                        <p>Reservation status: {reservation.customerPhoneNumber}</p>
+                    </div>
                     <Dropdown
+                        className={styles.cardDropdown}
                         value={selectedStatus[index]}
                         options={statusValues}
                         onChange={(e) => changeRvtStatus(e, index, reservation.id)}
@@ -135,6 +139,7 @@ const ReservationList = () => {
                     />
                 </Card>
             ))}
+            </div>
         </div>
     );
 };

@@ -1,11 +1,60 @@
 .ReservationList {
+  position: relative;
+  width: 1120px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: right;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 130px;
+  border-radius: 20px;
+  border: 1px solid #000;
+  box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.25);
+}
+
+.filterContainer {
+  position: absolute;
+  margin: 50px;
+  top: 0;
+  right: 0;
+}
+
+.reservations {
+  width: 100%;
+  margin-top: 100px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  border-radius: 20px;
-  border: 1px solid #000;
-  box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.25);
 }
+.card {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  // padding: 1rem;
+}
+
+.cardTitle {
+  width: fit-content;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.cardContent {
+  width: 50%;
+  // margin-left: 1rem;
+}
+
+.cardContent p {
+  margin-bottom: 0.25rem;
+}
+
+.cardDropdown {
+  width: 40%;
+}
+

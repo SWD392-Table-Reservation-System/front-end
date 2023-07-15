@@ -43,7 +43,7 @@ const Navbar = () => {
           Reservations
         </Link>
 
-        <Link
+        {/* <Link
           to="#"
           className={`${styles.link} ${
             location.pathname === "/admin/staff" ? styles.activeLink : ""
@@ -66,7 +66,7 @@ const Navbar = () => {
             }}
           ></i>
           Logout
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
