@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styles from "./tableMana.module.scss";
 import { Button } from "primereact/button";
 import Navbar from "../../common/navbar/navbar";
-import axios from "axios"; import { Toast } from 'primereact/toast';
+import { Toast } from 'primereact/toast';
 import axiosCustom from '../../../utils/axiosConfig'
 
 
@@ -153,7 +153,10 @@ const TableMana = () => {
         </table>
       </div>
       <div className="tableDetail" >
-
+          <h3>Table detail</h3>
+          <p>{tableDetail.code}</p>
+          <p>{tableDetail.status}</p>
+          <p>{tableDetail.seatQuantity}</p>
       </div>
     </div>
   );
