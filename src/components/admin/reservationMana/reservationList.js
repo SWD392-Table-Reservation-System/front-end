@@ -97,6 +97,7 @@ const ReservationList = () => {
     };
 
     const filterRvtStatus = (e) => {
+        setSelectedStatusFilter(e.value);
         const bearerToken = localStorage.getItem('token');
         axios.get(`${apiUrl}/api/reservations/status/${e.value}`, {
             headers: {

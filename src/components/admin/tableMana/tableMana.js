@@ -43,36 +43,41 @@ const TableMana = () => {
     // You can perform additional actions based on the clicked button label
   };
 
-  const rows = 5;
-  const columns = 6;
-
   const table = [];
 
-  for (let i = 0; i < rows; i++) {
+  for (let i = 0; i < tableData.length; i++) {
+    const entry = tableData[i];
+    const rows = Math.ceil(tableData.length / 6); // Calculate the number of rows dynamically
     const row = [];
-    for (let j = 0; j < columns; j++) {
-      const index = i * columns + j;
-      const entry = tableData[index % tableData.length];
-      const { code, status } = entry;
-      row.push(
-        <td key={index}>
-          <Button
-            label={code}
-            onClick={() => handleClick(code)}
-            style={{
-              backgroundColor: [
-                status === 1 ? "#FFF500" : status === 2 ? "#48EF45" : "#CD672E",
-              ],
-              color: "black",
-              paddingLeft: "50px",
-              paddingRight: "50px",
-              paddingTop: "20px",
-              paddingBottom: "20px",
-            }}
-          />
-        </td>
-      );
+
+    for (let j = 0; j < 6; j++) { // Limit the number of columns to 6
+      const index = i * 6 + j;
+      if (index < tableData.length) {
+        const entry = tableData[index];
+        const { code, status } = entry;
+        row.push(
+          <td key={index}>
+            <Button
+              label={code}
+              onClick={() => handleClick(code)}
+              style={{
+                backgroundColor: [
+                  status === 1 ? "#FFF500" : status === 2 ? "#48EF45" : "#CD672E",
+                ],
+                color: "black",
+                paddingLeft: "50px",
+                paddingRight: "50px",
+                paddingTop: "20px",
+                paddingBottom: "20px",
+              }}
+            />
+          </td>
+        );
+      } else {
+        row.push(<td key={index}></td>); // Add an empty cell if there is no data for the current index
+      }
     }
+
     table.push(<tr key={i}>{row}</tr>);
   }
 
@@ -82,37 +87,15 @@ const TableMana = () => {
         <h1>Table Management</h1>
 
         <span className={styles.annotate}>
-          <div
-            style={{
-              width: 17,
-              height: 17,
-              background: "#CD672E",
-              borderRadius: 9999,
-            }}
-          />
+          <div style={{ width: 17, height: 17, background: "#CD672E", borderRadius: 9999 }} />
           <label>Empty</label>
-          <div
-            style={{
-              width: 17,
-              height: 17,
-              background: "#48EF45",
-              borderRadius: 9999,
-            }}
-          />
+          <div style={{ width: 17, height: 17, background: "#48EF45", borderRadius: 9999 }} />
           <label>Booking</label>
-          <div
-            style={{
-              width: 17,
-              height: 17,
-              background: "#FFF500",
-              borderRadius: 9999,
-            }}
-          />
+          <div style={{ width: 17, height: 17, background: "#FFF500", borderRadius: 9999 }} />
           <label>Blocked</label>
         </span>
 
         <span className={styles.time}>
-
           <div className={styles.date}>
             <div className={styles.customContainer}>
               <div className={styles.customItem}>

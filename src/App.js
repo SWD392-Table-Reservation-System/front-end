@@ -13,6 +13,7 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import Header from "./components/common/header/header";
 import Navbar from "./components/common/navbar/navbar";
 import FindSuitableTables from "./components/makeOrder/findSuitableTables";
+import StaffList from "./components/admin/staff/staffList";
 
 function App() {
   return (
@@ -26,19 +27,26 @@ function App() {
           <Route path="/order/success" element={<Success />} />
 
           <Route path="/admin" element={<Login />} />
-          <Route path="/admin/reservations" element={
-            <ProtectedRoute>
-              <Navbar></Navbar>
-              <ReservationList />
-            </ProtectedRoute>
-          } />
-
           <Route path="/admin/table-mana" element={
             <ProtectedRoute>
               <Navbar className='navbar'></Navbar>
               <TableMana />
             </ProtectedRoute>
           } />
+          <Route path="/admin/reservations" element={
+            <ProtectedRoute>
+              <Navbar></Navbar>
+              <ReservationList />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/staff-list" element={
+            <ProtectedRoute>
+              <Navbar className='navbar'></Navbar>
+              <StaffList/>
+            </ProtectedRoute>
+          } />
+
+
         </Routes>
       </BrowserRouter>
     </div>
