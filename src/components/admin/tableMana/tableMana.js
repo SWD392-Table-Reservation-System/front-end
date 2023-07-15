@@ -12,7 +12,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const TableMana = () => {
   const toast = useRef(null);
   const [tableData, setTableData] = useState([{ code: "Table 01", status: 0 }]);
-  const [tableDetail, setTableDetail] = useState(null);
+  const [tableDetail, setTableDetail] = useState({ code: "", status: "", seatQuantity: "" });
 
   const getTables = () => {
     const bearerToken = localStorage.getItem("token");
@@ -53,7 +53,7 @@ const TableMana = () => {
         console.log(response);
         if (response.data.success) {
           console.log(response.data.data);
-           setTableDetail(response.data.data);
+          setTableDetail(response.data.data);
         }
       })
       .catch(err => {
@@ -152,12 +152,15 @@ const TableMana = () => {
           <tbody>{table}</tbody>
         </table>
       </div>
-      <div className="tableDetail" >
+      {tableDetail.code === "" ? "" : (
+        <div className="tableDetail" >
           <h3>Table detail</h3>
           <p>{tableDetail.code}</p>
           <p>{tableDetail.status}</p>
           <p>{tableDetail.seatQuantity}</p>
-      </div>
+        </div>
+      )}
+
     </div>
   );
 };
