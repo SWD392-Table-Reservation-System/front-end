@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./tableMana.module.scss";
 import { Button } from "primereact/button";
 import Navbar from "../../common/navbar/navbar";
-import axios from "axios";
+import axios from "axios"; import { Toast } from 'primereact/toast';
+import axiosCustom from '../../../utils/axiosConfig'
+
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const TableMana = () => {
+  const toast = useRef(null);
   const [tableData, setTableData] = useState([{ code: "Table 01", status: 0 }]);
+  const [tableDetail, setTableDetail] = useState(null);
 
   const getTables = () => {
     const bearerToken = localStorage.getItem("token");
-    axios
+    axiosCustom
       .get(`${apiUrl}/api/Tables`, {
         headers: {
           Authorization: `Bearer ${bearerToken}`,
@@ -38,28 +42,46 @@ const TableMana = () => {
     getTables();
   }, []);
 
-  const handleClick = (label) => {
+  const getTableById = (id) => {
+    const bearerToken = localStorage.getItem('token');
+    axiosCustom.get(`${apiUrl}/api/Tables/${id}`, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      }
+    })
+      .then(response => {
+        console.log(response);
+        if (response.data.success) {
+          console.log(response.data.data);
+           setTableDetail(response.data.data);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        toast.current.show({ severity: 'error', summary: 'Error', detail: '' });
+      });
+  }
+
+  const handleClick = (id, label) => {
     console.log(`Button ${label} was clicked.`);
-    // You can perform additional actions based on the clicked button label
+    getTableById(id);
   };
 
   const table = [];
 
   for (let i = 0; i < tableData.length; i++) {
-    const entry = tableData[i];
-    const rows = Math.ceil(tableData.length / 6); // Calculate the number of rows dynamically
     const row = [];
 
     for (let j = 0; j < 6; j++) { // Limit the number of columns to 6
       const index = i * 6 + j;
       if (index < tableData.length) {
         const entry = tableData[index];
-        const { code, status } = entry;
+        const { id, status, code } = entry;
         row.push(
           <td key={index}>
             <Button
               label={code}
-              onClick={() => handleClick(code)}
+              onClick={() => handleClick(id, code)}
               style={{
                 backgroundColor: [
                   status === 1 ? "#FFF500" : status === 2 ? "#48EF45" : "#CD672E",
@@ -83,6 +105,7 @@ const TableMana = () => {
 
   return (
     <div className={styles.TableMana}>
+      <Toast ref={toast} />
       <div className={styles.displayTables}>
         <h1>Table Management</h1>
 
@@ -128,6 +151,9 @@ const TableMana = () => {
         <table>
           <tbody>{table}</tbody>
         </table>
+      </div>
+      <div className="tableDetail" >
+
       </div>
     </div>
   );
