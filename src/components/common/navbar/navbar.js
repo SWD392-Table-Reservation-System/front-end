@@ -32,7 +32,7 @@ const Navbar = () => {
         </Link>
 
         <Link
-          to="#"
+          to="/admin/staff-list"
           className={`${styles.link} ${location.pathname === "/admin/staff" ? styles.activeLink : ""}`}>
           <i className="pi pi-users icon" style={{ marginRight: "10px" }}></i>
           Staff
