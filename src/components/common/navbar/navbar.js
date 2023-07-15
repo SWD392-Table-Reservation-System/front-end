@@ -10,7 +10,6 @@ const Navbar = () => {
 
   const logOut = () => {
     localStorage.removeItem('token');
-
   }
 
   return (
@@ -39,13 +38,8 @@ const Navbar = () => {
           Staff
         </Link>
 
-        <Link to="#" className={styles.link} onClick={logOut()}>
-          <i
-            className="pi pi-power-off icon"
-            style={{
-              marginRight: "10px",
-            }}
-          ></i>
+        <Link to="#" className={styles.link} onClick={logOut}>
+          <i className="pi pi-power-off icon" style={{ marginRight: "10px" }}></i>
           Logout
         </Link>
       </div>
