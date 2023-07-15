@@ -5,14 +5,18 @@ import { Button } from "primereact/button";
 import Navbar from "../../common/navbar/navbar";
 import { Toast } from 'primereact/toast';
 import axiosCustom from '../../../utils/axiosConfig'
-
+import { Dialog } from "primereact/dialog";
+import { InputText } from "primereact/inputtext";
+import axios from "axios";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const TableMana = () => {
   const toast = useRef(null);
   const [tableData, setTableData] = useState([{ code: "Table 01", status: 0 }]);
-  const [tableDetail, setTableDetail] = useState({ code: "", status: "", seatQuantity: "" });
+  const [tableDetail, setTableDetail] = useState({ id: "", code: "", status: "", seatQuantity: "" });
+  const [showDialog, setShowDialog] = useState(false);
+  const [formValues, setFormValues] = useState({ code: "", status: "", seatQuantity: "" });
 
   const getTables = () => {
     const bearerToken = localStorage.getItem("token");
@@ -54,6 +58,11 @@ const TableMana = () => {
         if (response.data.success) {
           console.log(response.data.data);
           setTableDetail(response.data.data);
+          setFormValues({
+            code: response.data.data.code,
+            seatQuantity: response.data.data.seatQuantity,
+            status: response.data.data.status
+          })
         }
       })
       .catch(err => {
@@ -69,6 +78,7 @@ const TableMana = () => {
 
   const table = [];
 
+  // Calculate column
   for (let i = 0; i < tableData.length; i++) {
     const row = [];
 
@@ -84,7 +94,7 @@ const TableMana = () => {
               onClick={() => handleClick(id, code)}
               style={{
                 backgroundColor: [
-                  status === 1 ? "#FFF500" : status === 2 ? "#48EF45" : "#CD672E",
+                  status === 1 ? "#d8d8d8" : status === 2 ? "#48EF45" : "#CD672E",
                 ],
                 color: "black",
                 paddingLeft: "50px",
@@ -103,6 +113,46 @@ const TableMana = () => {
     table.push(<tr key={i}>{row}</tr>);
   }
 
+  const handleEditButtonClick = () => {
+    setShowDialog(true);
+  };
+
+  const handleDialogHide = () => {
+    setShowDialog(false);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // Perform any necessary form validation
+
+    // Access the form input values from the formValues state variable
+    const { code, status, seatQuantity } = formValues;
+
+    const bearerToken = localStorage.getItem('token');
+    axios.put(`${apiUrl}/api/Tables/${tableDetail.id}`, formValues, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      }
+    })
+      .then(response => {
+        console.log(response);
+        if (response.status === 204) {
+          toast.current.show({ severity: 'success', summary: 'Update successfully', detail: '' });
+          getTableById(tableDetail.id)
+        } else {
+          toast.current.show({ severity: 'error', summary: 'Error', detail: response.data.errorMessage });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        toast.current.show({ severity: 'error', summary: 'Some error occured!', detail: 'Try again or Refresh the page' });
+      });
+
+
+    // Close the dialog
+    setShowDialog(false);
+  };
+
   return (
     <div className={styles.TableMana}>
       <Toast ref={toast} />
@@ -111,41 +161,9 @@ const TableMana = () => {
 
         <span className={styles.annotate}>
           <div style={{ width: 17, height: 17, background: "#CD672E", borderRadius: 9999 }} />
-          <label>Empty</label>
-          <div style={{ width: 17, height: 17, background: "#48EF45", borderRadius: 9999 }} />
-          <label>Booking</label>
-          <div style={{ width: 17, height: 17, background: "#FFF500", borderRadius: 9999 }} />
-          <label>Blocked</label>
-        </span>
-
-        <span className={styles.time}>
-          <div className={styles.date}>
-            <div className={styles.customContainer}>
-              <div className={styles.customItem}>
-                <span>DD</span>
-              </div>
-              <div className={styles.customItem}>
-                <span>MM</span>
-              </div>
-              <div className={styles.customItem}>
-                <span>YY</span>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div className={styles.customContainer}>
-              <div className={styles.customItem}>
-                <span>HH</span>
-              </div>
-              <div className={styles.customItem}>
-                <span>MM</span>
-              </div>
-              <div className={styles.customItem}>
-                <span>AM</span>
-              </div>
-            </div>
-          </div>
+          <label>Active</label>
+          <div style={{ width: 17, height: 17, background: "#d8d8d8", borderRadius: 9999 }} />
+          <label>In-active</label>
         </span>
 
         <table>
@@ -153,14 +171,49 @@ const TableMana = () => {
         </table>
       </div>
       {tableDetail.code === "" ? "" : (
-        <div className="tableDetail" >
+        <div className="tableDetail" style={{ background: 'green' }}>
           <h3>Table detail</h3>
           <p>{tableDetail.code}</p>
           <p>{tableDetail.status}</p>
           <p>{tableDetail.seatQuantity}</p>
+          <Button id="removeTableBtn" icon="pi pi-trash"></Button>
+          <Button id="editTableBtn" icon="pi pi-pencil" onClick={handleEditButtonClick}></Button>
         </div>
       )}
+      <div className="newTableBtn">
+        <Button id="newTableBtn" icon="pi pi-plus"></Button>
+      </div>
 
+      <Dialog visible={showDialog} onHide={handleDialogHide}>
+        <h2>Edit Table</h2>
+        <form onSubmit={handleFormSubmit}>
+          <div className="p-field">
+            <label htmlFor="code">Code</label>
+            <InputText
+              id="code"
+              value={formValues.code}
+              onChange={(e) => setFormValues({ ...formValues, code: e.target.value })}
+            />
+          </div>
+          <div className="p-field">
+            <label htmlFor="status">Status</label>
+            <InputText
+              id="status"
+              value={formValues.status}
+              onChange={(e) => setFormValues({ ...formValues, status: e.target.value })}
+            />
+          </div>
+          <div className="p-field">
+            <label htmlFor="seatQuantity">Seat Quantity</label>
+            <InputText
+              id="seatQuantity"
+              value={formValues.seatQuantity}
+              onChange={(e) => setFormValues({ ...formValues, seatQuantity: e.target.value })}
+            />
+          </div>
+          <Button type="submit" label="Submit" />
+        </form>
+      </Dialog>
     </div>
   );
 };
