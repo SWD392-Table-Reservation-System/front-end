@@ -8,6 +8,11 @@ import styles from "./navbar.module.scss";
 const Navbar = () => {
   const location = useLocation();
 
+  const logOut = () => {
+    localStorage.removeItem('token');
+
+  }
+
   return (
     <div className="navbar">
       <div className={styles.container}>
@@ -15,50 +20,26 @@ const Navbar = () => {
 
         <Link
           to="/admin/table-mana"
-          className={`${styles.link} ${
-            location.pathname === "/admin/table-mana" ? styles.activeLink : ""
-          }`}
-        >
-          <i
-            className="pi pi-table icon"
-            style={{
-              marginRight: "10px",
-            }}
-          ></i>
+          className={`${styles.link} ${location.pathname === "/admin/table-mana" ? styles.activeLink : ""}`}>
+          <i className="pi pi-table icon" style={{ marginRight: "10px" }}></i>
           Table
         </Link>
 
         <Link
           to="/admin/reservations"
-          className={`${styles.link} ${
-            location.pathname === "/admin/reservations" ? styles.activeLink : ""
-          }`}
-        >
-          <i
-            className="pi pi-list icon"
-            style={{
-              marginRight: "10px",
-            }}
-          ></i>
+          className={`${styles.link} ${location.pathname === "/admin/reservations" ? styles.activeLink : ""}`}>
+          <i className="pi pi-list icon" style={{ marginRight: "10px" }}></i>
           Reservations
         </Link>
 
         <Link
           to="#"
-          className={`${styles.link} ${
-            location.pathname === "/admin/staff" ? styles.activeLink : ""
-          }`}
-        >
-          <i
-            className="pi pi-users icon"
-            style={{
-              marginRight: "10px",
-            }}
-          ></i>
+          className={`${styles.link} ${location.pathname === "/admin/staff" ? styles.activeLink : ""}`}>
+          <i className="pi pi-users icon" style={{ marginRight: "10px" }}></i>
           Staff
         </Link>
 
-        <Link to="#" className={styles.link}>
+        <Link to="#" className={styles.link} onClick={logOut()}>
           <i
             className="pi pi-power-off icon"
             style={{
