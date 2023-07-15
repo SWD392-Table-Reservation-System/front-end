@@ -6,12 +6,12 @@ import Login from './components/login/login';
 //import pages
 import MakeOrder from "./components/makeOrder/makeOrder";
 import Success from "./components/makeOrder/successOrder";
-import ReservationList from "./components/tableMana/reservationList";
-import TableMana from "./components/tableMana/tableMana";
+import ReservationList from "./components/admin/reservationMana/reservationList";
+import TableMana from "./components/admin/tableMana/tableMana";
 import Onboard from "./components/onboard/onboard"
 import ProtectedRoute from "./utils/ProtectedRoute";
-import Header from "./components/header/header";
-import Navbar from "./components/navbar/navbar";
+import Header from "./components/common/header/header";
+import Navbar from "./components/common/navbar/navbar";
 import FindSuitableTables from "./components/makeOrder/findSuitableTables";
 
 function App() {
