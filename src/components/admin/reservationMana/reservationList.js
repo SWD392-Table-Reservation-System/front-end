@@ -3,7 +3,7 @@ import styles from './reservationList.module.scss';
 import { Card } from 'primereact/card';
 import { Dropdown } from 'primereact/dropdown';
 import { Toast } from 'primereact/toast';
-import axios from 'axios';
+import axiosCustom from '../../../utils/axiosConfig';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -74,7 +74,7 @@ const ReservationList = () => {
         let body = {
             status: status
         };
-        axios.put(`${apiUrl}/api/Reservations/update-status/${id}`, body, {
+        axiosCustom.put(`${apiUrl}/api/Reservations/update-status/${id}`, body, {
             headers: {
                 Authorization: `Bearer ${bearerToken}`,
             }
@@ -99,7 +99,7 @@ const ReservationList = () => {
     const filterRvtStatus = (e) => {
         setSelectedStatusFilter(e.value);
         const bearerToken = localStorage.getItem('token');
-        axios.get(`${apiUrl}/api/reservations/status/${e.value}`, {
+        axiosCustom.get(`${apiUrl}/api/reservations/status/${e.value}`, {
             headers: {
                 Authorization: `Bearer ${bearerToken}`,
             }
