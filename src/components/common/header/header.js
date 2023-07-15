@@ -1,26 +1,7 @@
-import React, { useRef } from 'react';
-import { Menubar } from 'primereact/menubar';
+import React from 'react';
 import { Link } from "react-router-dom";
 
 const Header = () => {
-    const items = [
-        {
-            label: 'Home',
-            icon: 'pi pi-fw pi-home',
-            url: '/'
-        },
-        {
-            label: 'About',
-            icon: 'pi pi-fw pi-info',
-            url: '/about'
-        },
-        {
-            label: 'Contact',
-            icon: 'pi pi-fw pi-envelope',
-            url: '/contact'
-        }
-    ];
-
     // let logined;
     // useRef(() => {
     //     if (localStorage.getItem('token')) {
@@ -36,7 +17,6 @@ const Header = () => {
 
     return (
         <div>
-            {/* <Menubar model={items} /> */}
             <nav>
                 <ul>
                     <li>

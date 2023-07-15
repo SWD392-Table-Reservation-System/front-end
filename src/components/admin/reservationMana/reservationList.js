@@ -3,7 +3,7 @@ import styles from './reservationList.module.scss';
 import { Card } from 'primereact/card';
 import { Dropdown } from 'primereact/dropdown';
 import { Toast } from 'primereact/toast';
-import axios from 'axios';
+import axiosCustom from '../../../utils/axiosConfig';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -26,10 +26,6 @@ const ReservationList = () => {
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch reservations.');
-                }
-                else {
-                    console.log('hahahah');
-                    console.log(response);
                 }
                 return response.json();
             })
@@ -78,7 +74,7 @@ const ReservationList = () => {
         let body = {
             status: status
         };
-        axios.put(`${apiUrl}/api/Reservations/update-status/${id}`, body, {
+        axiosCustom.put(`${apiUrl}/api/Reservations/update-status/${id}`, body, {
             headers: {
                 Authorization: `Bearer ${bearerToken}`,
             }
@@ -101,7 +97,25 @@ const ReservationList = () => {
     };
 
     const filterRvtStatus = (e) => {
-
+        setSelectedStatusFilter(e.value);
+        const bearerToken = localStorage.getItem('token');
+        axiosCustom.get(`${apiUrl}/api/reservations/status/${e.value}`, {
+            headers: {
+                Authorization: `Bearer ${bearerToken}`,
+            }
+        })
+            .then(response => {
+                console.log(response);
+                if (response.data.success){
+                    setReservations(response.data.data);
+                }else{
+                    toast.current.show({ severity: 'error', summary: 'Error', detail: response.data.errorMessage });
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                toast.current.show({ severity: 'error', summary: 'Some error occured!', detail: 'Try again or Refresh the page' });
+            });
     }
 
     return (
