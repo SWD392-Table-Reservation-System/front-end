@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./tableMana.module.scss";
 import { Button } from "primereact/button";
+import { Dialog } from "primereact/dialog"; // Import Dialog component
 import Navbar from "../../common/navbar/navbar";
 import { Toast } from 'primereact/toast';
 import axiosCustom from '../../../utils/axiosConfig'
@@ -48,13 +49,14 @@ const TableMana = () => {
   }, []);
 
   const getTableById = (id) => {
-    const bearerToken = localStorage.getItem('token');
-    axiosCustom.get(`${apiUrl}/api/Tables/${id}`, {
-      headers: {
-        Authorization: `Bearer ${bearerToken}`,
-      }
-    })
-      .then(response => {
+    const bearerToken = localStorage.getItem("token");
+    axiosCustom
+      .get(`${apiUrl}/api/Tables/${id}`, {
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+      })
+      .then((response) => {
         console.log(response);
         if (response.data.success) {
           console.log(response.data.data);
@@ -66,11 +68,11 @@ const TableMana = () => {
           })
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
-        toast.current.show({ severity: 'error', summary: 'Error', detail: '' });
+        toast.current.show({ severity: "error", summary: "Error", detail: "" });
       });
-  }
+  };
 
   const handleClick = (id, label) => {
     console.log(`Button ${label} was clicked.`);
@@ -83,7 +85,8 @@ const TableMana = () => {
   for (let i = 0; i < tableData.length; i++) {
     const row = [];
 
-    for (let j = 0; j < 6; j++) { // Limit the number of columns to 6
+    for (let j = 0; j < 6; j++) {
+      // Limit the number of columns to 6
       const index = i * 6 + j;
       if (index < tableData.length) {
         const entry = tableData[index];
@@ -107,7 +110,7 @@ const TableMana = () => {
           </td>
         );
       } else {
-        row.push(<td key={index}></td>); // Add an empty cell if there is no data for the current index
+        row.push(<td key={index}></td>);
       }
     }
 

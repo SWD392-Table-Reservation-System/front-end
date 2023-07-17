@@ -20,6 +20,7 @@ const FindSuitableTables = () => {
   const [selectedDate, setSelectedDate] = useState(new Date(date));
   const [dateTimeBooking, setDateTimeBooking] = useState("");
   const [availableTables, setAvailableTables] = useState([]);
+  const [dateTimeAvailable, setDateTimeAvailable] = useState([]);
   const toast = useRef(null);
   const [timeArray, setTimeArray] = useState([]);
   const customerQuantity = number1 + number2;
@@ -87,6 +88,7 @@ const FindSuitableTables = () => {
     const formattedDate = selectedDate.toISOString().split("T")[0]; // Format the date as desired
     const formattedTime = time.replace(/[^\d:]/g, "");
     setDateTimeBooking(`${formattedDate}T${formattedTime}`);
+    setDateTimeAvailable(`${formattedDate} at ${formattedTime}`);
 
     console.log(formattedDate); // "2020-12-31"
     console.log(dateTimeBooking);
@@ -260,21 +262,21 @@ const FindSuitableTables = () => {
               Find
             </Button>
           </form>
-        </div>
-      </div>
-      <div className="availableTables" style={{ display: availableTables.length === 0 ? "none" : "block" }}>
-        <h3>Available tables: </h3>
-        {availableTables.map((table) => (
-          <div id={table.id}>
-            <p>Code: {table.code}</p>
-            <p>Seat Quantity: {table.seatQuantity}</p>
+          <div className={styles.availableTables} style={{ display: availableTables.length === 0 ? "none" : "block" }}>
+            <h3 style={{ color: "blue", marginBottom: "10px" }}>Available Tables:</h3>
+            {availableTables.map((table) => (
+              <div id={table.id} className={styles.tableCard}>
+                <p><strong>Date & Time: </strong>{dateTimeAvailable}</p>
+                <p><strong>Code:</strong> {table.code}</p>
+                <p><strong>Seat Quantity:</strong> {table.seatQuantity}</p>
+              </div>
+            ))}
+            <Button style={{ marginTop: "10px", background: "green", color: "white", fontWeight: "bold" }} onClick={goToMakeOrder}>
+              Next
+            </Button>
           </div>
-        ))}
 
-        <Button style={{ marginTop: "10px" }} onClick={goToMakeOrder}>
-          Next
-        </Button>
-
+        </div>
       </div>
     </div>
   );
