@@ -6,7 +6,6 @@ import { Dialog } from "primereact/dialog"; // Import Dialog component
 import Navbar from "../../common/navbar/navbar";
 import { Toast } from 'primereact/toast';
 import axiosCustom from '../../../utils/axiosConfig'
-import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import axios from "axios";
 import { RadioButton } from 'primereact/radiobutton';
