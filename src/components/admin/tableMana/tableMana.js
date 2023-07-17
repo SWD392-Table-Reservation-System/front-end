@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./tableMana.module.scss";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog"; // Import Dialog component
-import Navbar from "../../common/navbar/navbar";
+import { Dialog } from "primereact/dialog";
 import { Toast } from 'primereact/toast';
 import axiosCustom from '../../../utils/axiosConfig'
 import { InputText } from "primereact/inputtext";
 import axios from "axios";
 import { RadioButton } from 'primereact/radiobutton';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -18,6 +18,7 @@ const TableMana = () => {
   const [tableDetail, setTableDetail] = useState({ id: "", code: "", status: "", seatQuantity: "" });
   const [showDialog, setShowDialog] = useState(false);
   const [showNewDialog, setShowNewDialog] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [formValues, setFormValues] = useState({ code: "", status: "", seatQuantity: "" });
 
   //Get tables data
@@ -132,7 +133,7 @@ const TableMana = () => {
     setShowNewDialog(false);
   };
 
-  //Handle form submit for Edit table
+  //Handle form submit for Edit a table
   const handleFormSubmit = (e) => {
     e.preventDefault();
     // Perform any necessary form validation
@@ -165,7 +166,7 @@ const TableMana = () => {
     setShowDialog(false);
   };
 
-  //Handle form submit for Add table
+  //Handle form submit for Add a table
   const handleFormNewSubmit = (e) => {
     e.preventDefault();
     // Perform any necessary form validation
@@ -198,6 +199,40 @@ const TableMana = () => {
     setShowNewDialog(false);
   }
 
+  //Handle function for Delete a table
+const deleteTable = () => {
+  const bearerToken = localStorage.getItem('token');
+  axios.delete(`${apiUrl}/api/Tables/${tableDetail.id}`, {
+    headers: {
+      Authorization: `Bearer ${bearerToken}`,
+    }
+  })
+    .then(response => {
+      console.log(response);
+      if (response.status === 204) {
+        toast.current.show({ severity: 'success', summary: 'Delete successfully', detail: '' });
+        // Perform any additional actions after successful deletion
+        getTables();
+      } else {
+        toast.current.show({ severity: 'error', summary: 'Error', detail: response.data.errorMessage });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      toast.current.show({ severity: 'error', summary: 'Some error occurred!', detail: 'Try again or Refresh the page' });
+    });
+}
+  const confirmDelete = () => {
+    confirmDialog({
+        message: 'Are you sure you want to proceed?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => deleteTable(),
+        reject: () => {}
+    });
+}
+
+
   return (
     <div className={styles.TableMana}>
       <Toast ref={toast} />
@@ -221,7 +256,7 @@ const TableMana = () => {
           <p>{tableDetail.code}</p>
           <p>{tableDetail.status}</p>
           <p>{tableDetail.seatQuantity}</p>
-          <Button id="removeTableBtn" icon="pi pi-trash"></Button>
+          <Button id="removeTableBtn" icon="pi pi-trash" onClick={confirmDelete}></Button>
           <Button id="editTableBtn" icon="pi pi-pencil" onClick={handleEditButtonClick}></Button>
         </div>
       )}
@@ -291,6 +326,9 @@ const TableMana = () => {
           <Button type="submit" label="Submit" />
         </form>
       </Dialog>
+
+      {/* Delete table dialog */}
+      <ConfirmDialog/>
     </div>
   );
 };
