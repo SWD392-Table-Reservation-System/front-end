@@ -18,7 +18,6 @@ const TableMana = () => {
   const [tableDetail, setTableDetail] = useState({ id: "", code: "", status: "", seatQuantity: "" });
   const [showDialog, setShowDialog] = useState(false);
   const [showNewDialog, setShowNewDialog] = useState(false);
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [formValues, setFormValues] = useState({ code: "", status: "", seatQuantity: "" });
 
   //Get tables data
