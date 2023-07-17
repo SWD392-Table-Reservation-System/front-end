@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { useLocation } from "react-router-dom";
 import "../makeOrder/makeOrder.scss"
+import image from "../../assets/orderPageImg.png"
 
 const MakeOrder = () => {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ const MakeOrder = () => {
       <Toast ref={toast} />
       <div className={styles.container}>
         <div className={styles.thumbnail}>
-          <img className={styles.img} src="orderPageImg.png" alt="" />
+          <img className={styles.img} src={image} alt="" />
           <h1 className={styles["res-name"]}>RESTAURANT NAME</h1>
           <p className={styles["res-address"]}>Restaurant address</p>
         </div>
