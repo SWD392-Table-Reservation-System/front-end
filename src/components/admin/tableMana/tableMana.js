@@ -8,6 +8,7 @@ import axiosCustom from '../../../utils/axiosConfig'
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import axios from "axios";
+import { RadioButton } from 'primereact/radiobutton';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -16,8 +17,8 @@ const TableMana = () => {
   const [tableData, setTableData] = useState([{ code: "Table 01", status: 0 }]);
   const [tableDetail, setTableDetail] = useState({ id: "", code: "", status: "", seatQuantity: "" });
   const [showDialog, setShowDialog] = useState(false);
+  const [showNewDialog, setShowNewDialog] = useState(false);
   const [formValues, setFormValues] = useState({ code: "", status: "", seatQuantity: "" });
-
   const getTables = () => {
     const bearerToken = localStorage.getItem("token");
     axiosCustom
@@ -117,6 +118,10 @@ const TableMana = () => {
     setShowDialog(true);
   };
 
+  const handleAddButtonClick = () => {
+    setShowNewDialog(true);
+  };
+
   const handleDialogHide = () => {
     setShowDialog(false);
   };
@@ -181,32 +186,83 @@ const TableMana = () => {
         </div>
       )}
       <div className="newTableBtn">
-        <Button id="newTableBtn" icon="pi pi-plus"></Button>
+        <Button id="newTableBtn" icon="pi pi-plus" onClick={handleAddButtonClick}></Button>
       </div>
 
       <Dialog visible={showDialog} onHide={handleDialogHide}>
-        <h2>Edit Table</h2>
         <form onSubmit={handleFormSubmit}>
           <div className="p-field">
             <label htmlFor="code">Code</label>
-            <InputText
-              id="code"
+            <InputText id="code"
               value={formValues.code}
               onChange={(e) => setFormValues({ ...formValues, code: e.target.value })}
             />
           </div>
           <div className="p-field">
-            <label htmlFor="status">Status</label>
-            <InputText
-              id="status"
-              value={formValues.status}
-              onChange={(e) => setFormValues({ ...formValues, status: e.target.value })}
-            />
+            <label>Status</label>
+            <div>
+              <label htmlFor="active" className="p-mr-2">
+                <RadioButton id="active" name="status"
+                  value="Active"
+                  onChange={(e) => setFormValues({ ...formValues, status: e.value })}
+                  checked={formValues.status === 'Active'}
+                />
+                <span className="p-ml-1">Active</span>
+              </label>
+              <label htmlFor="inactive" className="p-ml-4 p-mr-2">
+                <RadioButton id="inactive" name="status"
+                  value="Inactive"
+                  onChange={(e) => setFormValues({ ...formValues, status: e.value })}
+                  checked={formValues.status === 'Inactive'}
+                />
+                <span className="p-ml-1">Inactive</span>
+              </label>
+            </div>
           </div>
           <div className="p-field">
             <label htmlFor="seatQuantity">Seat Quantity</label>
-            <InputText
-              id="seatQuantity"
+            <InputText id="seatQuantity"
+              value={formValues.seatQuantity}
+              onChange={(e) => setFormValues({ ...formValues, seatQuantity: e.target.value })}
+            />
+          </div>
+          <Button type="submit" label="Submit" />
+        </form>
+      </Dialog>
+
+      <Dialog visible={showDialog} onHide={handleDialogHide}>
+        <form onSubmit={handleFormSubmit}>
+          <div className="p-field">
+            <label htmlFor="code">Code</label>
+            <InputText id="code"
+              value={formValues.code}
+              onChange={(e) => setFormValues({ ...formValues, code: e.target.value })}
+            />
+          </div>
+          <div className="p-field">
+            <label>Status</label>
+            <div>
+              <label htmlFor="active" className="p-mr-2">
+                <RadioButton id="active" name="status"
+                  value="Active"
+                  onChange={(e) => setFormValues({ ...formValues, status: e.value })}
+                  checked={formValues.status === 'Active'}
+                />
+                <span className="p-ml-1">Active</span>
+              </label>
+              <label htmlFor="inactive" className="p-ml-4 p-mr-2">
+                <RadioButton id="inactive" name="status"
+                  value="Inactive"
+                  onChange={(e) => setFormValues({ ...formValues, status: e.value })}
+                  checked={formValues.status === 'Inactive'}
+                />
+                <span className="p-ml-1">Inactive</span>
+              </label>
+            </div>
+          </div>
+          <div className="p-field">
+            <label htmlFor="seatQuantity">Seat Quantity</label>
+            <InputText id="seatQuantity"
               value={formValues.seatQuantity}
               onChange={(e) => setFormValues({ ...formValues, seatQuantity: e.target.value })}
             />
