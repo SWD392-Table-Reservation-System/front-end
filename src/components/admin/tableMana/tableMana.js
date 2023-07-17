@@ -19,6 +19,8 @@ const TableMana = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [showNewDialog, setShowNewDialog] = useState(false);
   const [formValues, setFormValues] = useState({ code: "", status: "", seatQuantity: "" });
+
+  //Get tables data
   const getTables = () => {
     const bearerToken = localStorage.getItem("token");
     axiosCustom
@@ -47,6 +49,7 @@ const TableMana = () => {
     getTables();
   }, []);
 
+  //Get a table detail
   const getTableById = (id) => {
     const bearerToken = localStorage.getItem("token");
     axiosCustom
@@ -126,8 +129,10 @@ const TableMana = () => {
 
   const handleDialogHide = () => {
     setShowDialog(false);
+    setShowNewDialog(false);
   };
 
+  //Handle form submit for Edit table
   const handleFormSubmit = (e) => {
     e.preventDefault();
     // Perform any necessary form validation
@@ -160,6 +165,39 @@ const TableMana = () => {
     setShowDialog(false);
   };
 
+  //Handle form submit for Add table
+  const handleFormNewSubmit = (e) => {
+    e.preventDefault();
+    // Perform any necessary form validation
+
+    // Access the form input values from the formValues state variable
+    const { code, seatQuantity } = formValues;
+
+    const bearerToken = localStorage.getItem('token');
+    axios.post(`${apiUrl}/api/Tables`, formValues, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      }
+    })
+      .then(response => {
+        console.log(response);
+        if (response.status === 201) {
+          toast.current.show({ severity: 'success', summary: 'Add successfully', detail: '' });
+          getTables();
+        } else {
+          toast.current.show({ severity: 'error', summary: 'Error', detail: response.data.errorMessage });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        toast.current.show({ severity: 'error', summary: 'Some error occured!', detail: 'Try again or Refresh the page' });
+      });
+
+
+    // Close the dialog
+    setShowNewDialog(false);
+  }
+
   return (
     <div className={styles.TableMana}>
       <Toast ref={toast} />
@@ -191,6 +229,7 @@ const TableMana = () => {
         <Button id="newTableBtn" icon="pi pi-plus" onClick={handleAddButtonClick}></Button>
       </div>
 
+      {/* Edit table dialog */}
       <Dialog visible={showDialog} onHide={handleDialogHide}>
         <form onSubmit={handleFormSubmit}>
           <div className="p-field">
@@ -232,35 +271,15 @@ const TableMana = () => {
         </form>
       </Dialog>
 
-      <Dialog visible={showDialog} onHide={handleDialogHide}>
-        <form onSubmit={handleFormSubmit}>
+      {/* Add table dialog */}
+      <Dialog visible={showNewDialog} onHide={handleDialogHide}>
+        <form onSubmit={handleFormNewSubmit}>
           <div className="p-field">
             <label htmlFor="code">Code</label>
             <InputText id="code"
               value={formValues.code}
               onChange={(e) => setFormValues({ ...formValues, code: e.target.value })}
             />
-          </div>
-          <div className="p-field">
-            <label>Status</label>
-            <div>
-              <label htmlFor="active" className="p-mr-2">
-                <RadioButton id="active" name="status"
-                  value="Active"
-                  onChange={(e) => setFormValues({ ...formValues, status: e.value })}
-                  checked={formValues.status === 'Active'}
-                />
-                <span className="p-ml-1">Active</span>
-              </label>
-              <label htmlFor="inactive" className="p-ml-4 p-mr-2">
-                <RadioButton id="inactive" name="status"
-                  value="Inactive"
-                  onChange={(e) => setFormValues({ ...formValues, status: e.value })}
-                  checked={formValues.status === 'Inactive'}
-                />
-                <span className="p-ml-1">Inactive</span>
-              </label>
-            </div>
           </div>
           <div className="p-field">
             <label htmlFor="seatQuantity">Seat Quantity</label>
