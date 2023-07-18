@@ -5,11 +5,17 @@
 
   .title {
     font-size: x-large;
+    margin-bottom: 50px;
   }
 
   .form {
-    margin-top: 5rem;
-
+    margin-top: 3rem;
+    padding: 50px;
+    gap: 16px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0px 4px 15px 1px rgba(255, 255, 255, 0.808);
     .p-field {
       display: flex;
       flex-direction: row;

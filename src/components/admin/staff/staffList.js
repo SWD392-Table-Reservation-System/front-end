@@ -91,14 +91,9 @@ const StaffList = () => {
     setShowNewDialog(false);
   };
 
-  //Handle form submit for Add a staff
   const handleFormNewSubmit = (e) => {
     e.preventDefault();
-    // Perform any necessary form validation
-
-    // Access the form input values from the formValues state variable
     const { userName, password, fullName, role } = newStaff;
-
     const bearerToken = localStorage.getItem("token");
     axios
       .post(`${apiUrl}/api/Accounts`, newStaff, {
@@ -133,8 +128,15 @@ const StaffList = () => {
         });
       });
 
-    // Close the dialog
     setShowNewDialog(false);
+  };
+
+  const getOrdinal = (number) => {
+    const remainder = number % 100;
+
+    return (
+      number 
+    );
   };
 
   useEffect(() => {
@@ -142,54 +144,55 @@ const StaffList = () => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.container}>
       {isManager === true ? (
         <div>
-          <div className={styles.staffList}>  
+          <div className={styles.staffList}>
             <Toast ref={toast} />
             <h1>Staff list</h1>
             <table className={styles.table}>
-                <thead>
+              <thead>
                 <tr>
-                    {/* <th>Id</th> */}
-                    <th>Name</th>
-                    <th>Username</th>
-                    <th>Role</th>
-                    <th></th>
+                  <th>Ordinal Number</th>
+                  <th>Name</th>
+                  <th>Username</th>
+                  <th>Role</th>
+                  <th></th>
                 </tr>
-                </thead>
-                <tbody>
-                {staffs.map((staff) => (
+              </thead>
+              <tbody>
+                {staffs.map((staff, index) => {
+                  const ordinalNumber = index + 1;
+                  return (
                     <tr className={styles.row} key={staff.id} title="Detail">
-                    {/* <td>{staff.id}</td> */}
-                    <td>{staff.fullName}</td>
-                    <td>{staff.userName}</td>
-                    <td>{staff.role}</td>
-                    <td>
+                      <td>{getOrdinal(ordinalNumber)}</td>
+                      <td>{staff.fullName}</td>
+                      <td>{staff.userName}</td>
+                      <td>{staff.role}</td>
+                      <td>
                         <Button
-                        icon="pi pi-trash"
-                        className={`${styles.deleteButton} p-button-danger`}
-                        onClick={() => confirmDelete(staff)}
+                          icon="pi pi-trash"
+                          className={`${styles.deleteButton} p-button-danger`}
+                          onClick={() => confirmDelete(staff)}
                         />
-                    </td>
+                      </td>
                     </tr>
-                ))}
-                </tbody>
+                  );
+                })}
+              </tbody>
             </table>
           </div>
 
-          
-          <div className="newTableBtn" style={{marginTop: "50px"}}>
+          <div className="newTableBtn" style={{ marginTop: "50px" }}>
             <Button
               id="newTableBtn"
               icon="pi pi-plus"
               onClick={handleAddButtonClick}
               label="Create new Account"
-              style={{background: "#cd672e" }}
+              style={{ background: "#cd672e" }}
             ></Button>
           </div>
 
-          {/* Add staff dialog */}
           <Dialog visible={showNewDialog} onHide={handleDialogHide}>
             <form onSubmit={handleFormNewSubmit}>
               <div className="p-field">

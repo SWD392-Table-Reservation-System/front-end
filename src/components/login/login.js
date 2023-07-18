@@ -74,17 +74,17 @@ const Login = () => {
   return (
     <div className={styles["login-container"]}>
       <Toast ref={toast} />
-      <div className={styles["title"]}>
-        <h1>Sign in</h1>
-        <p>Welcome back</p>
-      </div>
+      
 
 
       <form className={styles["form"]} onSubmit={handleSubmit}>
-
+      <div className={styles["title"]}>
+        <h1><strong>Sign in</strong></h1>
+        <p>Welcome back</p>
+      </div>
         <div className={styles["p-field"]}>
           <label className={styles["label"]} htmlFor="username">
-            <img src="username.svg" alt="Username" width="50" height="30" />
+            <img src="username.svg" alt="Username" width="30" height="30" />
           </label>
           <input
             class={styles["underline-input"]}
@@ -92,13 +92,14 @@ const Login = () => {
             id="username"
             name="username"
             value={username}
+            placeholder="Username"
             onChange={handleUsernameChange}
           />
         </div>
 
         <div className={styles["p-field"]}>
           <label className={styles["label"]} htmlFor="username">
-            <img src="lock.svg" alt="Username" width="50" height="30" />
+            <img src="lock.svg" alt="Username" width="30" height="30" />
           </label>
           <input
             class={styles["underline-input"]}
@@ -106,10 +107,11 @@ const Login = () => {
             name="password"
             type="password"
             value={password}
+            placeholder="Password"
             onChange={handlePasswordChange}
           />
         </div>
-        <Button type="submit">Log In</Button>
+        <Button type="submit" style={{background: "#cd672e"}}>Log In</Button>
       </form>
     </div>
   );
