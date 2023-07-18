@@ -15,10 +15,23 @@
     }
     .btn {
       .link {
-        .btn-getstarted .p-button-label {
-          border: solid 1px black;
+        .btn .p-button-label {
+          border: solid 1px black !important;
         }
       }
     }
   }
   
+
+  .btn {
+    border: solid 1px black !important;
+    border-radius: 20px;
+    color: white !important;
+    background-color: #ce6930 !important;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: white !important;
+    color: #ce6930 !important;
+  }

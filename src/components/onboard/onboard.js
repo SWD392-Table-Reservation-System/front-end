@@ -15,9 +15,9 @@ const Home = () => {
                 The best grain, the finest roast, the most powerful flavor.
             </p>
             <div className="btn flex flex-wrap">
-            <Link className={styles['link']} to="/order">
-                <Button className={styles['btn-getstarted']} label="Get Started" text size="large" link/>
-            </Link>
+                <Link className={styles['link']} to="/order">
+                    <Button className={styles.btn} label="Get Started" text size="large" link/>
+                </Link>
             </div>
         </div>
     );
