@@ -1,16 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import { useLocation } from "react-router-dom";
 import "primeicons/primeicons.css";
 import styles from "./navbar.module.scss";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const Navbar = () => {
   const location = useLocation();
+  const [isManager, setIsManager] = useState(false);
 
   const logOut = () => {
     localStorage.removeItem('token');
   }
+
+  const fetchStaffsList = () => {
+    const bearerToken = localStorage.getItem('token');
+    fetch(`${apiUrl}/api/Accounts`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch staffs list.');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.success) {
+          setIsManager(true);
+        } else {
+          throw new Error(data.errorMessage);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchStaffsList();
+  }, []);
 
   return (
     <div className="navbar">
@@ -30,18 +63,17 @@ const Navbar = () => {
           <i className="pi pi-list icon" style={{ marginRight: "10px" }}></i>
           Reservations
         </Link>
-
-        <Link
+        {isManager ? (<Link
           to="/admin/staff-list"
           className={`${styles.link} ${location.pathname === "/admin/staff" ? styles.activeLink : ""}`}>
           <i className="pi pi-users icon" style={{ marginRight: "10px" }}></i>
           Staff
-        </Link>
+        </Link>) : (<span></span>)}
 
         <Link to="#" className={styles.link} onClick={logOut}>
           <i className="pi pi-power-off icon" style={{ marginRight: "10px" }}></i>
           Logout
-        </Link> 
+        </Link>
       </div>
     </div>
   );

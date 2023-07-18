@@ -12,6 +12,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 const StaffList = () => {
     const toast = useRef(null);
+    const [isManager, setIsManager] = useState(false);
     const [staffs, setStaffs] = useState([]);
     const [selectedStaff, setSelectedStaff] = useState(null);
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -40,6 +41,7 @@ const StaffList = () => {
             })
             .then(data => {
                 if (data.success) {
+                    setIsManager(true);
                     setStaffs(data.data);
                 } else {
                     throw new Error(data.errorMessage);
@@ -128,104 +130,112 @@ const StaffList = () => {
 
     return (
         <div>
-            <Toast ref={toast} />
-            <h1>Staff</h1>
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Username</th>
-                        <th>Role</th>
-                        <th></th> {/* Remove Column */}
-                    </tr>
-                </thead>
-                <tbody>
-                    {staffs.map(staff => (
-                        <tr className={styles.row} key={staff.id} title='Detail'>
-                            <td>{staff.id}</td>
-                            <td>{staff.fullName}</td>
-                            <td>{staff.userName}</td>
-                            <td>{staff.role}</td>
-                            <td>
-                                <Button
-                                    icon="pi pi-trash"
-                                    className="p-button-danger"
-                                    onClick={() => confirmDelete(staff)}
-                                />
-                            </td>
+            {isManager === true ? (<div>
+                <Toast ref={toast} />
+                <h1>Staff</h1>
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th></th> {/* Remove Column */}
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {staffs.map(staff => (
+                            <tr className={styles.row} key={staff.id} title='Detail'>
+                                <td>{staff.id}</td>
+                                <td>{staff.fullName}</td>
+                                <td>{staff.userName}</td>
+                                <td>{staff.role}</td>
+                                <td>
+                                    <Button
+                                        icon="pi pi-trash"
+                                        className="p-button-danger"
+                                        onClick={() => confirmDelete(staff)}
+                                    />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
 
 
-            <div className="newTableBtn">
-                <Button id="newTableBtn" icon="pi pi-plus" onClick={handleAddButtonClick}></Button>
-            </div>
+                <div className="newTableBtn">
+                    <Button id="newTableBtn" icon="pi pi-plus" onClick={handleAddButtonClick}></Button>
+                </div>
 
-            {/* Add staff dialog */}
-            <Dialog visible={showNewDialog} onHide={handleDialogHide}>
-                <form onSubmit={handleFormNewSubmit}>
-                    <div className="p-field">
-                        <label htmlFor="userName">Username</label>
-                        <InputText id="userName"
-                            value={newStaff.userName}
-                            onChange={(e) => setNewStaff({ ...newStaff, userName: e.target.value })}
-                        />
-                    </div>
-                    <div className="p-field">
-                        <label htmlFor="password">Password</label>
-                        <InputText id="password"
-                            value={newStaff.password}
-                            onChange={(e) => setNewStaff({ ...newStaff, password: e.target.value })}
-                        />
-                    </div>
-                    <div className="p-field">
-                        <label htmlFor="fullName">Full Name</label>
-                        <InputText id="fullName"
-                            value={newStaff.fullName}
-                            onChange={(e) => setNewStaff({ ...newStaff, fullName: e.target.value })}
-                        />
-                    </div>
-                    <div className="p-field">
-                        <label htmlFor="role">Role</label>
-                        <div>
-                            <RadioButton
-                                inputId="roleStaff"
-                                name="role"
-                                value="Staff"
-                                checked={newStaff.role === 'Staff'}
-                                onChange={(e) => setNewStaff({ ...newStaff, role: e.value })}
+                {/* Add staff dialog */}
+                <Dialog visible={showNewDialog} onHide={handleDialogHide}>
+                    <form onSubmit={handleFormNewSubmit}>
+                        <div className="p-field">
+                            <label htmlFor="userName">Username</label>
+                            <InputText id="userName"
+                                value={newStaff.userName}
+                                onChange={(e) => setNewStaff({ ...newStaff, userName: e.target.value })}
                             />
-                            <label htmlFor="roleStaff" className="p-radiobutton-label">Staff</label>
                         </div>
-                        <div>
-                            <RadioButton
-                                inputId="roleManager"
-                                name="role"
-                                value="Manager"
-                                checked={newStaff.role === 'Manager'}
-                                onChange={(e) => setNewStaff({ ...newStaff, role: e.value })}
+                        <div className="p-field">
+                            <label htmlFor="password">Password</label>
+                            <InputText id="password"
+                                value={newStaff.password}
+                                onChange={(e) => setNewStaff({ ...newStaff, password: e.target.value })}
                             />
-                            <label htmlFor="roleManager" className="p-radiobutton-label">Manager</label>
                         </div>
-                    </div>
-                    <Button type="submit" label="Submit" />
-                </form>
-            </Dialog>
+                        <div className="p-field">
+                            <label htmlFor="fullName">Full Name</label>
+                            <InputText id="fullName"
+                                value={newStaff.fullName}
+                                onChange={(e) => setNewStaff({ ...newStaff, fullName: e.target.value })}
+                            />
+                        </div>
+                        <div className="p-field">
+                            <label htmlFor="role">Role</label>
+                            <div>
+                                <RadioButton
+                                    inputId="roleStaff"
+                                    name="role"
+                                    value="Staff"
+                                    checked={newStaff.role === 'Staff'}
+                                    onChange={(e) => setNewStaff({ ...newStaff, role: e.value })}
+                                />
+                                <label htmlFor="roleStaff" className="p-radiobutton-label">Staff</label>
+                            </div>
+                            <div>
+                                <RadioButton
+                                    inputId="roleManager"
+                                    name="role"
+                                    value="Manager"
+                                    checked={newStaff.role === 'Manager'}
+                                    onChange={(e) => setNewStaff({ ...newStaff, role: e.value })}
+                                />
+                                <label htmlFor="roleManager" className="p-radiobutton-label">Manager</label>
+                            </div>
+                        </div>
+                        <Button type="submit" label="Submit" />
+                    </form>
+                </Dialog>
 
-            <ConfirmDialog
-                visible={showConfirmDialog}
-                onHide={() => setShowConfirmDialog(false)}
-                message="Are you sure you want to delete this staff member?"
-                header="Confirmation"
-                icon="pi pi-exclamation-triangle"
-                acceptLabel="Yes"
-                rejectLabel="No"
-                accept={() => deleteStaff()}
-            />
+                <ConfirmDialog
+                    visible={showConfirmDialog}
+                    onHide={() => setShowConfirmDialog(false)}
+                    message="Are you sure you want to delete this staff member?"
+                    header="Confirmation"
+                    icon="pi pi-exclamation-triangle"
+                    acceptLabel="Yes"
+                    rejectLabel="No"
+                    accept={() => deleteStaff()}
+                />
+            </div>) : (
+                <div>
+                    <h3>Only manager can access this page!</h3>
+                </div>
+            )}
+
         </div>
+
     );
 };
 
