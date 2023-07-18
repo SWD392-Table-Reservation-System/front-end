@@ -19,6 +19,7 @@ const TableMana = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [showNewDialog, setShowNewDialog] = useState(false);
   const [formValues, setFormValues] = useState({ code: "", status: "", seatQuantity: "" });
+  const [formNewValues, setFormNewValues] = useState({ code: "", status: "", seatQuantity: "" });
 
   //Get tables data
   const getTables = () => {
@@ -124,6 +125,7 @@ const TableMana = () => {
   };
 
   const handleAddButtonClick = () => {
+    setTableDetail({ id: "", code: "", status: "", seatQuantity: "" })
     setShowNewDialog(true);
   };
 
@@ -171,10 +173,10 @@ const TableMana = () => {
     // Perform any necessary form validation
 
     // Access the form input values from the formValues state variable
-    const { code, seatQuantity } = formValues;
+    const { code, seatQuantity } = formNewValues;
 
     const bearerToken = localStorage.getItem('token');
-    axios.post(`${apiUrl}/api/Tables`, formValues, {
+    axios.post(`${apiUrl}/api/Tables`, formNewValues, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
       }
@@ -211,6 +213,7 @@ const deleteTable = () => {
       if (response.status === 204) {
         toast.current.show({ severity: 'success', summary: 'Delete successfully', detail: '' });
         // Perform any additional actions after successful deletion
+        setTableDetail({ id: "", code: "", status: "", seatQuantity: "" })
         getTables();
       } else {
         toast.current.show({ severity: 'error', summary: 'Error', detail: response.data.errorMessage });
@@ -328,8 +331,8 @@ const deleteTable = () => {
             <input 
               className={styles.underlineInput}
               id="code"
-              value={formValues.code}
-              onChange={(e) => setFormValues({ ...formValues, code: e.target.value })}
+              value={formNewValues.code}
+              onChange={(e) => setFormNewValues({ ...formNewValues, code: e.target.value })}
             />
           </div>
           <div id={styles.inputTableDetail} className="p-field">
@@ -337,8 +340,8 @@ const deleteTable = () => {
             <input 
               className={styles.underlineInput}
               id="seatQuantity"
-              value={formValues.seatQuantity}
-              onChange={(e) => setFormValues({ ...formValues, seatQuantity: e.target.value })}
+              value={formNewValues.seatQuantity}
+              onChange={(e) => setFormNewValues({ ...formNewValues, seatQuantity: e.target.value })}
             />
           </div>
           <Button style={{ marginTop: "50px", marginLeft: "170px" }} type="submit" label="Submit" />
