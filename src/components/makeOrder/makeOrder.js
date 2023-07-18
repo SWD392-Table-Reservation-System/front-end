@@ -167,7 +167,7 @@ const MakeOrder = () => {
                 ></textarea>
               </div>
             </div>
-            <Button style={{ marginTop: "10px" }} type="submit">
+            <Button style={{ marginTop: "10px", background: "#cd672e" }} type="submit">
               Submit
             </Button>
           </form>
