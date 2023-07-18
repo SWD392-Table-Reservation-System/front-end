@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import logo from '../../../assets/logo.png';
 
 const Header = () => {
     // let logined;
@@ -18,9 +19,11 @@ const Header = () => {
     return (
         <div>
             <nav>
-                <ul>
+                <ul style={{listStyle: "none"}}>
                     <li>
-                        <Link to={"/"}>Home</Link>
+                        <Link to={"/"}>
+                            <img src={logo} alt="Home" style={{ width: "50px", height: "50px" }} />
+                        </Link>
                     </li>
                     <li>
                         <Link to={"/order"}>Make Order</Link>
