@@ -1,0 +1,61 @@
+// Header Container
+.header {
+    background-color: #f2f2f2;
+    padding: 10px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+
+    // Navigation List
+    .nav-list {
+        list-style: none;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-bottom: 0;
+        margin: 0 auto;
+
+        // Navigation Item
+        .nav-item {
+            margin: 0;
+            text-align: start;
+
+            .call-img{
+                width: 100%;
+                text-align: end;
+            }
+
+            a {
+                text-decoration: none;
+                color: #cd672e;
+                padding: 10px;
+                border-radius: 8px;
+                background-color: #cd682e1d;
+                display: inline-block;
+                padding: 0;
+
+                div {
+                    text-align: center;
+                    border-right: solid rgba(128, 128, 128, 0.456) 1px;
+                    padding-right: 20px;
+                }
+
+                &:visited {
+                    color: #cd672e;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 1160px) {
+        .nav-list {
+          width: 1160px;
+        }
+      }
+}
+
+// Header Logo
+.logo {
+    width: 50px;
+    height: 50px;
+}
