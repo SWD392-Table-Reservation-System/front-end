@@ -101,7 +101,7 @@ const TableMana = () => {
               onClick={() => handleClick(id, code)}
               style={{
                 backgroundColor: [
-                  status === 1 ? "#d8d8d8" : status === 2 ? "#48EF45" : "#CD672E",
+                  status === 'Inactive' ? "#d8d8d8" : "#CD672E",
                 ],
                 color: "black",
                 paddingLeft: "50px",
@@ -140,8 +140,6 @@ const TableMana = () => {
     // Perform any necessary form validation
 
     // Access the form input values from the formValues state variable
-    const { code, status, seatQuantity } = formValues;
-
     const bearerToken = localStorage.getItem('token');
     axios.put(`${apiUrl}/api/Tables/${tableDetail.id}`, formValues, {
       headers: {
@@ -173,8 +171,6 @@ const TableMana = () => {
     // Perform any necessary form validation
 
     // Access the form input values from the formValues state variable
-    const { code, seatQuantity } = formNewValues;
-
     const bearerToken = localStorage.getItem('token');
     axios.post(`${apiUrl}/api/Tables`, formNewValues, {
       headers: {
@@ -201,38 +197,38 @@ const TableMana = () => {
   }
 
   //Handle function for Delete a table
-const deleteTable = () => {
-  const bearerToken = localStorage.getItem('token');
-  axios.delete(`${apiUrl}/api/Tables/${tableDetail.id}`, {
-    headers: {
-      Authorization: `Bearer ${bearerToken}`,
-    }
-  })
-    .then(response => {
-      console.log(response);
-      if (response.status === 204) {
-        toast.current.show({ severity: 'success', summary: 'Delete successfully', detail: '' });
-        // Perform any additional actions after successful deletion
-        setTableDetail({ id: "", code: "", status: "", seatQuantity: "" })
-        getTables();
-      } else {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: response.data.errorMessage });
+  const deleteTable = () => {
+    const bearerToken = localStorage.getItem('token');
+    axios.delete(`${apiUrl}/api/Tables/${tableDetail.id}`, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
       }
     })
-    .catch(err => {
-      console.log(err);
-      toast.current.show({ severity: 'error', summary: 'Some error occurred!', detail: 'Try again or Refresh the page' });
-    });
-}
+      .then(response => {
+        console.log(response);
+        if (response.status === 204) {
+          toast.current.show({ severity: 'success', summary: 'Delete successfully', detail: '' });
+          // Perform any additional actions after successful deletion
+          setTableDetail({ id: "", code: "", status: "", seatQuantity: "" })
+          getTables();
+        } else {
+          toast.current.show({ severity: 'error', summary: 'Error', detail: response.data.errorMessage });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        toast.current.show({ severity: 'error', summary: 'Some error occurred!', detail: 'Try again or Refresh the page' });
+      });
+  }
   const confirmDelete = () => {
     confirmDialog({
-        message: 'Are you sure you want to proceed?',
-        header: 'Confirmation',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => deleteTable(),
-        reject: () => {}
+      message: 'Are you sure you want to proceed?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => deleteTable(),
+      reject: () => { }
     });
-}
+  }
 
 
   return (
@@ -249,8 +245,8 @@ const deleteTable = () => {
         </span>
         <div className={styles.table}>
           <div className={styles.newTableBtn}>
-            <Button id="newTableBtn" icon="pi pi-plus" label="Add new Table" 
-            onClick={handleAddButtonClick} style={{background: "#cd672e"}}></Button>
+            <Button id="newTableBtn" icon="pi pi-plus" label="Add new Table"
+              onClick={handleAddButtonClick} style={{ background: "#cd672e" }}></Button>
           </div>
           <table>
             <tbody>{table}</tbody>
@@ -258,6 +254,7 @@ const deleteTable = () => {
         </div>
       </div>
 
+      {/* Display table detail */}
       {tableDetail.code === "" ? "" : (
         <div className={styles.tableDetail}>
           <h3>Table detail</h3>
@@ -272,16 +269,16 @@ const deleteTable = () => {
               <Button id="editTableBtn" icon="pi pi-pencil" onClick={handleEditButtonClick}></Button>
             </div>
           </div>
-          </div>
+        </div>
       )}
 
       {/* Edit table dialog */}
       <Dialog visible={showDialog} onHide={handleDialogHide}>
-        <h1 className={styles.label} style={{marginBottom: "50px"}}>Table Detail</h1>
+        <h1 className={styles.label} style={{ marginBottom: "50px" }}>Table Detail</h1>
         <form onSubmit={handleFormSubmit}>
-        <div id={styles.inputTableDetail} className="p-field">
+          <div id={styles.inputTableDetail} className="p-field">
             <label className={styles.label} htmlFor="code"><strong>Code</strong></label>
-            <input 
+            <input
               className={styles.underlineInput}
               id="code"
               value={formValues.code}
@@ -297,21 +294,21 @@ const deleteTable = () => {
                   onChange={(e) => setFormValues({ ...formValues, status: e.value })}
                   checked={formValues.status === 'Active'}
                 />
-                <span className="p-ml-1" style={{marginLeft: "5px"}}>Active</span>
+                <span className="p-ml-1" style={{ marginLeft: "5px" }}>Active</span>
               </label>
-              <label htmlFor="inactive" className="p-ml-4 p-mr-2" style={{marginLeft: "50px"}}>
+              <label htmlFor="inactive" className="p-ml-4 p-mr-2" style={{ marginLeft: "50px" }}>
                 <RadioButton id="inactive" name="status"
                   value="Inactive"
                   onChange={(e) => setFormValues({ ...formValues, status: e.value })}
                   checked={formValues.status === 'Inactive'}
                 />
-                <span className="p-ml-1" style={{marginLeft: "5px"}}>Inactive</span>
+                <span className="p-ml-1" style={{ marginLeft: "5px" }}>Inactive</span>
               </label>
             </div>
           </div>
           <div id={styles.inputTableDetail} className="p-field">
             <label className={styles.label} htmlFor="seatQuantity"><strong>Seat Quantity</strong></label>
-            <input 
+            <input
               className={styles.underlineInput}
               id="seatQuantity"
               value={formValues.seatQuantity}
@@ -324,11 +321,11 @@ const deleteTable = () => {
 
       {/* Add table dialog */}
       <Dialog visible={showNewDialog} onHide={handleDialogHide}>
-        <h1 className={styles.label} style={{marginBottom: "50px"}}>Table Detail</h1>
+        <h1 className={styles.label} style={{ marginBottom: "50px" }}>Table Detail</h1>
         <form onSubmit={handleFormNewSubmit}>
           <div id={styles.inputTableDetail} className="p-field">
             <label className={styles.label} htmlFor="code"><strong>Code</strong></label>
-            <input 
+            <input
               className={styles.underlineInput}
               id="code"
               value={formNewValues.code}
@@ -337,7 +334,7 @@ const deleteTable = () => {
           </div>
           <div id={styles.inputTableDetail} className="p-field">
             <label className={styles.label} htmlFor="seatQuantity"><strong>Seat Quantity</strong></label>
-            <input 
+            <input
               className={styles.underlineInput}
               id="seatQuantity"
               value={formNewValues.seatQuantity}
@@ -349,7 +346,7 @@ const deleteTable = () => {
       </Dialog>
 
       {/* Delete table dialog */}
-      <ConfirmDialog/>
+      <ConfirmDialog />
     </div>
   );
 };
