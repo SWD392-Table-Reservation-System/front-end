@@ -26,6 +26,8 @@ const FindSuitableTables = () => {
   const [timeArray, setTimeArray] = useState([]);
   const customerQuantity = number1 + number2;
 
+  let today = new Date();
+  let minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
   const getTime = () => {
     fetch(`${apiUrl}/api/Test/time-list`, {
@@ -36,7 +38,6 @@ const FindSuitableTables = () => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log(response);
           return response.json();
         } else {
           throw new Error(
@@ -46,7 +47,9 @@ const FindSuitableTables = () => {
       })
       .then((data) => {
         console.log("getTime API response data:", data);
-        setTimeArray(data);
+        const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+        const filteredData = data.filter((time) => time > currentTime);
+        setTimeArray(filteredData);
       })
       .catch((error) => {
         console.error("getTime API request error:", error);
@@ -99,7 +102,6 @@ const FindSuitableTables = () => {
       dateTimeBooking: dateTimeBooking,
       quantitySeats: customerQuantity
     });
-    console.log('Request:::::');
     console.log(requestBody);
 
     // Perform the API request
@@ -116,7 +118,7 @@ const FindSuitableTables = () => {
 
             setAvailableTables(response.data.data) //an array
           } else {
-            show("warn", "No available table at choosen time", 'Please choose other time and date');
+            show("warn", "No available table", 'Please choose another quantity, time, or date');
           }
         } else {
           throw new Error(
@@ -126,7 +128,7 @@ const FindSuitableTables = () => {
       })
       .catch((error) => {
         console.error("API request error:", error);
-        show("error", "Ordered fail", 'Something went wrong, please reload the page and try again');
+        show("error", "Ordered fail", 'Something went wrong, please reload the page then try again');
       });
   };
 
@@ -228,6 +230,7 @@ const FindSuitableTables = () => {
               </span>
               <Dropdown
                 className={styles.dropdown}
+                placeholder="Time"
                 id="time"
                 value={time}
                 options={timeArray.map((time) => ({
@@ -248,6 +251,8 @@ const FindSuitableTables = () => {
                 onChange={(e) => { formatDateTime(e) }}
                 required
                 showIcon
+                minDate={minDate}
+                placeholder="Date"
                 style={{ width: "160px" }} />
             </div>
             <Button style={{ marginTop: "50px", background: "#ce6930" }} type="submit">
