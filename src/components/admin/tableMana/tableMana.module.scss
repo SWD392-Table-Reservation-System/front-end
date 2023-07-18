@@ -1,13 +1,16 @@
 .TableMana {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   margin-top: 20px;
 }
 
 .displayTables {
+  .table {
+    width: 1044px;
+  }
   table {
     display: inline-flex;
     padding: 10px;
@@ -68,8 +71,8 @@
   width: 80px;
   height: 42px;
   position: relative;
-  background: #F8F8F8;
-  
+  background: #f8f8f8;
+
   span {
     left: 25px;
     top: 11px;
@@ -77,29 +80,91 @@
     opacity: 0.5;
     color: black;
     font-size: 20px;
-    font-family: 'Poppins';
+    font-family: "Poppins";
     font-weight: 500;
     line-height: 20px;
     word-wrap: break-word;
   }
 }
 
-.tableDetails {
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.tableDetail {
+  border-radius: 20px;
+  border: 1px solid #000;
+  background: #fff;
+  box-shadow: 0px 4px 15px 1px rgba(0, 0, 0, 0.25);
+  margin-top: 50px;
   padding: 1rem;
   display: inline-block;
   width: 100%;
   max-width: 300px;
 }
 
-.tableDetails h3 {
+.tableDetail h3 {
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
-.tableDetails p {
-  margin-bottom: 0.25rem;
+.tableDetail p {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.tableInfo {
+  display: flex;
+  flex-direction: row;
+}
+
+.tableUpdate {
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+  Button {
+    margin-top: 20px;
+    width: 100px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #000;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    cursor: pointer;
+  }
+  Button:hover {
+    background-color: #cd672e !important;
+    color: #000;
+    border: 1px solid #000;
+  }
+}
+
+#inputTableDetail{
+  display: flex;
+  flex-direction: row;
+  border: none;
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 5px;
+  margin-top: 10px;
+  .label {
+    margin-right: 10px;
+    font-size: 15px;
+    border-right: solid 1px #000;
+    padding-right: 10px;
+    text-align: left;
+    width: 30%;
+  }
+  .underlineInput {
+    border: none;
+    padding: 5px;
+    font-size: 15px;
+    height: 30px;
+    width: 300px;
+  }
+  .underlineInput:focus {
+    outline: none;
+    border-color: #000;
+  }
+  .underlineInput::-webkit-input-placeholder{
+    opacity: 0.4;
+  }
 }
