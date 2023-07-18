@@ -47,9 +47,7 @@ const FindSuitableTables = () => {
       })
       .then((data) => {
         console.log("getTime API response data:", data);
-        const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-        const filteredData = data.filter((time) => time > currentTime);
-        setTimeArray(filteredData);
+          setTimeArray(data);      
       })
       .catch((error) => {
         console.error("getTime API request error:", error);
