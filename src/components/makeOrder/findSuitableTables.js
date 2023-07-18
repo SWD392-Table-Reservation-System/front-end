@@ -58,11 +58,7 @@ const FindSuitableTables = () => {
   }, []);
 
   const show = (severity, summary, detail) => {
-    toast.current.show({
-      severity: severity,
-      summary: summary,
-      detail: detail,
-    });
+    toast.current.show({ severity: severity, summary: summary, detail: detail, });
   };
 
   const increment = (inputId) => {
@@ -81,9 +77,8 @@ const FindSuitableTables = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const formatDateTime = (e) => {
+    setDate(e.value)
     //Format the Calendar input
     setSelectedDate(new Date(date)); // Convert the date string to a Date object
     const formattedDate = selectedDate.toISOString().split("T")[0]; // Format the date as desired
@@ -94,12 +89,17 @@ const FindSuitableTables = () => {
 
     console.log(formattedDate); // "2020-12-31"
     console.log(dateTimeBooking);
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
     // Construct the request body
     const requestBody = JSON.stringify({
       dateTimeBooking: dateTimeBooking,
       quantitySeats: customerQuantity
     });
+    console.log('Request:::::');
     console.log(requestBody);
 
     // Perform the API request
@@ -126,13 +126,13 @@ const FindSuitableTables = () => {
       })
       .catch((error) => {
         console.error("API request error:", error);
-        show("error", "Ordered fail", `${error}`);
+        show("error", "Ordered fail", 'Something went wrong, please reload the page and try again');
       });
   };
 
   const goToMakeOrder = () => {
     let tablesId = [];
-    
+
     availableTables.map((table) => {
       tablesId.push(table.id)
     })
@@ -142,25 +142,27 @@ const FindSuitableTables = () => {
       customerQuantity: customerQuantity,
       tablesId: tablesId
     };
-    navigate("/order/make", {state: variables});
+    navigate("/order/make", { state: variables });
   }
 
   return (
     <div className={styles.MakeOrder}>
       <Toast ref={toast} />
       <div className={styles.container}>
+        {/* Titile */}
         <div className={styles.thumbnail}>
           <img className={styles.img} src="orderPageImg.png" alt="" />
           <h1 className={styles["res-name"]}>RESTAURANT NAME</h1>
           <p className={styles["res-address"]}>Restaurant address</p>
         </div>
 
+        {/* Form input */}
         <div className={styles.orderMenu}>
           <form className={styles.inputsForm} onSubmit={handleSubmit}>
+            {/* Adult num input */}
             <div
               id={styles.inputAdultQuantity}
-              className="input-group input-group-quantity"
-            >
+              className="input-group input-group-quantity">
               <div className={styles.inputAdults}>
                 <span className={styles.adultQuantityLabel}>
                   <label for="number1">Number of Adult: </label>
@@ -169,8 +171,7 @@ const FindSuitableTables = () => {
                   <button
                     className={styles.decrementAdult}
                     type="button"
-                    onClick={() => decrement("number1")}
-                  >
+                    onClick={() => decrement("number1")}>
                     -
                   </button>
                   <input
@@ -179,19 +180,18 @@ const FindSuitableTables = () => {
                     id="number1"
                     value={number1}
                     onChange={(e) => setNumber1(parseInt(e.target.value))}
-                    required="true"
-                  />
+                    required="true" />
                   <button
                     className={styles.incrementAdult}
                     type="button"
-                    onClick={() => increment("number1")}
-                  >
+                    onClick={() => increment("number1")}>
                     +
                   </button>
                 </span>
               </div>
             </div>
 
+            {/* Children num input */}
             <div className={styles.inputChildrenQuantity}>
               <div className={styles.inputChildren}>
                 <span className={styles.childrenQuantityLabel}>
@@ -201,8 +201,7 @@ const FindSuitableTables = () => {
                   <button
                     className={styles.decrementChildren}
                     type="button"
-                    onClick={() => decrement("number2")}
-                  >
+                    onClick={() => decrement("number2")}>
                     -
                   </button>{" "}
                   <input
@@ -211,23 +210,19 @@ const FindSuitableTables = () => {
                     id="number2"
                     value={number2}
                     onChange={(e) => setNumber2(parseInt(e.target.value))}
-                    required="true"
-                  />
+                    required="true" />
                   <button
                     className={styles.incrementChildren}
                     type="button"
-                    onClick={() => increment("number2")}
-                  >
+                    onClick={() => increment("number2")}>
                     +
                   </button>
                 </span>
               </div>
             </div>
 
-            <div
-              id={styles.inputGroupTime}
-              className="input-group input-group-time"
-            >
+            {/* Date Time input */}
+            <div id={styles.inputGroupTime} className="input-group input-group-time">
               <span className={styles.timeLabel}>
                 <label for="time">Time: </label>
               </span>
@@ -240,25 +235,20 @@ const FindSuitableTables = () => {
                   value: time,
                 }))}
                 onChange={(e) => setTime(e.value)}
-                style={{ width: "120px" }}
-              />
+                style={{ width: "120px" }} />
             </div>
 
-            <div
-              id={styles.inputGroupDate}
-              className="input-group input-group-date"
-            >
+            <div id={styles.inputGroupDate} className="input-group input-group-date">
               <span className={styles.dateLabel}>
                 <label for="date">Date: </label>
               </span>
               <Calendar
                 id="date"
                 value={date}
-                onChange={(e) => setDate(e.value)}
+                onChange={(e) => { formatDateTime(e) }}
                 required
                 showIcon
-                style={{ width: "160px" }}
-              />
+                style={{ width: "160px" }} />
             </div>
             <Button style={{ marginTop: "50px", background: "#ce6930" }} type="submit">
               Find
@@ -266,22 +256,24 @@ const FindSuitableTables = () => {
           </form>
         </div>
       </div>
-          <div className={styles.availableTables} style={{ display: availableTables.length === 0 ? "none" : "block" }}>           
-              {availableTables.map((table) => (
-                <div id={table.id} className={styles.tableDetail}>
-                  <h3>Available table</h3>
-                  <div className={styles.tableInfo}>
-                    <p><strong>Date: </strong>{dateAvailable}</p>
-                    <p><strong>Time: </strong>{timeAvailable}</p>
-                    <p><strong>Code:</strong> {table.code}</p>
-                    <p><strong>Seat Quantity:</strong> {table.seatQuantity}</p>
-                    <Button style={{ width: "fit-content", marginTop: "30px", marginLeft: "100px", background: "#ce6930", color: "white", fontWeight: "bold" }} onClick={goToMakeOrder}>
-                      Next
-                    </Button>
-                  </div>
-                </div>
-              ))}
+
+      {/* Display available tables */}
+      <div className={styles.availableTables} style={{ display: availableTables.length === 0 ? "none" : "block" }}>
+        {availableTables.map((table) => (
+          <div id={table.id} className={styles.tableDetail}>
+            <h3>Available table</h3>
+            <div className={styles.tableInfo}>
+              <p><strong>Date: </strong>{dateAvailable}</p>
+              <p><strong>Time: </strong>{timeAvailable}</p>
+              <p><strong>Code:</strong> {table.code}</p>
+              <p><strong>Seat Quantity:</strong> {table.seatQuantity}</p>
+              <Button style={{ width: "fit-content", marginTop: "30px", marginLeft: "100px", background: "#ce6930", color: "white", fontWeight: "bold" }} onClick={goToMakeOrder}>
+                Next
+              </Button>
+            </div>
           </div>
+        ))}
+      </div>
     </div>
   );
 };
