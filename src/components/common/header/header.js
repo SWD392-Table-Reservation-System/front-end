@@ -1,45 +1,34 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import logo from '../../../assets/logo.png';
+import calling from '../../../assets/calling.gif';
+import '../header/header.scss';
 
 const Header = () => {
-    // let logined;
-    // useRef(() => {
-    //     if (localStorage.getItem('token')) {
-    //         logined = 'true'
-    //     }
-    // }, [])
-
-    const logOut = () => {
-        localStorage.removeItem('token');
-
-    }
-
-
+    
     return (
-        <div>
+        <div className="header">
             <nav>
-                <ul style={{listStyle: "none"}}>
-                    <li>
-                        <Link to={"/"}>
-                            <img src={logo} alt="Home" style={{ width: "50px", height: "50px" }} />
+                <ul className="nav-list">
+                    <li className="nav-item" style={{width: '20%'}}>
+                        <Link to={"/"} style={{ backgroundColor: '#cd682e00' }}>
+                            <div>
+                                <img src={logo} alt="Home" className="logo" />
+                                <h4 style={{ margin: 0 }}>TLA Restaurant</h4>
+                            </div>
                         </Link>
                     </li>
-                    <li>
+                    <li className="nav-item" style={{width: '20%'}}>
                         <Link to={"/order"}>Make Order</Link>
                     </li>
-                    <li>
-                        <Link to={"/admin"}>Sign in as Admin</Link>
-                    </li>
-                    <li>
-                        <Link to={"/admin/reservations"}>Reservation List</Link>
-                    </li>
-                    <li >
-                        <Link to={"/"}><button onClick={logOut}>Logout</button></Link>
-
-                    </li>
-
+                    <li className="nav-item" style={{width: '60%'}}>
+                        <div className='call-img'>
+                            <a href="tel:+1234567890" style={{ backgroundColor: '#cd682e00' }}><img src={calling} alt='Call us to book a table NOW!' style={{maxWidth: '100px'}}></img></a>
+                    
+                        </div>
+                        </li>
                 </ul>
+
             </nav>
         </div>
     );

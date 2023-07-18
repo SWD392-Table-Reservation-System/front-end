@@ -20,6 +20,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header></Header>
+        <div style={{height: '100px'}}></div>
         <Routes>
           <Route exact path="/" element={<Onboard />} />
           <Route path="/order" element={<FindSuitableTables />} />
