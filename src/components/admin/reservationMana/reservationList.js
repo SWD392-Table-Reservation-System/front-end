@@ -121,42 +121,45 @@ const ReservationList = () => {
     }
 
     return (
-        <div className={styles.ReservationList}>
-            <Toast ref={toast} />
-            <div className={styles.filterContainer}>
-                <Dropdown
-                    value={selectedStatusFilter}
-                    options={statusValues}
-                    onChange={(e) => filterRvtStatus(e)}
-                    placeholder={statusValues[0]}
-                />
-            </div>
-            <p>{reservations.length === 0 ? 'There is no reservation' : ''}</p>
-            <div className={styles.reservations}>
-            {reservations.map((reservation, index) => {
-                const formattedCreationDate = format(new Date(reservation.creationDate), 'dd/MM/yyyy - HH:mm');
-                const formattedBookingDate = format(new Date(reservation.dateTimeBooking), 'dd/MM/yyyy - HH:mm');
-                return (
-                <Card className={styles.card} key={index} style={{ margin: '1rem' }}>
-                    <div className={styles.cardContent}>
-                        <h2 className={styles.cardTitle}>Detail</h2>
-                        <p><h3 style={{marginRight: "5px"}}>Creation Date:</h3>{formattedCreationDate}</p>
-                        <p><h3 style={{marginRight: "5px"}}>Booking Date:</h3> {formattedBookingDate}</p>
-                        <p><h3 style={{marginRight: "5px"}}>Customer Quantity:</h3> {reservation.customerQuantity}</p>
-                        <p><h3 style={{marginRight: "5px"}}>Note:</h3> {reservation.note}</p>
-                        <p><h3 style={{marginRight: "5px"}}>Customer Name:</h3> {reservation.customerFullName}</p>
-                        <p><h3 style={{marginRight: "5px"}}>Customer Email:</h3> {reservation.customerEmail}</p>
-                        <p><h3 style={{marginRight: "5px"}}>Customer Phone number:</h3> {reservation.customerPhoneNumber}</p>
-                    </div>
+        <div className={styles.container}>
+            <h1>Reservation List</h1>
+            <div className={styles.ReservationList}>
+                <Toast ref={toast} />
+                <div className={styles.filterContainer}>
                     <Dropdown
-                        className={styles.cardDropdown}
-                        value={selectedStatus[index]}
+                        value={selectedStatusFilter}
                         options={statusValues}
-                        onChange={(e) => changeRvtStatus(e, index, reservation.id)}
-                        placeholder={reservation.status}
-                        />
-                </Card>
-            )})}
+                        onChange={(e) => filterRvtStatus(e)}
+                        placeholder={statusValues[0]}
+                    />
+                </div>
+                <p>{reservations.length === 0 ? 'There is no reservation' : ''}</p>
+                <div className={styles.reservations}>
+                {reservations.map((reservation, index) => {
+                    const formattedCreationDate = format(new Date(reservation.creationDate), 'dd/MM/yyyy - HH:mm');
+                    const formattedBookingDate = format(new Date(reservation.dateTimeBooking), 'dd/MM/yyyy - HH:mm');
+                    return (
+                    <Card className={styles.card} key={index} style={{ margin: '1rem' }}>
+                        <div className={styles.cardContent}>
+                            <h2 className={styles.cardTitle}>Detail</h2>
+                            <p><h3 style={{marginRight: "5px"}}>Creation Date:</h3>{formattedCreationDate}</p>
+                            <p><h3 style={{marginRight: "5px"}}>Booking Date:</h3> {formattedBookingDate}</p>
+                            <p><h3 style={{marginRight: "5px"}}>Customer Quantity:</h3> {reservation.customerQuantity}</p>
+                            <p><h3 style={{marginRight: "5px"}}>Note:</h3> {reservation.note}</p>
+                            <p><h3 style={{marginRight: "5px"}}>Customer Name:</h3> {reservation.customerFullName}</p>
+                            <p><h3 style={{marginRight: "5px"}}>Customer Email:</h3> {reservation.customerEmail}</p>
+                            <p><h3 style={{marginRight: "5px"}}>Customer Phone number:</h3> {reservation.customerPhoneNumber}</p>
+                        </div>
+                        <Dropdown
+                            className={styles.cardDropdown}
+                            value={selectedStatus[index]}
+                            options={statusValues}
+                            onChange={(e) => changeRvtStatus(e, index, reservation.id)}
+                            placeholder={reservation.status}
+                            />
+                    </Card>
+                )})}
+                </div>
             </div>
         </div>
     );
