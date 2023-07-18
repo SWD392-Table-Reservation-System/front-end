@@ -244,85 +244,104 @@ const deleteTable = () => {
           <div style={{ width: 17, height: 17, background: "#d8d8d8", borderRadius: 9999 }} />
           <label>In-active</label>
         </span>
-
-        <table>
-          <tbody>{table}</tbody>
-        </table>
-      </div>
-      {tableDetail.code === "" ? "" : (
-        <div className="tableDetail" style={{ background: 'green' }}>
-          <h3>Table detail</h3>
-          <p>{tableDetail.code}</p>
-          <p>{tableDetail.status}</p>
-          <p>{tableDetail.seatQuantity}</p>
-          <Button id="removeTableBtn" icon="pi pi-trash" onClick={confirmDelete}></Button>
-          <Button id="editTableBtn" icon="pi pi-pencil" onClick={handleEditButtonClick}></Button>
+        <div className={styles.table}>
+          <div className={styles.newTableBtn}>
+            <Button id="newTableBtn" icon="pi pi-plus" label="Add new Table" 
+            onClick={handleAddButtonClick} style={{background: "#cd672e"}}></Button>
+          </div>
+          <table>
+            <tbody>{table}</tbody>
+          </table>
         </div>
-      )}
-      <div className="newTableBtn">
-        <Button id="newTableBtn" icon="pi pi-plus" onClick={handleAddButtonClick}></Button>
       </div>
+
+      {tableDetail.code === "" ? "" : (
+        <div className={styles.tableDetail}>
+          <h3>Table detail</h3>
+          <div className={styles.tableInfo}>
+            <div className={styles.tableData}>
+              <p><strong>ID: </strong>{tableDetail.code}</p>
+              <p><strong>Status: </strong>{tableDetail.status}</p>
+              <p><strong>Quantity: </strong>{tableDetail.seatQuantity}</p>
+            </div>
+            <div className={styles.tableUpdate}>
+              <Button id="removeTableBtn" icon="pi pi-trash" onClick={confirmDelete}></Button>
+              <Button id="editTableBtn" icon="pi pi-pencil" onClick={handleEditButtonClick}></Button>
+            </div>
+          </div>
+          </div>
+      )}
 
       {/* Edit table dialog */}
       <Dialog visible={showDialog} onHide={handleDialogHide}>
+        <h1 className={styles.label} style={{marginBottom: "50px"}}>Table Detail</h1>
         <form onSubmit={handleFormSubmit}>
-          <div className="p-field">
-            <label htmlFor="code">Code</label>
-            <InputText id="code"
+        <div id={styles.inputTableDetail} className="p-field">
+            <label className={styles.label} htmlFor="code"><strong>Code</strong></label>
+            <input 
+              className={styles.underlineInput}
+              id="code"
               value={formValues.code}
               onChange={(e) => setFormValues({ ...formValues, code: e.target.value })}
             />
           </div>
-          <div className="p-field">
-            <label>Status</label>
-            <div>
+          <div id={styles.inputTableDetail} className="p-field">
+            <label className={styles.label} ><strong>Status</strong></label>
+            <div className={styles.underlineInput}>
               <label htmlFor="active" className="p-mr-2">
                 <RadioButton id="active" name="status"
                   value="Active"
                   onChange={(e) => setFormValues({ ...formValues, status: e.value })}
                   checked={formValues.status === 'Active'}
                 />
-                <span className="p-ml-1">Active</span>
+                <span className="p-ml-1" style={{marginLeft: "5px"}}>Active</span>
               </label>
-              <label htmlFor="inactive" className="p-ml-4 p-mr-2">
+              <label htmlFor="inactive" className="p-ml-4 p-mr-2" style={{marginLeft: "50px"}}>
                 <RadioButton id="inactive" name="status"
                   value="Inactive"
                   onChange={(e) => setFormValues({ ...formValues, status: e.value })}
                   checked={formValues.status === 'Inactive'}
                 />
-                <span className="p-ml-1">Inactive</span>
+                <span className="p-ml-1" style={{marginLeft: "5px"}}>Inactive</span>
               </label>
             </div>
           </div>
-          <div className="p-field">
-            <label htmlFor="seatQuantity">Seat Quantity</label>
-            <InputText id="seatQuantity"
+          <div id={styles.inputTableDetail} className="p-field">
+            <label className={styles.label} htmlFor="seatQuantity"><strong>Seat Quantity</strong></label>
+            <input 
+              className={styles.underlineInput}
+              id="seatQuantity"
               value={formValues.seatQuantity}
               onChange={(e) => setFormValues({ ...formValues, seatQuantity: e.target.value })}
             />
           </div>
-          <Button type="submit" label="Submit" />
+          <Button style={{ marginTop: "50px", marginLeft: "170px" }} type="submit" label="Submit" />
         </form>
       </Dialog>
 
       {/* Add table dialog */}
       <Dialog visible={showNewDialog} onHide={handleDialogHide}>
+        <h1 className={styles.label} style={{marginBottom: "50px"}}>Table Detail</h1>
         <form onSubmit={handleFormNewSubmit}>
-          <div className="p-field">
-            <label htmlFor="code">Code</label>
-            <InputText id="code"
+          <div id={styles.inputTableDetail} className="p-field">
+            <label className={styles.label} htmlFor="code"><strong>Code</strong></label>
+            <input 
+              className={styles.underlineInput}
+              id="code"
               value={formValues.code}
               onChange={(e) => setFormValues({ ...formValues, code: e.target.value })}
             />
           </div>
-          <div className="p-field">
-            <label htmlFor="seatQuantity">Seat Quantity</label>
-            <InputText id="seatQuantity"
+          <div id={styles.inputTableDetail} className="p-field">
+            <label className={styles.label} htmlFor="seatQuantity"><strong>Seat Quantity</strong></label>
+            <input 
+              className={styles.underlineInput}
+              id="seatQuantity"
               value={formValues.seatQuantity}
               onChange={(e) => setFormValues({ ...formValues, seatQuantity: e.target.value })}
             />
           </div>
-          <Button type="submit" label="Submit" />
+          <Button style={{ marginTop: "50px", marginLeft: "170px" }} type="submit" label="Submit" />
         </form>
       </Dialog>
 
