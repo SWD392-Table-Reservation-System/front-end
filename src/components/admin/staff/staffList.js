@@ -151,7 +151,7 @@ const StaffList = () => {
             <table className={styles.table}>
                 <thead>
                 <tr>
-                    <th>Id</th>
+                    {/* <th>Id</th> */}
                     <th>Name</th>
                     <th>Username</th>
                     <th>Role</th>
@@ -161,7 +161,7 @@ const StaffList = () => {
                 <tbody>
                 {staffs.map((staff) => (
                     <tr className={styles.row} key={staff.id} title="Detail">
-                    <td>{staff.id}</td>
+                    {/* <td>{staff.id}</td> */}
                     <td>{staff.fullName}</td>
                     <td>{staff.userName}</td>
                     <td>{staff.role}</td>
@@ -184,6 +184,7 @@ const StaffList = () => {
               id="newTableBtn"
               icon="pi pi-plus"
               onClick={handleAddButtonClick}
+              label="Create new Account"
               style={{background: "#cd672e" }}
             ></Button>
           </div>
