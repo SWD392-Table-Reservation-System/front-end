@@ -273,20 +273,42 @@ const TableMana = () => {
       )}
 
       {/* Edit table dialog */}
-      <Dialog visible={showDialog} onHide={handleDialogHide}>
-        <h1 className={styles.label} style={{ marginBottom: "50px" }}>Table Detail</h1>
+      <Dialog className={styles.Dialog} visible={showDialog} onHide={handleDialogHide}>
+        <h1 style={{ marginBottom: "50px" }}>Table Detail</h1>
         <form onSubmit={handleFormSubmit}>
           <div id={styles.inputTableDetail} className="p-field">
-            <label className={styles.label} htmlFor="code"><strong>Code</strong></label>
+            <label className={styles.label}
+            style={{
+              marginRight: "10px",
+              fontSize: "15px",
+              paddingRight: "10px",
+              textAlign: "left",
+              width: "30%"}} 
+            htmlFor="code"><strong>Code</strong></label>
             <input
               className={styles.underlineInput}
               id="code"
               value={formValues.code}
               onChange={(e) => setFormValues({ ...formValues, code: e.target.value })}
+              style={{
+                border: "1px solid #000",
+                borderRadius: "5px",
+                marginLeft: "60px",
+                padding: "5px",
+                fontSize: "15px",
+                height: "30px",
+                width: "300px"}}
             />
           </div>
-          <div id={styles.inputTableDetail} className="p-field">
-            <label className={styles.label} ><strong>Status</strong></label>
+          <div style={{display: "flex", flexDirection: "row", marginTop: "10px"}} className="p-field">
+            <label className={styles.label}
+            style={{
+              marginRight: "10px",
+              fontSize: "15px",
+              paddingRight: "10px",
+              textAlign: "left",
+              width: "30%"}} 
+              ><strong>Status</strong></label>
             <div className={styles.underlineInput}>
               <label htmlFor="active" className="p-mr-2">
                 <RadioButton id="active" name="status"
@@ -306,42 +328,85 @@ const TableMana = () => {
               </label>
             </div>
           </div>
-          <div id={styles.inputTableDetail} className="p-field">
-            <label className={styles.label} htmlFor="seatQuantity"><strong>Seat Quantity</strong></label>
+          <div id={styles.inputTableDetail} style={{ marginTop: "10px"}} className="p-field">
+            <label className={styles.label}
+            style={{
+              marginRight: "10px",
+              fontSize: "15px",
+              paddingRight: "10px",
+              textAlign: "left",
+              width: "30%"}} 
+            htmlFor="seatQuantity"><strong>Seat Quantity</strong></label>
             <input
               className={styles.underlineInput}
               id="seatQuantity"
               value={formValues.seatQuantity}
               onChange={(e) => setFormValues({ ...formValues, seatQuantity: e.target.value })}
+              style={{
+                border: "1px solid #000",
+                borderRadius: "5px",
+                padding: "5px",
+                fontSize: "15px",
+                height: "30px",
+                width: "300px"}}
             />
           </div>
-          <Button style={{ marginTop: "50px", marginLeft: "170px" }} type="submit" label="Submit" />
+          <Button style={{ marginTop: "50px", marginLeft: "170px", background: "#cd672e" }} type="submit" label="Submit" />
         </form>
       </Dialog>
 
       {/* Add table dialog */}
-      <Dialog visible={showNewDialog} onHide={handleDialogHide}>
-        <h1 className={styles.label} style={{ marginBottom: "50px" }}>Table Detail</h1>
+      <Dialog className={styles.Dialog} visible={showNewDialog} onHide={handleDialogHide}>
+        <h1 style={{ marginBottom: "50px" }}>Table Detail</h1>
         <form onSubmit={handleFormNewSubmit}>
           <div id={styles.inputTableDetail} className="p-field">
-            <label className={styles.label} htmlFor="code"><strong>Code</strong></label>
+            <label className={styles.label} 
+            style={{
+              marginRight: "10px",
+              fontSize: "15px",
+              paddingRight: "10px",
+              textAlign: "left",
+              width: "30%"}} 
+            htmlFor="code"><strong>Code</strong></label>
             <input
               className={styles.underlineInput}
               id="code"
               value={formNewValues.code}
               onChange={(e) => setFormNewValues({ ...formNewValues, code: e.target.value })}
+              style={{
+                border: "1px solid #000",
+                borderRadius: "5px",
+                marginLeft: "60px",
+                padding: "5px",
+                fontSize: "15px",
+                height: "30px",
+                width: "300px"}}
             />
           </div>
-          <div id={styles.inputTableDetail} className="p-field">
-            <label className={styles.label} htmlFor="seatQuantity"><strong>Seat Quantity</strong></label>
+          <div id={styles.inputTableDetail} style={{marginTop: "10px"}} className="p-field">
+            <label className={styles.label}
+            style={{
+              marginRight: "10px",
+              fontSize: "15px",
+              paddingRight: "10px",
+              textAlign: "left",
+              width: "30%"}} 
+            htmlFor="seatQuantity"><strong>Seat Quantity</strong></label>
             <input
               className={styles.underlineInput}
               id="seatQuantity"
               value={formNewValues.seatQuantity}
               onChange={(e) => setFormNewValues({ ...formNewValues, seatQuantity: e.target.value })}
+              style={{
+                border: "1px solid #000",
+                borderRadius: "5px",
+                padding: "5px",
+                fontSize: "15px",
+                height: "30px",
+                width: "300px"}}
             />
           </div>
-          <Button style={{ marginTop: "50px", marginLeft: "170px" }} type="submit" label="Submit" />
+          <Button style={{ marginTop: "50px", marginLeft: "170px", background: "#cd672e" }} type="submit" label="Submit" />
         </form>
       </Dialog>
 

@@ -184,11 +184,12 @@ const StaffList = () => {
             ></Button>
           </div>
 
-          <Dialog visible={showNewDialog} onHide={handleDialogHide}>
-            <form onSubmit={handleFormNewSubmit}>
-              <div className="p-field">
-                <label htmlFor="userName">Username</label>
-                <InputText
+          <Dialog className={styles.dialog} visible={showNewDialog} onHide={handleDialogHide}>
+            <form className={styles.form} onSubmit={handleFormNewSubmit}>
+              <div id={styles.input} className="p-field">
+                <label className={styles.label} htmlFor="userName"><strong>Username</strong></label>
+                <input
+                  className={styles.inputText}
                   id="userName"
                   value={newStaff.userName}
                   onChange={(e) =>
@@ -196,19 +197,22 @@ const StaffList = () => {
                   }
                 />
               </div>
-              <div className="p-field">
-                <label htmlFor="password">Password</label>
-                <InputText
+              <div id={styles.input} className="p-field">
+                <label className={styles.label} htmlFor="password"><strong>Password</strong></label>
+                <input
+                  className={styles.inputText}
                   id="password"
                   value={newStaff.password}
                   onChange={(e) =>
                     setNewStaff({ ...newStaff, password: e.target.value })
                   }
+                  style={{marginLeft: "4px"}}
                 />
               </div>
-              <div className="p-field">
-                <label htmlFor="fullName">Full Name</label>
-                <InputText
+              <div id={styles.input} className="p-field">
+                <label className={styles.label} htmlFor="fullName"><strong>Full Name</strong></label>
+                <input
+                  className={styles.inputText}
                   id="fullName"
                   value={newStaff.fullName}
                   onChange={(e) =>
@@ -216,9 +220,9 @@ const StaffList = () => {
                   }
                 />
               </div>
-              <div className="p-field">
-                <label htmlFor="role">Role</label>
-                <div>
+              <div id={styles.role} className="p-field">
+                <label className={styles.label} htmlFor="role"><strong>Role</strong></label>
+                <div style={{marginLeft: "50px"}}>
                   <RadioButton
                     inputId="roleStaff"
                     name="role"
@@ -228,11 +232,11 @@ const StaffList = () => {
                       setNewStaff({ ...newStaff, role: e.value })
                     }
                   />
-                  <label htmlFor="roleStaff" className="p-radiobutton-label">
+                  <label htmlFor="roleStaff" className="p-radiobutton-label" style={{marginLeft: "10px"}}>
                     Staff
                   </label>
                 </div>
-                <div>
+                <div style={{marginLeft: "30px"}}>
                   <RadioButton
                     inputId="roleManager"
                     name="role"
@@ -242,12 +246,12 @@ const StaffList = () => {
                       setNewStaff({ ...newStaff, role: e.value })
                     }
                   />
-                  <label htmlFor="roleManager" className="p-radiobutton-label">
+                  <label htmlFor="roleManager" className="p-radiobutton-label" style={{marginLeft: "10px"}}>
                     Manager
                   </label>
                 </div>
               </div>
-              <Button type="submit" label="Submit" />
+              <Button type="submit" label="Submit" style={{background: "#cd672e", marginTop: "50px", marginLeft: "300px"}}/>
             </form>
           </Dialog>
 
