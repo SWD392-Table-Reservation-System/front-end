@@ -93,7 +93,6 @@ const StaffList = () => {
 
   const handleFormNewSubmit = (e) => {
     e.preventDefault();
-    const { userName, password, fullName, role } = newStaff;
     const bearerToken = localStorage.getItem("token");
     axios
       .post(`${apiUrl}/api/Accounts`, newStaff, {
@@ -153,7 +152,7 @@ const StaffList = () => {
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th>Ordinal Number</th>
+                  <th>No.</th>
                   <th>Name</th>
                   <th>Username</th>
                   <th>Role</th>
