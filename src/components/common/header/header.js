@@ -23,7 +23,7 @@ const Header = () => {
                     </li>
                     <li className="nav-item" style={{width: '60%'}}>
                         <div className='call-img'>
-                            <a href="tel:+1234567890" style={{ backgroundColor: '#cd682e00' }}>
+                            <a href="tel:+19101234" style={{ backgroundColor: '#cd682e00' }}>
                                 <img src={calling} alt='Call us to book a table NOW!' style={{maxWidth: '130px'}}/>
                                 </a>
                     

@@ -9,6 +9,7 @@ import { Calendar } from "primereact/calendar";
 import { Button } from "primereact/button";
 import "../makeOrder/makeOrder.scss"
 import axios from "axios";
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 const FindSuitableTables = () => {
   const navigate = useNavigate();
@@ -18,13 +19,13 @@ const FindSuitableTables = () => {
   const [number2, setNumber2] = useState(1);
   const [time, setTime] = useState("09:00 AM");
   const [date, setDate] = useState(Date);
-  const [selectedDate, setSelectedDate] = useState(new Date(date));
   const [dateTimeBooking, setDateTimeBooking] = useState("");
   const [availableTables, setAvailableTables] = useState([]);
   const [dateAvailable, setDateAvailable] = useState([]);
   const [timeAvailable, setTimeAvailable] = useState([]);
   const toast = useRef(null);
   const [timeArray, setTimeArray] = useState([]);
+  const [isSpinner, setIsSpinner] = useState(false);
   const customerQuantity = number1 + number2;
 
   let today = new Date();
@@ -99,6 +100,7 @@ const FindSuitableTables = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSpinner(true);
 
     // Construct the request body
     const requestBody = JSON.stringify({
@@ -115,11 +117,12 @@ const FindSuitableTables = () => {
     })
       .then((response) => {
         console.log("API response:", response);
+        setIsSpinner(false)
         if (response.data.success) {
           if (response.data.data.length !== 0) {
             show("success", `Horray!!`, `You chose a good period of time!`);
-console.log('Availableeee:');
-console.log(response.data.data);
+            console.log('Availableeee:');
+            console.log(response.data.data);
             setAvailableTables(response.data.data) //an array
           } else {
             show("warn", "No available table", 'Please choose another quantity, time, or date');
@@ -242,6 +245,7 @@ console.log(response.data.data);
                   value: time,
                 }))}
                 onChange={(e) => setTime(e.value)}
+                required="true"
                 style={{ width: "120px" }} />
             </div>
 
@@ -259,6 +263,7 @@ console.log(response.data.data);
                 placeholder="Date"
                 style={{ width: "160px" }} />
             </div>
+            <div>{isSpinner ? (<ProgressSpinner style={{ width: '34px', height: '34px' }} strokeWidth="6" />) : (<span></span>)}</div>
             <Button style={{ marginTop: "50px", background: "#ce6930" }} type="submit">
               Find
             </Button>

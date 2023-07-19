@@ -5,11 +5,13 @@ import { Dropdown } from 'primereact/dropdown';
 import { Toast } from 'primereact/toast';
 import axiosCustom from '../../../utils/axiosConfig';
 import { format } from 'date-fns';
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const ReservationList = () => {
+    const [isSpinner, setIsSpinner] = useState(true);
     const [reservations, setReservations] = useState([]);
     const [selectedStatus, setSelectedStatus] = useState([]);
     const [selectedStatusFilter, setSelectedStatusFilter] = useState([]);
@@ -36,6 +38,7 @@ const ReservationList = () => {
                 console.log(data);
                 setReservations(data.data);
                 setSelectedStatus(new Array(data.data.length).fill(null));
+                setIsSpinner(false)
             })
             .catch(error => {
                 console.error(error);
@@ -99,6 +102,7 @@ const ReservationList = () => {
     };
 
     const filterRvtStatus = (e) => {
+        setIsSpinner(true);
         setSelectedStatusFilter(e.value);
         const bearerToken = localStorage.getItem('token');
         axiosCustom.get(`${apiUrl}/api/reservations/status/${e.value}`, {
@@ -108,6 +112,7 @@ const ReservationList = () => {
         })
             .then(response => {
                 console.log(response);
+                setIsSpinner(false);
                 if (response.data.success){
                     setReservations(response.data.data);
                 }else{
@@ -122,6 +127,8 @@ const ReservationList = () => {
 
     return (
         <div className={styles.container}>
+            {isSpinner ? (<ProgressSpinner style={{width: '34px', height: '34px'}} strokeWidth="6" />): (<span></span>)}
+             
             <h1>Reservation List</h1>
             <div className={styles.ReservationList}>
                 <Toast ref={toast} />
