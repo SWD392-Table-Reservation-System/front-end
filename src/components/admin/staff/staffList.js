@@ -7,6 +7,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import { RadioButton } from "primereact/radiobutton";
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -17,12 +18,8 @@ const StaffList = () => {
   const [selectedStaff, setSelectedStaff] = useState(null);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [showNewDialog, setShowNewDialog] = useState(false);
-  const [newStaff, setNewStaff] = useState({
-    userName: "",
-    password: "",
-    fullName: "",
-    role: "Staff",
-  });
+  const [newStaff, setNewStaff] = useState({ userName: "", password: "", fullName: "", role: "Staff" });
+  const [isSpinner, setIsSpinner] = useState(true);
 
   const fetchStaffsList = () => {
     const bearerToken = localStorage.getItem("token");
@@ -33,6 +30,7 @@ const StaffList = () => {
       },
     })
       .then((response) => {
+        setIsSpinner(false);
         if (!response.ok) {
           throw new Error("Failed to fetch staffs list.");
         }
@@ -130,20 +128,14 @@ const StaffList = () => {
     setShowNewDialog(false);
   };
 
-  const getOrdinal = (number) => {
-    const remainder = number % 100;
-
-    return (
-      number 
-    );
-  };
-
   useEffect(() => {
     fetchStaffsList();
   }, []);
 
   return (
     <div className={styles.container}>
+      {isSpinner ? (<ProgressSpinner style={{ width: '34px', height: '34px' }} strokeWidth="6" />) : (<span></span>)}
+
       {isManager === true ? (
         <div>
           <div className={styles.staffList}>
@@ -164,7 +156,7 @@ const StaffList = () => {
                   const ordinalNumber = index + 1;
                   return (
                     <tr className={styles.row} key={staff.id} title="Detail">
-                      <td>{getOrdinal(ordinalNumber)}</td>
+                      <td>{ordinalNumber}</td>
                       <td>{staff.fullName}</td>
                       <td>{staff.userName}</td>
                       <td>{staff.role}</td>

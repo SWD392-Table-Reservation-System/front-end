@@ -150,6 +150,7 @@ const MakeOrder = () => {
                   value={customerPhoneNumber}
                   onChange={(e) => setCustomerPhoneNumber(e.target.value)}
                   placeholder="Phone Number"
+                  pattern="[0-9]{10}"
                   required="true"
                 />
               </div>
