@@ -48,7 +48,7 @@ const FindSuitableTables = () => {
       })
       .then((data) => {
         console.log("getTime API response data:", data);
-          setTimeArray(data);      
+        setTimeArray(data);
       })
       .catch((error) => {
         console.error("getTime API request error:", error);
@@ -80,17 +80,21 @@ const FindSuitableTables = () => {
   };
 
   const formatDateTime = (e) => {
-    setDate(e.value)
+    setDate(e.value);
     //Format the Calendar input
-    setSelectedDate(new Date(date)); // Convert the date string to a Date object
-    const formattedDate = selectedDate.toISOString().split("T")[0]; // Format the date as desired
-    const formattedTime = time.replace(/[^\d:]/g, "");
-    setDateTimeBooking(`${formattedDate}T${formattedTime}`);
-    setDateAvailable(`${formattedDate}`);
-    setTimeAvailable(`${formattedTime}`);
+    const originalDate = new Date(`${e.value.toISOString().split("T")[0]}T${time.replace(/[^\d:]/g, "")}`);
+    const nextDay = new Date(originalDate.getTime() + (24 * 60 * 60 * 1000));
+    const nextDayISOString = nextDay.toISOString();
 
-    console.log(formattedDate); // "2020-12-31"
-    console.log(dateTimeBooking);
+    // Extract the date and time components separately
+    const nextDayDate = nextDayISOString.split("T")[0];
+
+    setDateTimeBooking(`${nextDayDate}T${time.replace(/[^\d:]/g, "")}`);
+    setDateAvailable(`${e.value.toISOString().split("T")[0]}`);
+    setTimeAvailable(`${time.replace(/[^\d:]/g, "")}`);
+
+    // console.log('Format:::::');
+    // console.log(dateTimeBooking); // "2020-12-31"
   }
 
   const handleSubmit = (e) => {
@@ -114,7 +118,8 @@ const FindSuitableTables = () => {
         if (response.data.success) {
           if (response.data.data.length !== 0) {
             show("success", `Horray!!`, `You chose a good period of time!`);
-
+console.log('Availableeee:');
+console.log(response.data.data);
             setAvailableTables(response.data.data) //an array
           } else {
             show("warn", "No available table", 'Please choose another quantity, time, or date');
@@ -153,8 +158,8 @@ const FindSuitableTables = () => {
         {/* Titile */}
         <div className={styles.thumbnail}>
           <img className={styles.img} src={image} alt="" />
-          <h1 className={styles["res-name"]} style={{color: "white"}}>TLA RESTAURANT</h1>
-          <p className={styles["res-address"]} style={{color: "white"}}>36 Nguyen Hue St, District 1, HCMC</p>
+          <h1 className={styles["res-name"]} style={{ color: "white" }}>TLA RESTAURANT</h1>
+          <p className={styles["res-address"]} style={{ color: "white" }}>36 Nguyen Hue St, District 1, HCMC</p>
         </div>
 
         {/* Form input */}
@@ -267,8 +272,6 @@ const FindSuitableTables = () => {
           <div id={table.id} className={styles.tableDetail}>
             <h3>Available table</h3>
             <div className={styles.tableInfo}>
-              <p><strong>Date: </strong>{dateAvailable}</p>
-              <p><strong>Time: </strong>{timeAvailable}</p>
               <p><strong>Code:</strong> {table.code}</p>
               <p><strong>Seat Quantity:</strong> {table.seatQuantity}</p>
               <Button style={{ width: "fit-content", marginTop: "30px", marginLeft: "100px", background: "#ce6930", color: "white", fontWeight: "bold" }} onClick={goToMakeOrder}>
