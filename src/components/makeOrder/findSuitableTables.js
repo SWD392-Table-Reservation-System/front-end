@@ -95,48 +95,66 @@ const FindSuitableTables = () => {
     setTimeAvailable(`${time.replace(/[^\d:]/g, "")}`);
 
     // console.log('Format:::::');
-    // console.log(dateTimeBooking); // "2020-12-31"
+    console.log(dateTimeBooking); // "2020-12-31"
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSpinner(true);
 
-    // Construct the request body
-    const requestBody = JSON.stringify({
-      dateTimeBooking: dateTimeBooking,
-      quantitySeats: customerQuantity
-    });
-    console.log(requestBody);
+    function validate(dateTimeBooking) {
+      var bookingDate = new Date(dateTimeBooking);
+      var currentDate = new Date();
 
-    // Perform the API request
-    axios.post(`${apiUrl}/api/Tables/find`, requestBody, {
-      headers: {
-        "Content-Type": "application/json",
+      if (bookingDate <= currentDate) {
+        return false;
       }
-    })
-      .then((response) => {
-        console.log("API response:", response);
-        setIsSpinner(false)
-        if (response.data.success) {
-          if (response.data.data.length !== 0) {
-            show("success", `Horray!!`, `You chose a good period of time!`);
-            console.log('Availableeee:');
-            console.log(response.data.data);
-            setAvailableTables(response.data.data) //an array
-          } else {
-            show("warn", "No available table", 'Please choose another quantity, time, or date');
-          }
-        } else {
-          throw new Error(
-            `API request failed: ${response.status} ${response.statusText}`
-          );
+      return true;
+    }
+
+    if (validate(dateTimeBooking)) {
+      // Construct the request body
+      const requestBody = JSON.stringify({
+        dateTimeBooking: dateTimeBooking,
+        quantitySeats: customerQuantity
+      });
+      console.log(requestBody);
+
+      // Perform the API request
+      axios.post(`${apiUrl}/api/Tables/find`, requestBody, {
+        headers: {
+          "Content-Type": "application/json",
         }
       })
-      .catch((error) => {
-        console.error("API request error:", error);
-        show("error", "Ordered fail", 'Something went wrong, please reload the page then try again');
-      });
+        .then((response) => {
+          console.log("API response:", response);
+          setIsSpinner(false)
+          if (response.data.success) {
+            if (response.data.data.length !== 0) {
+              show("success", `Horray!!`, `You chose a good period of time!`);
+              console.log('Availableeee:');
+              console.log(response.data.data);
+              setAvailableTables(response.data.data) //an array
+            } else {
+              show("warn", "No available table", 'Please choose another quantity, time, or date');
+            }
+          } else {
+            throw new Error(
+              `API request failed: ${response.status} ${response.statusText}`
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("API request error:", error);
+          show("error", "Ordered fail", 'Something went wrong, please reload the page then try again');
+        });
+    } else {
+      setIsSpinner(false)
+      setAvailableTables([]);
+      show("warn", "Date or Time is not valid", 'Please choose another time, or date');
+    }
+
+
   };
 
   const goToMakeOrder = () => {
