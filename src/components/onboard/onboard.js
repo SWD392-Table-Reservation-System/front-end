@@ -14,7 +14,7 @@ const Home = () => {
                 </strong>
             </p>
             <p className={styles['ad-text']}>
-                <strong>The best grain, the finest roast, the most powerful flavor.</strong>
+                <strong>Book your seat with ease, dine in delight!</strong>
             </p>
             <div className="btn flex flex-wrap">
                 <Link className={styles['link']} to="/order">
