@@ -51,7 +51,7 @@ const MakeOrder = () => {
       customerPhoneNumber: customerPhoneNumber,
       tablesId: tablesId
     });
-    console.log(requestBody);
+    // console.log(requestBody);
 
     // Perform the API request
     fetch(`${apiUrl}/api/Reservations`, {
