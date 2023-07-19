@@ -103,14 +103,32 @@ const FindSuitableTables = () => {
     setIsSpinner(true);
 
     function validate(dateTimeBooking) {
+      console.log('Datetimebooking');
+      console.log(dateTimeBooking);
       var bookingDate = new Date(dateTimeBooking);
       var currentDate = new Date();
 
+      // Check if booking date is in the future
       if (bookingDate <= currentDate) {
         return false;
       }
+
+      // Check if booking time is in the future
+      var bookingHours = bookingDate.getHours();
+      var bookingMinutes = bookingDate.getMinutes();
+      var currentHours = currentDate.getHours();
+      var currentMinutes = currentDate.getMinutes();
+
+      if (
+        bookingHours < currentHours ||
+        (bookingHours === currentHours && bookingMinutes <= currentMinutes)
+      ) {
+        return false;
+      }
+
       return true;
     }
+
 
     if (validate(dateTimeBooking)) {
       // Construct the request body
