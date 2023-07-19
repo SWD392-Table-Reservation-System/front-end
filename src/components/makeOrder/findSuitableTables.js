@@ -102,77 +102,87 @@ const FindSuitableTables = () => {
     e.preventDefault();
     setIsSpinner(true);
 
-    function validate(dateTimeBooking) {
-      console.log('Datetimebooking');
-      console.log(dateTimeBooking);
-      var bookingDate = new Date(dateTimeBooking);
-      var currentDate = new Date();
+    function validate() {
+      return new Promise((resolve, reject) => {
+        console.log('Datetimebooking');
+        console.log(dateTimeBooking);
+        var bookingDate = new Date(dateTimeBooking);
+        var currentDate = new Date();
 
-      // Check if booking date is in the future
-      if (bookingDate <= currentDate) {
-        return false;
-      }
+        // Check if booking date is in the future
+        if (bookingDate < currentDate) {
+          console.log(bookingDate);          console.log(currentDate);
+          console.log('Sai ngayf');
+          resolve(false);
+        } else {
+          if (bookingDate === currentDate) {
+            // Check if booking time is in the future
+            var bookingHours = bookingDate.getHours();
+            var bookingMinutes = bookingDate.getMinutes();
+            var currentHours = currentDate.getHours();
+            var currentMinutes = currentDate.getMinutes();
 
-      // Check if booking time is in the future
-      var bookingHours = bookingDate.getHours();
-      var bookingMinutes = bookingDate.getMinutes();
-      var currentHours = currentDate.getHours();
-      var currentMinutes = currentDate.getMinutes();
-
-      if (
-        bookingHours < currentHours ||
-        (bookingHours === currentHours && bookingMinutes <= currentMinutes)
-      ) {
-        return false;
-      }
-
-      return true;
+            if (
+              bookingHours < currentHours ||
+              (bookingHours === currentHours && bookingMinutes <= currentMinutes)
+            ) {
+              console.log('Sai gioooo');
+              resolve(false);
+            } 
+              
+            
+          }
+        }
+        resolve(true);
+      });
     }
 
 
-    if (validate(dateTimeBooking)) {
-      // Construct the request body
-      const requestBody = JSON.stringify({
-        dateTimeBooking: dateTimeBooking,
-        quantitySeats: customerQuantity
-      });
-      console.log(requestBody);
+    validate()
+    .then((result) => {
+      if (result) {
+        // Construct the request body
+        const requestBody = JSON.stringify({
+          dateTimeBooking: dateTimeBooking,
+          quantitySeats: customerQuantity
+        });
+        console.log(requestBody);
 
-      // Perform the API request
-      axios.post(`${apiUrl}/api/Tables/find`, requestBody, {
-        headers: {
-          "Content-Type": "application/json",
-        }
-      })
-        .then((response) => {
-          console.log("API response:", response);
-          setIsSpinner(false)
-          if (response.data.success) {
-            if (response.data.data.length !== 0) {
-              show("success", `Horray!!`, `You chose a good period of time!`);
-              console.log('Availableeee:');
-              console.log(response.data.data);
-              setAvailableTables(response.data.data) //an array
-            } else {
-              show("warn", "No available table", 'Please choose another quantity, time, or date');
-            }
-          } else {
-            throw new Error(
-              `API request failed: ${response.status} ${response.statusText}`
-            );
+        // Perform the API request
+        axios.post(`${apiUrl}/api/Tables/find`, requestBody, {
+          headers: {
+            "Content-Type": "application/json",
           }
         })
-        .catch((error) => {
-          console.error("API request error:", error);
-          show("error", "Ordered fail", 'Something went wrong, please reload the page then try again');
-        });
-    } else {
-      setIsSpinner(false)
-      setAvailableTables([]);
-      show("warn", "Date or Time is not valid", 'Please choose another time, or date');
-    }
-
-
+          .then((response) => {
+            console.log("API response:", response);
+            setIsSpinner(false)
+            if (response.data.success) {
+              if (response.data.data.length !== 0) {
+                show("success", `Horray!!`, `You chose a good period of time!`);
+                console.log('Availableeee:');
+                console.log(response.data.data);
+                setAvailableTables(response.data.data) //an array
+              } else {
+                show("warn", "No available table", 'Please choose another quantity, time, or date');
+              }
+            } else {
+              throw new Error(
+                `API request failed: ${response.status} ${response.statusText}`
+              );
+            }
+          })
+          .catch((error) => {
+            console.error("API request error:", error);
+            show("error", "Ordered fail", 'Something went wrong, please reload the page then try again');
+          });
+      } else {
+        setIsSpinner(false)
+        setAvailableTables([]);
+        show("warn", "Date or Time is not valid", 'Please choose another time, or date');
+      }
+    })
+      .catch(err => console.log(err))
   };
 
   const goToMakeOrder = () => {
