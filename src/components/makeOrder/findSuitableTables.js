@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./makeOrder.module.scss";
+import image from "../../assets/make-order-img.jpg";
 import { Toast } from "primereact/toast";
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from "primereact/dropdown";
@@ -151,9 +152,9 @@ const FindSuitableTables = () => {
       <div className={styles.container}>
         {/* Titile */}
         <div className={styles.thumbnail}>
-          <img className={styles.img} src="orderPageImg.png" alt="" />
-          <h1 className={styles["res-name"]}>RESTAURANT NAME</h1>
-          <p className={styles["res-address"]}>Restaurant address</p>
+          <img className={styles.img} src={image} alt="" />
+          <h1 className={styles["res-name"]} style={{color: "white"}}>TLA RESTAURANT</h1>
+          <p className={styles["res-address"]} style={{color: "white"}}>36 Nguyen Hue St, District 1, HCMC</p>
         </div>
 
         {/* Form input */}

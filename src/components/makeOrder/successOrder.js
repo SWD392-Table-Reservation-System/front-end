@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./success.module.scss";
 import { Link } from "react-router-dom";
+import { Button } from "primereact/button";
 
 const Success = () => (
   <div className={styles.Success}>
@@ -8,7 +9,7 @@ const Success = () => (
       <div className={styles.Group7022}>
         <div className={styles.Rectangle31}/>
         <Link to={"/order"} className={styles.BackHome}>
-          Back Home
+          <Button className={styles.btn}>Back Home</Button>
         </Link>
       </div>
       <div className={styles.Line}/>

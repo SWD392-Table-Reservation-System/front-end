@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { useLocation } from "react-router-dom";
 import "../makeOrder/makeOrder.scss"
-import image from "../../assets/orderPageImg.png"
+import image from "../../assets/make-order-img.jpg"
 
 const MakeOrder = () => {
   const navigate = useNavigate();
@@ -95,8 +95,8 @@ const MakeOrder = () => {
       <div className={styles.container}>
         <div className={styles.thumbnail}>
           <img className={styles.img} src={image} alt="" />
-          <h1 className={styles["res-name"]}>RESTAURANT NAME</h1>
-          <p className={styles["res-address"]}>Restaurant address</p>
+          <h1 className={styles["res-name"]} style={{color: "white"}}>TLA RESTAURANT</h1>
+          <p className={styles["res-address"]} style={{color: "white"}}>36 Nguyen Hue St, District 1, HCMC</p>
         </div>
 
         <div className={styles.orderMenu}>
@@ -167,7 +167,7 @@ const MakeOrder = () => {
                 ></textarea>
               </div>
             </div>
-            <Button style={{ marginTop: "10px" }} type="submit">
+            <Button style={{ marginTop: "10px", background: "#cd672e" }} type="submit">
               Submit
             </Button>
           </form>

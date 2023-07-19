@@ -8,11 +8,13 @@ const Home = () => {
     return (
         <div className={styles['home-container']}>
             <p className={styles['thumbnail']}>
+                <strong>
                 Planning First<br/>
                 Booking First
+                </strong>
             </p>
             <p className={styles['ad-text']}>
-                The best grain, the finest roast, the most powerful flavor.
+                <strong>The best grain, the finest roast, the most powerful flavor.</strong>
             </p>
             <div className="btn flex flex-wrap">
                 <Link className={styles['link']} to="/order">
