@@ -1,3 +1,7 @@
+## Demostration
+![recording](https://github.com/SWD392-Table-Reservation-System/front-end/blob/main/screenshot/record_01.gif?raw=true)
+[Youtube video here](https://youtu.be/FEPjHZIaEmY)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
